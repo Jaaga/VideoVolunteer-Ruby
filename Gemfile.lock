@@ -16,6 +16,8 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.0)
     builder (3.2.2)
+    haml (4.0.6)
+      tilt
     i18n (0.7.0)
     json (1.8.2)
     minitest (5.5.1)
@@ -42,6 +44,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  haml
   puma
   sinatra
   sinatra-activerecord
