@@ -78,7 +78,7 @@ CREATE TABLE `tracker` (
   `state` varchar(20) DEFAULT NULL,
   `program` varchar(30) DEFAULT NULL,
   `iutheme` varchar(20) DEFAULT NULL,
-  `description` varchar(200) DEFAULT NULL,
+  `description` varchar(2000) DEFAULT NULL,
   `storydate` date DEFAULT NULL,
   `ccpair` varchar(30) DEFAULT NULL,
   `mentor` varchar(30) DEFAULT NULL,
@@ -88,10 +88,10 @@ CREATE TABLE `tracker` (
   `impactpossible` varchar(5) DEFAULT NULL,
   `targetofficial` varchar(30) DEFAULT NULL,
   `desiredchange` varchar(300) DEFAULT NULL,
-  `impactplan` varchar(300) DEFAULT NULL,
+  `impactplan` varchar(2000) DEFAULT NULL,
   `impactfollowup` varchar(5) DEFAULT NULL,
   `impactfollowupnotes` varchar(300) DEFAULT NULL,
-  `impactprocess` varchar(300) DEFAULT NULL,
+  `impactprocess` varchar(800) DEFAULT NULL,
   `impactstatus` varchar(20) DEFAULT NULL,
   `impactdate` date DEFAULT NULL,
   `screeningdone` varchar(5) DEFAULT NULL,
@@ -121,7 +121,7 @@ CREATE TABLE `tracker` (
   `youtubedate` date DEFAULT NULL,
   `youtubeurl` varchar(120) DEFAULT NULL,
   `iupublishdate` date DEFAULT NULL,
-  `videotitle` varchar(30) DEFAULT NULL,
+  `videotitle` varchar(2000) DEFAULT NULL,
   `subtitleneeded` varchar(5) DEFAULT NULL,
   `secondaryiuissue` varchar(30) DEFAULT NULL,
   `subcategory` varchar(30) DEFAULT NULL,
@@ -141,6 +141,84 @@ LOCK TABLES `tracker` WRITE;
 /*!40000 ALTER TABLE `tracker` DISABLE KEYS */;
 INSERT INTO `tracker` VALUES ('42da131a-6a76-11e4-9','raju','1','PACS','Forced Eviction','jhjlu','2014-11-12','raju','raju','Profile Video','ghjgkjgkhgf',NULL,'Yes ','jmghjg','jjhgj','hjghjg',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('7b64bd99-6a62-11e4-9','raju','karnataka','','','hello world','2014-11-01','raju','ram','','world hello',NULL,'','vodeovol','','impact',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('81c4a3e1-6a68-11e4-9','1','1','OAK','','vvvvvvvvvvvvvvvvvv','2014-11-12','1','1','','CCCCC',NULL,' ','CCCCC','CCCCC','CCCCC',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('87d02b60-6af5-11e4-9','raju','andhrapradesh','OAK','Art/Culture','hjfgdfjf,jegflugfui','2014-11-13','1','raju','Issue','hfhfkj,jgefouitg',NULL,'Yes ',',jhfkfkyjyfuywuiey','hgjkhlkghikhgktgjglug','khk;ghi;h;ilshgd;ilhomfjyjyuru',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('adac6e2c-6af4-11e4-9','raju','karnataka','OAK','Conflict','hgdhgjhg','2014-11-13','raju','ram','Documentary','mjg,jjgkk.ugk.t',NULL,'Yes','bjmjmb','vmvbmnbvm','bbmnbm',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('ee99ac9f-6a67-11e4-9','ram','andhrapradesh','PACS','Caste/Identity','mnb,fdjkhjhkjhjgyfj','2014-11-12','raju','raju','Issue','mjsfuljkgfug,ujal',NULL,'Yes',',fljkhjkmjdfglu','','NKJHH,VLKA8DIQ ',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `tracker` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `trackerOld`
+--
+
+DROP TABLE IF EXISTS `trackerOld`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `trackerOld` (
+  `UID` varchar(20) NOT NULL,
+  `ccname` text,
+  `state` text,
+  `program` text,
+  `iutheme` text,
+  `description` text,
+  `storydate` text,
+  `ccpair` text,
+  `mentor` text,
+  `storytype` text,
+  `shootplan` text,
+  `relateduid` text,
+  `impactpossible` text,
+  `targetofficial` text,
+  `desiredchange` text,
+  `impactplan` text,
+  `impactfollowup` text,
+  `impactfollowupnotes` text,
+  `impactprocess` text,
+  `impactstatus` text,
+  `impactdate` text,
+  `screeningdone` text,
+  `screeningheadcount` text,
+  `screeningnotes` text,
+  `officialinvolved` text,
+  `officialsatscreening` text,
+  `officialscreeningnotes` text,
+  `collaborations` text,
+  `peopleinvolved` text,
+  `peopleimpacted` text,
+  `villagesimpacted` text,
+  `videofoldertitle` text,
+  `footageinstate` text,
+  `assignededitor` text,
+  `footagefromstate` text,
+  `editedvideofromstate` text,
+  `editstatus` text,
+  `footagereview` text,
+  `roughcutreview` text,
+  `footagerating` text,
+  `paymentapproved` text,
+  `roughcutdate` text,
+  `editdate` text,
+  `finalvideorating` text,
+  `bonus` text,
+  `youtubedate` text,
+  `youtubeurl` text,
+  `iupublishdate` text,
+  `videotitle` text,
+  `subtitleneeded` text,
+  `secondaryiuissue` text,
+  `subcategory` text,
+  `project` text,
+  `blognotes` text,
+  `flag` text,
+  `flagnotes` text,
+  PRIMARY KEY (`UID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `trackerOld`
+--
+
+LOCK TABLES `trackerOld` WRITE;
+/*!40000 ALTER TABLE `trackerOld` DISABLE KEYS */;
+INSERT INTO `trackerOld` VALUES ('42da131a-6a76-11e4-9','raju','1','PACS','Forced Eviction','jhjlu','2014-11-12','raju','raju','Profile Video','ghjgkjgkhgf',NULL,'Yes ','jmghjg','jjhgj','hjghjg',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('7b64bd99-6a62-11e4-9','raju','karnataka','','','hello world','2014-11-01','raju','ram','','world hello',NULL,'','vodeovol','','impact',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('81c4a3e1-6a68-11e4-9','1','1','OAK','','vvvvvvvvvvvvvvvvvv','2014-11-12','1','1','','CCCCC',NULL,' ','CCCCC','CCCCC','CCCCC',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('87d02b60-6af5-11e4-9','raju','andhrapradesh','OAK','Art/Culture','hjfgdfjf,jegflugfui','2014-11-13','1','raju','Issue','hfhfkj,jgefouitg',NULL,'Yes ',',jhfkfkyjyfuywuiey','hgjkhlkghikhgktgjglug','khk;ghi;h;ilshgd;ilhomfjyjyuru',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('adac6e2c-6af4-11e4-9','raju','karnataka','OAK','Conflict','hgdhgjhg','2014-11-13','raju','ram','Documentary','mjg,jjgkk.ugk.t',NULL,'Yes','bjmjmb','vmvbmnbvm','bbmnbm',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('ee99ac9f-6a67-11e4-9','ram','andhrapradesh','PACS','Caste/Identity','mnb,fdjkhjhkjhjgyfj','2014-11-12','raju','raju','Issue','mjsfuljkgfug,ujal',NULL,'Yes',',fljkhjkmjdfglu','','NKJHH,VLKA8DIQ ',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `trackerOld` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

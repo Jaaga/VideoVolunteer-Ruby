@@ -11,16 +11,34 @@ class Tracker < ActiveRecord::Base
   self.table_name = "tracker"
 end
 
+class TrackerOld < ActiveRecord::Base
+  self.table_name = "trackerOld"
+end
+
 class User < ActiveRecord::Base
   self.table_name = "user"
 end
 
 get '/' do
+  haml :index
+end
+
+get '/new' do
   @ccdata = Ccdata.all
   @tracker = Tracker.all
   @user = User.all
 
-  haml :index
+  haml :new
+end
+
+get '/legacy' do
+  haml :legacy
+end
+
+get '/jh' do
+  @tracker = TrackerOld.all
+
+  haml :jh
 end
 
 post '/ccdata' do
@@ -32,7 +50,7 @@ post '/ccdata' do
   @data.statecodes = params[:statecodes]
 
   if @data.name.length > 0 then @data.save end
-  redirect '/'
+  redirect '/new'
 end
 
 post '/tracker' do
@@ -95,7 +113,7 @@ post '/tracker' do
   @track.flagnotes = params[:flagnotes]
 
   if @track.ccname.length > 0 then @track.save end
-  redirect '/'
+  redirect '/new'
 end
 
 post '/user' do
@@ -122,5 +140,5 @@ post '/user' do
   @user.organisation = params[:organisation]
 
   if @user.lastname.length > 0 then @user.save end
-  redirect '/'
+  redirect '/new'
 end

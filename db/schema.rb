@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string  "state",                  limit: 20
     t.string  "program",                limit: 30
     t.string  "iutheme",                limit: 20
-    t.string  "description",            limit: 200
+    t.string  "description",            limit: 2000
     t.date    "storydate"
     t.string  "ccpair",                 limit: 30
     t.string  "mentor",                 limit: 30
@@ -36,10 +36,10 @@ ActiveRecord::Schema.define(version: 0) do
     t.string  "impactpossible",         limit: 5
     t.string  "targetofficial",         limit: 30
     t.string  "desiredchange",          limit: 300
-    t.string  "impactplan",             limit: 300
+    t.string  "impactplan",             limit: 2000
     t.string  "impactfollowup",         limit: 5
     t.string  "impactfollowupnotes",    limit: 300
-    t.string  "impactprocess",          limit: 300
+    t.string  "impactprocess",          limit: 800
     t.string  "impactstatus",           limit: 20
     t.date    "impactdate"
     t.string  "screeningdone",          limit: 5
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.date    "youtubedate"
     t.string  "youtubeurl",             limit: 120
     t.date    "iupublishdate"
-    t.string  "videotitle",             limit: 30
+    t.string  "videotitle",             limit: 2000
     t.string  "subtitleneeded",         limit: 5
     t.string  "secondaryiuissue",       limit: 30
     t.string  "subcategory",            limit: 30
@@ -77,6 +77,64 @@ ActiveRecord::Schema.define(version: 0) do
     t.string  "blognotes",              limit: 50
     t.string  "flag",                   limit: 20
     t.string  "flagnotes",              limit: 200
+  end
+
+  create_table "trackerOld", primary_key: "UID", force: :cascade do |t|
+    t.text "ccname",                 limit: 65535
+    t.text "state",                  limit: 65535
+    t.text "program",                limit: 65535
+    t.text "iutheme",                limit: 65535
+    t.text "description",            limit: 65535
+    t.text "storydate",              limit: 65535
+    t.text "ccpair",                 limit: 65535
+    t.text "mentor",                 limit: 65535
+    t.text "storytype",              limit: 65535
+    t.text "shootplan",              limit: 65535
+    t.text "relateduid",             limit: 65535
+    t.text "impactpossible",         limit: 65535
+    t.text "targetofficial",         limit: 65535
+    t.text "desiredchange",          limit: 65535
+    t.text "impactplan",             limit: 65535
+    t.text "impactfollowup",         limit: 65535
+    t.text "impactfollowupnotes",    limit: 65535
+    t.text "impactprocess",          limit: 65535
+    t.text "impactstatus",           limit: 65535
+    t.text "impactdate",             limit: 65535
+    t.text "screeningdone",          limit: 65535
+    t.text "screeningheadcount",     limit: 65535
+    t.text "screeningnotes",         limit: 65535
+    t.text "officialinvolved",       limit: 65535
+    t.text "officialsatscreening",   limit: 65535
+    t.text "officialscreeningnotes", limit: 65535
+    t.text "collaborations",         limit: 65535
+    t.text "peopleinvolved",         limit: 65535
+    t.text "peopleimpacted",         limit: 65535
+    t.text "villagesimpacted",       limit: 65535
+    t.text "videofoldertitle",       limit: 65535
+    t.text "footageinstate",         limit: 65535
+    t.text "assignededitor",         limit: 65535
+    t.text "footagefromstate",       limit: 65535
+    t.text "editedvideofromstate",   limit: 65535
+    t.text "editstatus",             limit: 65535
+    t.text "footagereview",          limit: 65535
+    t.text "roughcutreview",         limit: 65535
+    t.text "footagerating",          limit: 65535
+    t.text "paymentapproved",        limit: 65535
+    t.text "roughcutdate",           limit: 65535
+    t.text "editdate",               limit: 65535
+    t.text "finalvideorating",       limit: 65535
+    t.text "bonus",                  limit: 65535
+    t.text "youtubedate",            limit: 65535
+    t.text "youtubeurl",             limit: 65535
+    t.text "iupublishdate",          limit: 65535
+    t.text "videotitle",             limit: 65535
+    t.text "subtitleneeded",         limit: 65535
+    t.text "secondaryiuissue",       limit: 65535
+    t.text "subcategory",            limit: 65535
+    t.text "project",                limit: 65535
+    t.text "blognotes",              limit: 65535
+    t.text "flag",                   limit: 65535
+    t.text "flagnotes",              limit: 65535
   end
 
   create_table "user", primary_key: "UID", force: :cascade do |t|
