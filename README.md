@@ -5,23 +5,24 @@ Web application for data entry for Video Volunteers. Uses Sinatra, Activerecord,
 
 Instructions to run after cloning:
 
-$ bundle install
+> $ bundle install
 
 
 Make sure you have MySQL installed on your machine.
-Make sure your MySQL username is 'root' and password is ''.
-$ sudo mysql
-CREATE DATABASE videovol;
-grant all privileges on videovol.* to ‘root'@'localhost' identified by ‘’;
-FLUSH PRIVILEGES;
+Make sure your MySQL username is 'root' and password is ''. Otherwise, you will need to change the files under the ./.config folder to match your MySQL credentials.
+> $ sudo mysql
+
+> CREATE DATABASE videovol;
+> grant all privileges on videovol.* to ‘root'@'localhost' identified by ‘’;
+> FLUSH PRIVILEGES;
 
 
 After creating database, run:
-$ mysql -u root -p videovol < videovol.sql
+> $ mysql -u root -p videovol < videovol.sql
 
 
 Everything should now be setup.
-$ruby app.rb
+> $ruby app.rb
 
 
 For inserting old data into new database (will elaborate later; will also update the process):
