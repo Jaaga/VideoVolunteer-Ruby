@@ -1,0 +1,129 @@
+%h1 Recent
+.table-responsive
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th
+        %th
+        %th UID
+        %th ccname
+        %th state
+        %th program
+        %th iutheme
+        %th description
+        %th storydate
+        %th mentor
+        %th storytype
+        %th shootplan
+        %th relateduid
+        %th impactpossible
+        %th targetofficial
+        %th desiredchange
+        %th impactplan
+        %th impactfollowup
+        %th impactfollowupnotes
+        %th impactprocess
+        %th impactstatus
+        %th impactdate
+        %th screeningdone
+        %th screeningheadcount
+        %th screeningnotes
+        %th officialinvolved
+        %th officialsatscreening
+        %th officialscreeningnotes
+        %th collaborations
+        %th peopleinvolved
+        %th peopleimpacted
+        %th villagesimpacted
+        %th videofoldertitle
+        %th footageinstate
+        %th assignededitor
+        %th footagefromstate
+        %th editedvideofromstate
+        %th editstatus
+        %th footagereview
+        %th roughcutreview
+        %th footagerating
+        %th paymentapproved
+        %th roughcutdate
+        %th editdate
+        %th finalvideorating
+        %th bonus
+        %th youtubedate
+        %th youtubeurl
+        %th iupublishdate
+        %th videotitle
+        %th subtitleneeded
+        %th secondaryiuissue
+        %th subcategory
+        %th project
+        %th blognotes
+        %th flag
+        %th flagnotes
+        %th udatedate
+        %th note
+
+    %tbody
+      - @track.each do |t|
+        %tr
+          %td
+            %a.btn.btn-default{:href => "/show/#{t.UID}", :role => 'button'} View
+          %td
+            %a.btn.btn-default{:href => "/delete/#{t.UID}", :role => 'button'} Delete
+          %td= t.UID
+          %td= t.ccname.capitalize
+          %td= t.state.capitalize
+          %td= t.program.capitalize
+          %td= t.iutheme.capitalize
+          %td= t.description
+          %td= t.storydate
+          %td= t.mentor
+          %td= t.storytype
+          %td= t.shootplan
+          %td= t.relateduid
+          %td= t.impactpossible
+          %td= t.targetofficial
+          %td= t.desiredchange
+          %td= t.impactplan
+          %td= t.impactfollowup
+          %td= t.impactfollowupnotes
+          %td= t.impactprocess
+          %td= t.impactstatus
+          %td= t.impactdate
+          %td= t.screeningdone
+          %td= t.screeningheadcount
+          %td= t.screeningnotes
+          %td= t.officialinvolved
+          %td= t.officialsatscreening
+          %td= t.officialscreeningnotes
+          %td= t.collaborations
+          %td= t.peopleinvolved
+          %td= t.peopleimpacted
+          %td= t.villagesimpacted
+          %td= t.videofoldertitle
+          %td= t.footageinstate
+          %td= t.assignededitor
+          %td= t.footagefromstate
+          %td= t.editedvideofromstate
+          %td= t.editstatus
+          %td= t.footagereview
+          %td= t.roughcutreview
+          %td= t.footagerating
+          %td= t.paymentapproved
+          %td= t.roughcutdate
+          %td= t.editdate
+          %td= t.finalvideorating
+          %td= t.bonus
+          %td= t.youtubedate
+          %td= t.youtubeurl
+          %td= t.iupublishdate
+          %td= t.videotitle
+          %td= t.subtitleneeded
+          %td= t.secondaryiuissue
+          %td= t.subcategory
+          %td= t.project
+          %td= t.blognotes
+          %td= t.flag
+          %td= t.flagnotes
+          %td= t.updatedate
+          %td= t.note

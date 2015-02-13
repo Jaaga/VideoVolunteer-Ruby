@@ -1,0 +1,28 @@
+body {
+  padding-bottom: 40px;
+}
+
+h1 {
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+td{
+  max-width: 200px;
+  overflow: auto;
+  word-wrap: break-word
+}
+
+#home-menu {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#view-margin {
+  margin: 0 auto;
+}
+
+@-moz-document url-prefix() {
+  fieldset { display: table-cell; }
+}

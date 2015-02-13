@@ -5,7 +5,6 @@ program
 iutheme
 description
 storydate
-ccpair
 mentor
 storytype
 shootplan
@@ -54,3 +53,5 @@ project
 blognotes
 flag
 flagnotes
+updatedate
+note

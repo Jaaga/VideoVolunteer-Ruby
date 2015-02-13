@@ -1,4 +1,27 @@
 !!!
 %html
+  %head
+    %link{:href => "/css/bootstrap.min.css", :rel => "stylesheet"}
+    %link{:href => "/css/main.css", :rel => "stylesheet"}
   %body
-    = yield
+    %nav.navbar.navbar-default.navbar-static-top.navbar-inverse
+      .container
+        .navbar-header
+          %a.navbar-brand{:href => '/'} Video Volunteers
+        %ul.nav.navbar-nav
+          %li
+            %a{:href => '/new'} New Story
+          %li
+            %a{:href => '/recent'} Recent
+          %li
+            %a{:href => '/search'} Search
+
+    .container
+      .row
+        .col-md-1
+        .col-md-10
+          = yield
+        .col-md-1
+
+    %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"}
+    %script{:src => "/js/bootstrap.min.js"}

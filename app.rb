@@ -2,6 +2,7 @@ require 'sinatra'
 require 'active_record'
 require 'haml'
 require './.config/environment'
+require 'date'
 
 class Ccdata < ActiveRecord::Base
   self.table_name = "ccdata"
@@ -24,22 +25,63 @@ get '/' do
 end
 
 get '/new' do
-  @ccdata = Ccdata.all
-  @tracker = Tracker.all
-  @user = User.all
-
   haml :new
 end
 
-get '/legacy' do
-  haml :legacy
+post '/new' do
+  @track = Tracker.new
+
+  @track.UID = params[:uid]
+  @track.ccname = params[:ccname]
+  @track.state = params[:state]
+  @track.program = params[:program]
+  @track.iutheme = params[:iutheme]
+  @track.description = params[:description]
+  @track.storydate = params[:storydate]
+  @track.mentor = params[:mentor]
+  @track.storytype = params[:storytype]
+  @track.shootplan = params[:shootplan]
+  @track.relateduid = params[:relateduid]
+  @track.impactpossible = params[:impactpossible]
+  @track.targetofficial = params[:targetofficial]
+  @track.desiredchange = params[:desiredchange]
+  @track.impactplan = params[:impactplan]
+  @track.updatedate = Date.today
+
+  if @track.UID.length > 2 then @track.save end
+  redirect '/new'
 end
 
-get '/jh' do
-  @tracker = TrackerOld.all
+get '/recent' do
+  @track = Tracker.where(:updatedate => Date.today-14...Date.today+1)
 
-  haml :jh
+  haml :recent
 end
+
+get '/search' do
+  haml :search
+end
+
+post '/search_results' do
+  @track = Tracker.where(UID: params[:UID])
+
+  haml :search_results
+end
+
+get '/show/:UID' do
+  @track = Tracker.find_by(UID: params[:UID])
+
+  haml :show
+end
+
+get '/delete/:UID' do
+  @track = Tracker.find_by(UID: params[:UID])
+  @track.destroy
+  
+  redirect '/recent'
+end
+
+
 
 post '/ccdata' do
   @data = Ccdata.new
@@ -56,13 +98,12 @@ end
 post '/tracker' do
   @track = Tracker.new
   @track.UID = params[:uid]
-  @track.ccname = params[:ccname]
+  @track.ccname = params[:ccname].capitalize
   @track.state = params[:state]
   @track.program = params[:program]
   @track.iutheme = params[:iutheme]
   @track.description = params[:description]
   @track.storydate = params[:storydate]
-  @track.ccpair = params[:ccpair]
   @track.mentor = params[:mentor]
   @track.storytype = params[:storytype]
   @track.shootplan = params[:shootplan]
@@ -111,6 +152,8 @@ post '/tracker' do
   @track.blognotes = params[:blognotes]
   @track.flag = params[:flag]
   @track.flagnotes = params[:flagnotes]
+  @track.updatedate = params[:update]
+  @track.note = params[:note]
 
   if @track.ccname.length > 0 then @track.save end
   redirect '/new'

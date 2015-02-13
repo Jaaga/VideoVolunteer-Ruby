@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.string  "iutheme",                limit: 20
     t.string  "description",            limit: 2000
     t.date    "storydate"
-    t.string  "ccpair",                 limit: 30
     t.string  "mentor",                 limit: 30
     t.string  "storytype",              limit: 20
     t.string  "shootplan",              limit: 500
@@ -69,7 +68,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.date    "youtubedate"
     t.string  "youtubeurl",             limit: 120
     t.date    "iupublishdate"
-    t.string  "videotitle",             limit: 2000
+    t.string  "videotitle",             limit: 200
     t.string  "subtitleneeded",         limit: 5
     t.string  "secondaryiuissue",       limit: 30
     t.string  "subcategory",            limit: 30
@@ -77,6 +76,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.string  "blognotes",              limit: 50
     t.string  "flag",                   limit: 20
     t.string  "flagnotes",              limit: 200
+    t.date    "updatedate"
+    t.text    "note",                   limit: 65535
   end
 
   create_table "trackerOld", primary_key: "UID", force: :cascade do |t|
@@ -86,7 +87,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.text "iutheme",                limit: 65535
     t.text "description",            limit: 65535
     t.text "storydate",              limit: 65535
-    t.text "ccpair",                 limit: 65535
     t.text "mentor",                 limit: 65535
     t.text "storytype",              limit: 65535
     t.text "shootplan",              limit: 65535

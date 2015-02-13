@@ -1,271 +1,64 @@
-%p Hello Video Volunteers!
-%br/
+%h1 New Story
 
-%form{:action => '/ccdata', :method => 'post'}
-  %label Name:
-  %input{:type => 'text', :name => 'name'}
-  %label State:
-  %input{:type => 'text', :name => 'state'}
-  %label District:
-  %input{:type => 'text', :name => 'district'}
-  %label Village:
-  %input{:type => 'text', :name => 'village'}
-  %label Statecodes:
-  %input{:type => 'text', :name => 'statecodes'}
-  %input{:type => 'submit'}
-
-%br/
-%table
-  - @ccdata.each do |c|
-    %tr
-      %td= c.name.capitalize
-      %td= c.state.capitalize
-      %td= c.district.capitalize
-      %td= c.village.capitalize
-      %td= c.statecodes
-%br/
-
-%form{:action => '/tracker', :method => 'post'}
-  %label UID:
-  %input{:type => 'text', :name => 'uid'}
-  %label CC Name:
-  %input{:type => 'text', :name => 'ccname'}
-  %label State:
-  %input{:type => 'text', :name => 'state'}
-  %label Program:
-  %input{:type => 'text', :name => 'program'}
-  %label IU Theme:
-  %input{:type => 'text', :name => 'iutheme'}
-  %label Description:
-  %input{:type => 'text', :name => 'description'}
-  %label Story Date:
-  %input{:type => 'text', :name => 'storydate'}
-  %label CC Pair:
-  %input{:type => 'text', :name => 'ccpair'}
-  %label Mentor:
-  %input{:type => 'text', :name => 'mentor'}
-  %label Story Type:
-  %input{:type => 'text', :name => 'storytype'}
-  %label Shoot Plan:
-  %input{:type => 'text', :name => 'shootplan'}
-  %label Related UID:
-  %input{:type => 'text', :name => 'relateduid'}
-  %label Impact Possible:
-  %input{:type => 'text', :name => 'impactpossible'}
-  %label Target Official:
-  %input{:type => 'text', :name => 'targetofficial'}
-  %label Desired Change:
-  %input{:type => 'text', :name => 'desiredchange'}
-  %label Impact Plan:
-  %input{:type => 'text', :name => 'impactplan'}
-  %label Impact Followup:
-  %input{:type => 'text', :name => 'impactfollowup'}
-  %label Impact Followup Notes:
-  %input{:type => 'text', :name => 'impactfollowupnotes'}
-  %label Impact Process:
-  %input{:type => 'text', :name => 'impactprogress'}
-  %label Impact Status:
-  %input{:type => 'text', :name => 'impactstatus'}
-  %label Impact Date:
-  %input{:type => 'text', :name => 'impactdate'}
-  %label Screening Done:
-  %input{:type => 'text', :name => 'screeningdone'}
-  %label Screening Head Count:
-  %input{:type => 'text', :name => 'screeningheadcount'}
-  %label Screening Notes:
-  %input{:type => 'text', :name => 'screeningnotes'}
-  %label Official Involved:
-  %input{:type => 'text', :name => 'officialinvolved'}
-  %label Officials At Screening:
-  %input{:type => 'text', :name => 'officialsatscreening'}
-  %label Official Screening Notes:
-  %input{:type => 'text', :name => 'officialscreeningnotes'}
-  %label Collaborations:
-  %input{:type => 'text', :name => 'collaborations'}
-  %label People Involved:
-  %input{:type => 'text', :name => 'peopleinvolved'}
-  %label People Impacted:
-  %input{:type => 'text', :name => 'peopleimpacted'}
-  %label Villages Impacted:
-  %input{:type => 'text', :name => 'villagesimpacted'}
-  %label Video Folder Title:
-  %input{:type => 'text', :name => 'videofoldertitle'}
-  %label Footage In State:
-  %input{:type => 'text', :name => 'footageinstate'}
-  %label Assigned Editor:
-  %input{:type => 'text', :name => 'assignededitor'}
-  %label Footage From State:
-  %input{:type => 'text', :name => 'footagefromstate'}
-  %label Edited Video From State:
-  %input{:type => 'text', :name => 'editedvideofromstate'}
-  %label Edit Status:
-  %input{:type => 'text', :name => 'editstatus'}
-  %label Footage Review:
-  %input{:type => 'text', :name => 'footagereview'}
-  %label Rough Cut Review:
-  %input{:type => 'text', :name => 'roughcutreview'}
-  %label Footage Rating:
-  %input{:type => 'text', :name => 'footagerating'}
-  %label Payment Approved:
-  %input{:type => 'text', :name => 'paymentapproved'}
-  %label Rough Cut Date:
-  %input{:type => 'text', :name => 'roughcutdate'}
-  %label Edit Date:
-  %input{:type => 'text', :name => 'editdate'}
-  %label Final Video Rating:
-  %input{:type => 'text', :name => 'finalvideorating'}
-  %label Bonus:
-  %input{:type => 'text', :name => 'bonus'}
-  %label Youtube Date:
-  %input{:type => 'text', :name => 'youtubedate'}
-  %label Youtube URL:
-  %input{:type => 'text', :name => 'youtubeurl'}
-  %label IU Publish Date:
-  %input{:type => 'text', :name => 'iupublishdate'}
-  %label Video Title:
-  %input{:type => 'text', :name => 'videotitle'}
-  %label Subtitle Needed:
-  %input{:type => 'text', :name => 'subtitleneeded'}
-  %label Secondary IU Issue:
-  %input{:type => 'text', :name => 'secondaryiuissue'}
-  %label Sub-Category:
-  %input{:type => 'text', :name => 'subcategory'}
-  %label Project:
-  %input{:type => 'text', :name => 'project'}
-  %label Blog Notes:
-  %input{:type => 'text', :name => 'blognotes'}
-  %label Flag:
-  %input{:type => 'text', :name => 'flag'}
-  %label Flag Notes:
-  %input{:type => 'text', :name => 'flagnotes'}
-  %input{:type => 'submit'}
-
-%br/
-%table
-  - @tracker.each do |t|
-    %tr
-      %td= t.UID
-      %td= t.ccname.capitalize
-      %td= t.state.capitalize
-      %td= t.program.capitalize
-      %td= t.iutheme.capitalize
-      %td= t.description
-      %td= t.storydate
-      %td= t.ccpair
-      %td= t.mentor
-      %td= t.storytype
-      %td= t.shootplan
-      %td= t.relateduid
-      %td= t.impactpossible
-      %td= t.targetofficial
-      %td= t.desiredchange
-      %td= t.impactplan
-      %td= t.impactfollowup
-      %td= t.impactfollowupnotes
-      %td= t.impactprocess
-      %td= t.impactstatus
-      %td= t.impactdate
-      %td= t.screeningdone
-      %td= t.screeningheadcount
-      %td= t.screeningnotes
-      %td= t.officialinvolved
-      %td= t.officialsatscreening
-      %td= t.officialscreeningnotes
-      %td= t.collaborations
-      %td= t.peopleinvolved
-      %td= t.peopleimpacted
-      %td= t.villagesimpacted
-      %td= t.videofoldertitle
-      %td= t.footageinstate
-      %td= t.assignededitor
-      %td= t.footagefromstate
-      %td= t.editedvideofromstate
-      %td= t.editstatus
-      %td= t.footagereview
-      %td= t.roughcutreview
-      %td= t.footagerating
-      %td= t.paymentapproved
-      %td= t.roughcutdate
-      %td= t.editdate
-      %td= t.finalvideorating
-      %td= t.bonus
-      %td= t.youtubedate
-      %td= t.youtubeurl
-      %td= t.iupublishdate
-      %td= t.videotitle
-      %td= t.subtitleneeded
-      %td= t.secondaryiuissue
-      %td= t.subcategory
-      %td= t.project
-      %td= t.blognotes
-      %td= t.flag
-      %td= t.flagnotes
-%br/
-
-%form{:action => '/user', :method => 'post'}
-  %label First Name:
-  %input{:type => 'text', :name => 'firstname'}
-  %label Middle Name:
-  %input{:type => 'text', :name => 'middlename'}
-  %label Last Name:
-  %input{:type => 'text', :name => 'lastname'}
-  %label Password:
-  %input{:type => 'text', :name => 'password'}
-  %label User Type:
-  %input{:type => 'text', :name => 'user_type'}
-  %label Post:
-  %input{:type => 'text', :name => 'post'}
-  %label Gender:
-  %input{:type => 'text', :name => 'gender'}
-  %label Email ID:
-  %input{:type => 'text', :name => 'emailid'}
-  %label DOB:
-  %input{:type => 'text', :name => 'dob'}
-  %label State:
-  %input{:type => 'text', :name => 'state'}
-  %label Pincode:
-  %input{:type => 'text', :name => 'pincode'}
-  %label Contact Number:
-  %input{:type => 'text', :name => 'contactNo'}
-  %label Language:
-  %input{:type => 'text', :name => 'language'}
-  %label Start Date:
-  %input{:type => 'text', :name => 'start_date'}
-  %label Login Status:
-  %input{:type => 'text', :name => 'login_status'}
-  %label Village:
-  %input{:type => 'text', :name => 'village'}
-  %label District:
-  %input{:type => 'text', :name => 'district'}
-  %label Refree Name:
-  %input{:type => 'text', :name => 'refreeName'}
-  %label Refree Contact Number:
-  %input{:type => 'text', :name => 'refreeContactNo'}
-  %label Organisation:
-  %input{:type => 'text', :name => 'organisation'}
-  %input{:type => 'submit'}
-
-%br/
-%table
-  - @user.each do |u|
-    %tr
-      %td= u.firstname.capitalize
-      %td= u.middlename.capitalize
-      %td= u.lastname.capitalize
-      %td= u.password
-      %td= u.user_type
-      %td= u.post
-      %td= u.gender
-      %td= u.emailid
-      %td= u.dob
-      %td= u.state
-      %td= u.pincode
-      %td= u.contactNo
-      %td= u.language
-      %td= u.start_date
-      %td= u.login_status
-      %td= u.village
-      %td= u.district
-      %td= u.refreeName
-      %td= u.refreeContactNo
-      %td= u.organisation
+%form.form-horizontal{:action => '/new', :method => 'post'}
+  .form-group
+    %label.col-sm-3.control-label UID:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'uid'}
+  .form-group
+    %label.col-sm-3.control-label CC Name:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'ccname'}
+  .form-group
+    %label.col-sm-3.control-label State:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'state'}
+  .form-group
+    %label.col-sm-3.control-label Program:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'program'}
+  .form-group
+    %label.col-sm-3.control-label IU Theme:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'iutheme'}
+  .form-group
+    %label.col-sm-3.control-label Story Description:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'description'}
+  .form-group
+    %label.col-sm-3.control-label Date Story Pitched:
+    .col-sm-9
+      %input.form-control{:type => 'date', :name => 'storydate'}
+  .form-group
+    %label.col-sm-3.control-label Mentor:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'mentor'}
+  .form-group
+    %label.col-sm-3.control-label Story Type:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'storytype'}
+  .form-group
+    %label.col-sm-3.control-label Shoot Plan:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'shootplan'}
+  .form-group
+    %label.col-sm-3.control-label Related Story UID:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'relateduid'}
+  .form-group
+    %label.col-sm-3.control-label Impact Possible:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'impactpossible'}
+  .form-group
+    %label.col-sm-3.control-label Target Official:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'targetoffical'}
+  .form-group
+    %label.col-sm-3.control-label Desired Change:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'desiredchange'}
+  .form-group
+    %label.col-sm-3.control-label Impact Plan:
+    .col-sm-9
+      %input.form-control{:type => 'text', :name => 'impactplan'}
+  %button.btn.btn-default.btn-block{:type => 'submit'} Submit

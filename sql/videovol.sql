@@ -80,7 +80,6 @@ CREATE TABLE `tracker` (
   `iutheme` varchar(20) DEFAULT NULL,
   `description` varchar(2000) DEFAULT NULL,
   `storydate` date DEFAULT NULL,
-  `ccpair` varchar(30) DEFAULT NULL,
   `mentor` varchar(30) DEFAULT NULL,
   `storytype` varchar(20) DEFAULT NULL,
   `shootplan` varchar(500) DEFAULT NULL,
@@ -121,7 +120,7 @@ CREATE TABLE `tracker` (
   `youtubedate` date DEFAULT NULL,
   `youtubeurl` varchar(120) DEFAULT NULL,
   `iupublishdate` date DEFAULT NULL,
-  `videotitle` varchar(2000) DEFAULT NULL,
+  `videotitle` varchar(200) DEFAULT NULL,
   `subtitleneeded` varchar(5) DEFAULT NULL,
   `secondaryiuissue` varchar(30) DEFAULT NULL,
   `subcategory` varchar(30) DEFAULT NULL,
@@ -129,19 +128,11 @@ CREATE TABLE `tracker` (
   `blognotes` varchar(50) DEFAULT NULL,
   `flag` varchar(20) DEFAULT NULL,
   `flagnotes` varchar(200) DEFAULT NULL,
+  `updatedate` date DEFAULT NULL,
+  `note` text DEFAULT NULL,
   PRIMARY KEY (`UID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tracker`
---
-
-LOCK TABLES `tracker` WRITE;
-/*!40000 ALTER TABLE `tracker` DISABLE KEYS */;
-INSERT INTO `tracker` VALUES ('42da131a-6a76-11e4-9','raju','1','PACS','Forced Eviction','jhjlu','2014-11-12','raju','raju','Profile Video','ghjgkjgkhgf',NULL,'Yes ','jmghjg','jjhgj','hjghjg',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('7b64bd99-6a62-11e4-9','raju','karnataka','','','hello world','2014-11-01','raju','ram','','world hello',NULL,'','vodeovol','','impact',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('81c4a3e1-6a68-11e4-9','1','1','OAK','','vvvvvvvvvvvvvvvvvv','2014-11-12','1','1','','CCCCC',NULL,' ','CCCCC','CCCCC','CCCCC',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('87d02b60-6af5-11e4-9','raju','andhrapradesh','OAK','Art/Culture','hjfgdfjf,jegflugfui','2014-11-13','1','raju','Issue','hfhfkj,jgefouitg',NULL,'Yes ',',jhfkfkyjyfuywuiey','hgjkhlkghikhgktgjglug','khk;ghi;h;ilshgd;ilhomfjyjyuru',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('adac6e2c-6af4-11e4-9','raju','karnataka','OAK','Conflict','hgdhgjhg','2014-11-13','raju','ram','Documentary','mjg,jjgkk.ugk.t',NULL,'Yes','bjmjmb','vmvbmnbvm','bbmnbm',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('ee99ac9f-6a67-11e4-9','ram','andhrapradesh','PACS','Caste/Identity','mnb,fdjkhjhkjhjgyfj','2014-11-12','raju','raju','Issue','mjsfuljkgfug,ujal',NULL,'Yes',',fljkhjkmjdfglu','','NKJHH,VLKA8DIQ ',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `tracker` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `trackerOld`
@@ -158,7 +149,6 @@ CREATE TABLE `trackerOld` (
   `iutheme` text,
   `description` text,
   `storydate` text,
-  `ccpair` text,
   `mentor` text,
   `storytype` text,
   `shootplan` text,
@@ -210,16 +200,6 @@ CREATE TABLE `trackerOld` (
   PRIMARY KEY (`UID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `trackerOld`
---
-
-LOCK TABLES `trackerOld` WRITE;
-/*!40000 ALTER TABLE `trackerOld` DISABLE KEYS */;
-INSERT INTO `trackerOld` VALUES ('42da131a-6a76-11e4-9','raju','1','PACS','Forced Eviction','jhjlu','2014-11-12','raju','raju','Profile Video','ghjgkjgkhgf',NULL,'Yes ','jmghjg','jjhgj','hjghjg',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('7b64bd99-6a62-11e4-9','raju','karnataka','','','hello world','2014-11-01','raju','ram','','world hello',NULL,'','vodeovol','','impact',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('81c4a3e1-6a68-11e4-9','1','1','OAK','','vvvvvvvvvvvvvvvvvv','2014-11-12','1','1','','CCCCC',NULL,' ','CCCCC','CCCCC','CCCCC',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('87d02b60-6af5-11e4-9','raju','andhrapradesh','OAK','Art/Culture','hjfgdfjf,jegflugfui','2014-11-13','1','raju','Issue','hfhfkj,jgefouitg',NULL,'Yes ',',jhfkfkyjyfuywuiey','hgjkhlkghikhgktgjglug','khk;ghi;h;ilshgd;ilhomfjyjyuru',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('adac6e2c-6af4-11e4-9','raju','karnataka','OAK','Conflict','hgdhgjhg','2014-11-13','raju','ram','Documentary','mjg,jjgkk.ugk.t',NULL,'Yes','bjmjmb','vmvbmnbvm','bbmnbm',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('ee99ac9f-6a67-11e4-9','ram','andhrapradesh','PACS','Caste/Identity','mnb,fdjkhjhkjhjgyfj','2014-11-12','raju','raju','Issue','mjsfuljkgfug,ujal',NULL,'Yes',',fljkhjkmjdfglu','','NKJHH,VLKA8DIQ ',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `trackerOld` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
