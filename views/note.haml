@@ -1,0 +1,8 @@
+%h1 Correspondence Notes
+
+%form{:action => '/note', :method => 'post'}
+  %label UID
+  %input{:type => 'text', :name => 'uid'}
+  %label Notes
+  %input{:type => 'text', :name => 'note'}
+  %input{:type => 'submit'}

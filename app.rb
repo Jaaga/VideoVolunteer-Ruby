@@ -1,9 +1,13 @@
 require 'sinatra'
 require 'active_record'
+require 'sinatra/activerecord'
 require 'haml'
+require 'mysql'
 require './.config/environment'
 require 'date'
 
+
+# Classes for database tables.
 class Ccdata < ActiveRecord::Base
   self.table_name = "ccdata"
 end
@@ -24,164 +28,190 @@ get '/' do
   haml :index
 end
 
+
+# For escaping user inputed code.
+helpers do
+  def h(text)
+    Rack::Utils.escape_html(text)
+  end
+end
+
+#
+# Navbar Links
+#
+
+# New Stories
+
 get '/new' do
+  @arr = ['uid', 'ccname', 'state', 'program', 'iutheme', 'description', 'mentor', 'storytype', 'shootplan', 'relateduid', 'impactpossible', 'targetofficial', 'desiredchange', 'impactplan']
+
   haml :new
 end
 
 post '/new' do
   @track = Tracker.new
+  arr = ['uid', 'ccname', 'state', 'program', 'iutheme', 'description', 'mentor', 'storytype', 'shootplan', 'relateduid', 'impactpossible', 'targetofficial', 'desiredchange', 'impactplan']
 
-  @track.UID = params[:uid]
-  @track.ccname = params[:ccname]
-  @track.state = params[:state]
-  @track.program = params[:program]
-  @track.iutheme = params[:iutheme]
-  @track.description = params[:description]
-  @track.storydate = params[:storydate]
-  @track.mentor = params[:mentor]
-  @track.storytype = params[:storytype]
-  @track.shootplan = params[:shootplan]
-  @track.relateduid = params[:relateduid]
-  @track.impactpossible = params[:impactpossible]
-  @track.targetofficial = params[:targetofficial]
-  @track.desiredchange = params[:desiredchange]
-  @track.impactplan = params[:impactplan]
+  arr.each do |x|
+    @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].nil?
+  end
+
   @track.updatedate = Date.today
 
-  if @track.UID.length > 2 then @track.save end
-  redirect '/new'
+  if @track.uid.length > 2 then @track.save end
+  redirect '/recent'
 end
+
+
+# Recent Stories
 
 get '/recent' do
-  @track = Tracker.where(:updatedate => Date.today-14...Date.today+1)
+  @track = Tracker.where(:updatedate => Date.today-14...Date.today+1).order("updatedate DESC")
+  @title = 'Recent Stories'
 
-  haml :recent
+  haml :search_results
 end
+
+
+# Search Functions
 
 get '/search' do
   haml :search
 end
 
-post '/search_results' do
-  @track = Tracker.where(UID: params[:UID])
+post '/search_results/uid' do
+  @track = Tracker.where(uid: params[:uid]).order("uid ASC")
+  @title = 'Search Results'
 
   haml :search_results
 end
 
-get '/show/:UID' do
-  @track = Tracker.find_by(UID: params[:UID])
+post '/search_results/state' do
+  @track = Tracker.where(state: params[:state]).order("state ASC")
+  @title = 'Search Results'
+
+  haml :search_results
+end
+
+post '/search_results/ccname' do
+  @track = Tracker.where(ccname: params[:ccname]).order("ccname ASC")
+  @title = 'Search Results'
+
+  haml :search_results
+end
+
+
+# Viewing, deleting, and editing individual stories.
+
+get '/show/:uid' do
+  @track = Tracker.find_by(uid: params[:uid])
 
   haml :show
 end
 
-get '/delete/:UID' do
-  @track = Tracker.find_by(UID: params[:UID])
+get '/delete/:uid' do
+  @track = Tracker.find_by(uid: params[:uid])
   @track.destroy
-  
+
+  redirect '/recent'
+end
+
+get '/edit/:uid' do
+  @track = Tracker.find_by(uid: params[:uid])
+  @arr = ['ccname', 'state', 'program', 'iutheme', 'description', 'mentor', 'storytype', 'shootplan', 'relateduid', 'impactpossible', 'targetofficial', 'desiredchange', 'impactplan', 'impactfollowup', 'impactfollowupnotes', 'impactprocess', 'impactstatus', 'screeningdone', 'screeningheadcount', 'screeningnotes', 'officialinvolved', 'officialsatscreening', 'officialscreeningnotes', 'collaborations', 'peopleinvolved', 'peopleimpacted', 'villagesimpacted', 'videofoldertitle', 'assignededitor', 'editstatus', 'footagereview', 'roughcutreview', 'footagerating', 'paymentapproved', 'finalvideorating', 'bonus', 'youtubeurl', 'videotitle', 'subtitleneeded', 'secondaryiuissue', 'subcategory', 'project', 'blognotes']
+  @dates = ['storydate', 'impactdate',  'footagefromstate', 'editedvideofromstate','footageinstate','roughcutdate', 'editdate', 'iupublishdate', 'youtubedate']
+
+  haml :edit
+end
+
+post '/edit/:uid' do
+  @track = Tracker.find_by(uid: params[:uid])
+  arr = ['ccname', 'state', 'program', 'iutheme', 'description', 'mentor', 'storytype', 'shootplan', 'relateduid', 'impactpossible', 'targetofficial', 'desiredchange', 'impactplan', 'impactfollowup', 'impactfollowupnotes', 'impactprocess', 'impactstatus', 'screeningdone', 'screeningheadcount', 'screeningnotes', 'officialinvolved', 'officialsatscreening', 'officialscreeningnotes', 'collaborations', 'peopleinvolved', 'peopleimpacted', 'villagesimpacted', 'videofoldertitle', 'assignededitor', 'editstatus', 'footagereview', 'roughcutreview', 'footagerating', 'paymentapproved', 'finalvideorating', 'bonus', 'youtubeurl', 'videotitle', 'subtitleneeded', 'secondaryiuissue', 'subcategory', 'project', 'blognotes']
+  dates = ['storydate', 'impactdate',  'footagefromstate', 'editedvideofromstate','footageinstate','roughcutdate', 'editdate', 'iupublishdate', 'youtubedate']
+
+  arr.each do |x|
+    @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].nil?
+  end
+
+  dates.each do |x|
+    @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].nil?
+  end
+
+  @track.updatedate = Date.today
+
+  @track.save
+  redirect '/recent'
+end
+
+#
+# Menu Stuff
+#
+
+get '/impact' do
+  haml :impact
+end
+
+get '/footage' do
+  haml :footage
+end
+
+
+# Flagging and unflagging individual stories
+
+get '/flag' do
+  @track = Tracker.where(flag: 'priority').order("updatedate ASC")
+  @title = 'Flagged Stories'
+
+  haml :search_results
+end
+
+get '/flag/:uid' do
+  @track = Tracker.find_by(uid: params[:uid])
+
+  haml :flagnote
+end
+
+post '/flag/:uid' do
+  @track = Tracker.find_by(uid: params[:uid])
+
+  @track.flagnotes = "#{Date.today}: #{params[:note]}"
+  @track.flag = "priority"
+  @track.updatedate = Date.today
+  @track.save
+
+  redirect '/recent'
+end
+
+get '/unflag/:uid' do
+  @track = Tracker.find_by(uid: params[:uid])
+
+  @track.flag = nil
+  @track.flagnotes = nil
+  @track.updatedate = Date.today
+  @track.save
+
   redirect '/recent'
 end
 
 
+# Making notes on correspondents
 
-post '/ccdata' do
-  @data = Ccdata.new
-  @data.name = params[:name]
-  @data.state = params[:state]
-  @data.district = params[:district]
-  @data.village = params[:village]
-  @data.statecodes = params[:statecodes]
-
-  if @data.name.length > 0 then @data.save end
-  redirect '/new'
+get '/note' do
+  haml :note
 end
 
-post '/tracker' do
-  @track = Tracker.new
-  @track.UID = params[:uid]
-  @track.ccname = params[:ccname].capitalize
-  @track.state = params[:state]
-  @track.program = params[:program]
-  @track.iutheme = params[:iutheme]
-  @track.description = params[:description]
-  @track.storydate = params[:storydate]
-  @track.mentor = params[:mentor]
-  @track.storytype = params[:storytype]
-  @track.shootplan = params[:shootplan]
-  @track.relateduid = params[:relateduid]
-  @track.impactpossible = params[:impactpossible]
-  @track.targetofficial = params[:targetofficial]
-  @track.desiredchange = params[:desiredchange]
-  @track.impactplan = params[:impactplan]
-  @track.impactfollowup = params[:impactfollowup]
-  @track.impactfollowupnotes = params[:impactfollowupnotes]
-  @track.impactprocess = params[:impactprocess]
-  @track.impactstatus = params[:impactstatus]
-  @track.impactdate = params[:impactdate]
-  @track.screeningdone = params[:screeningdone]
-  @track.screeningheadcount = params[:screeningheadcount]
-  @track.screeningnotes = params[:screeningnotes]
-  @track.officialinvolved = params[:officialinvolved]
-  @track.officialsatscreening = params[:officialscreening]
-  @track.officialscreeningnotes = params[:officialscreeningnotes]
-  @track.collaborations = params[:collaboration]
-  @track.peopleinvolved = params[:peopleinvolved]
-  @track.peopleimpacted = params[:peopleimpacted]
-  @track.villagesimpacted = params[:villagesimpacted]
-  @track.videofoldertitle = params[:videofoldertitle]
-  @track.footageinstate = params[:footageinstate]
-  @track.assignededitor = params[:assignededitor]
-  @track.footagefromstate = params[:footagefromstate]
-  @track.editedvideofromstate = params[:editedvideofromstate]
-  @track.editstatus = params[:editstatus]
-  @track.footagereview = params[:footagereview]
-  @track.roughcutreview = params[:roughcut]
-  @track.footagerating = params[:footagerating]
-  @track.paymentapproved = params[:paymentapproved]
-  @track.roughcutdate = params[:roughcutdate]
-  @track.editdate = params[:editdate]
-  @track.finalvideorating = params[:finalvideorating]
-  @track.bonus = params[:bonus]
-  @track.youtubedate = params[:youtubedate]
-  @track.youtubeurl = params[:youtubeurl]
-  @track.iupublishdate = params[:iupublishdate]
-  @track.videotitle = params[:videotitle]
-  @track.subtitleneeded = params[:subtitleneeded]
-  @track.secondaryiuissue = params[:secondaryiuissue]
-  @track.subcategory = params[:subcategory]
-  @track.project = params[:project]
-  @track.blognotes = params[:blognotes]
-  @track.flag = params[:flag]
-  @track.flagnotes = params[:flagnotes]
-  @track.updatedate = params[:update]
-  @track.note = params[:note]
+post '/note' do
+  @track = Tracker.find_by(uid: params[:uid])
 
-  if @track.ccname.length > 0 then @track.save end
-  redirect '/new'
-end
+  if @track.note.nil?
+    @track.note = "\n#{Date.today}: #{params[:note]}"
+  else
+    temp = @track.note
+    @track.note = "#{Date.today}: #{params[:note]}\n#{temp}"
+  end
 
-post '/user' do
-  @user = User.new
-  @user.firstname = params[:firstname]
-  @user.middlename = params[:middlename]
-  @user.lastname = params[:lastname]
-  @user.password = params[:password]
-  @user.user_type = params[:user_type]
-  @user.post = params[:post]
-  @user.gender = params[:gender]
-  @user.emailid = params[:emailid]
-  @user.dob = params[:dob]
-  @user.state = params[:state]
-  @user.pincode = params[:pincode]
-  @user.contactNo = params[:contactNo]
-  @user.language = params[:language]
-  @user.start_date = params[:start_date]
-  @user.login_status = params[:login_status]
-  @user.village = params[:village]
-  @user.district = params[:district]
-  @user.refreeName = params[:refreeName]
-  @user.refreeContactNo = params[:refreeContactNo]
-  @user.organisation = params[:organisation]
+  @track.updatedate = Date.today
+  @track.save
 
-  if @user.lastname.length > 0 then @user.save end
-  redirect '/new'
+  redirect '/recent'
 end

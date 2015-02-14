@@ -1,172 +1,135 @@
+%h1= @title
 .table-responsive
-  %table.table.table-bordered.table-striped#view-margin
-    - @track.each do |t|
-      %h1= t.UID
+  %table.table.table-bordered.table-striped
+    %thead
       %tr
-        %th CC Name
-        %td= t.ccname.capitalize
-      %tr
-        %th State
-        %td= t.state.capitalize
-      %tr
-        %th Program
-        %td= t.program.capitalize
-      %tr
-        %th IU Theme
-        %td= t.iutheme.capitalize
-      %tr
-        %th Description
-        %td= t.description
-      %tr
-        %th Story Date
-        %td= t.storydate
-      %tr
-        %th Mentor
-        %td= t.mentor
-      %tr
-        %th Story Type
-        %td= t.storytype
-      %tr
-        %th Shoot Plan
-        %td= t.shootplan
-      %tr
-        %th Related UID
-        %td= t.relateduid
-      %tr
-        %th Impact Possible
-        %td= t.impactpossible
-      %tr
-        %th Target Official
-        %td= t.targetofficial
-      %tr
-        %th Desired Change
-        %td= t.desiredchange
-      %tr
-        %th Impact Plan
-        %td= t.impactplan
-      %tr
-        %th Impact Followup
-        %td= t.impactfollowup
-      %tr
-        %th Impact Followup Notes
-        %td= t.impactfollowupnotes
-      %tr
-        %th Impact Process
-        %td= t.impactprocess
-      %tr
-        %th Impact Status
-        %td= t.impactstatus
-      %tr
-        %th Impact Date
-        %td= t.impactdate
-      %tr
-        %th Screening Done
-        %td= t.screeningdone
-      %tr
-        %th Screening Head Count
-        %td= t.screeningheadcount
-      %tr
-        %th Screening Notes
-        %td= t.screeningnotes
-      %tr
-        %th Official Involved
-        %td= t.officialinvolved
-      %tr
-        %th Officials At Screening
-        %td= t.officialsatscreening
-      %tr
-        %th Official Screening Notes
-        %td= t.officialscreeningnotes
-      %tr
-        %th Collaborations
-        %td= t.collaborations
-      %tr
-        %th People Involved
-        %td= t.peopleinvolved
-      %tr
-        %th People Impacted
-        %td= t.peopleimpacted
-      %tr
-        %th Villages Impacted
-        %td= t.villagesimpacted
-      %tr
-        %th Video Folder Title
-        %td= t.videofoldertitle
-      %tr
-        %th Footage In State
-        %td= t.footageinstate
-      %tr
-        %th Assigned Editor
-        %td= t.assignededitor
-      %tr
-        %th Footage From State
-        %td= t.footagefromstate
-      %tr
-        %th Edited Video From State
-        %td= t.editedvideofromstate
-      %tr
-        %th Edit Status
-        %td= t.editstatus
-      %tr
-        %th Footage Review
-        %td= t.footagereview
-      %tr
-        %th Rough Cut Review
-        %td= t.roughcutreview
-      %tr
-        %th Footage Rating
-        %td= t.footagerating
-      %tr
-        %th Payment Approved
-        %td= t.paymentapproved
-      %tr
-        %th Rough Cut Date
-        %td= t.roughcutdate
-      %tr
-        %th Edit Date
-        %td= t.editdate
-      %tr
-        %th Final Video Rating
-        %td= t.finalvideorating
-      %tr
-        %th Bonus
-        %td= t.bonus
-      %tr
-        %th Youtube Date
-        %td= t.youtubedate
-      %tr
-        %th Youtube URL
-        %td= t.youtubeurl
-      %tr
-        %th IU Publish Date
-        %td= t.iupublishdate
-      %tr
-        %th Video Title
-        %td= t.videotitle
-      %tr
-        %th Subtitle Needed
-        %td= t.subtitleneeded
-      %tr
-        %th Secondary IU Issue
-        %td= t.secondaryiuissue
-      %tr
-        %th Subcategory
-        %td= t.subcategory
-      %tr
-        %th Project
-        %td= t.project
-      %tr
-        %th Blog Notes
-        %td= t.blognotes
-      %tr
-        %th Flag
-        %td= t.flag
-      %tr
-        %th Flag Notes
-        %td= t.flagnotes
-      %tr
-        %th Update Date
-        %td= t.updatedate
-      %tr
-        %th Correspondence Notes
-        %td= t.note
+        %th
+        -# %th
+        -# %th
+        %th uid
+        %th ccname
+        %th state
+        -# %th program
+        -# %th iutheme
+        %th description
+        %th storydate
+        -# %th mentor
+        -# %th storytype
+        -# %th shootplan
+        -# %th relateduid
+        -# %th impactpossible
+        -# %th targetofficial
+        -# %th desiredchange
+        -# %th impactplan
+        -# %th impactfollowup
+        -# %th impactfollowupnotes
+        -# %th impactprocess
+        -# %th impactstatus
+        -# %th impactdate
+        -# %th screeningdone
+        -# %th screeningheadcount
+        -# %th screeningnotes
+        -# %th officialinvolved
+        -# %th officialsatscreening
+        -# %th officialscreeningnotes
+        -# %th collaborations
+        -# %th peopleinvolved
+        -# %th peopleimpacted
+        -# %th villagesimpacted
+        -# %th videofoldertitle
+        -# %th footageinstate
+        -# %th assignededitor
+        -# %th footagefromstate
+        -# %th editedvideofromstate
+        -# %th editstatus
+        -# %th footagereview
+        -# %th roughcutreview
+        -# %th footagerating
+        -# %th paymentapproved
+        -# %th roughcutdate
+        -# %th editdate
+        -# %th finalvideorating
+        -# %th bonus
+        -# %th youtubedate
+        -# %th youtubeurl
+        -# %th iupublishdate
+        -# %th videotitle
+        -# %th subtitleneeded
+        -# %th secondaryiuissue
+        -# %th subcategory
+        -# %th project
+        -# %th blognotes
+        %th flag
+        %th flagnotes
+        %th updatedate
+        -# %th note
+
+    %tbody
+      - @track.each do |t|
+        %tr
+          %td
+            %a.btn.btn-default.btn-sm{:href => "/show/#{t.uid}", :role => 'button'} View
+          -# %td
+          -#   - if t.flag.nil?
+          -#     %a.btn.btn-default.btn-sm{:href => "/flag/#{t.uid}", :role => 'button'} Flag
+          -#   - else
+          -#     %a.btn.btn-default.btn-sm{:href => "/unflag/#{t.uid}", :role => 'button'} Unflag
+          -# %td
+          -#   %a.btn.btn-default.btn-sm{:href => "/delete/#{t.uid}", :role => 'button'} Delete
+          %td=h t.uid
+          %td=h t.ccname.capitalize
+          %td=h t.state.capitalize
+          -# %td=h t.program.capitalize
+          -# %td=h t.iutheme.capitalize
+          %td=h t.description
+          %td=h t.storydate
+          -# %td=h t.mentor
+          -# %td=h t.storytype
+          -# %td=h t.shootplan
+          -# %td=h t.relateduid
+          -# %td=h t.impactpossible
+          -# %td=h t.targetofficial
+          -# %td=h t.desiredchange
+          -# %td=h t.impactplan
+          -# %td=h t.impactfollowup
+          -# %td=h t.impactfollowupnotes
+          -# %td=h t.impactprocess
+          -# %td=h t.impactstatus
+          -# %td=h t.impactdate
+          -# %td=h t.screeningdone
+          -# %td=h t.screeningheadcount
+          -# %td=h t.screeningnotes
+          -# %td=h t.officialinvolved
+          -# %td=h t.officialsatscreening
+          -# %td=h t.officialscreeningnotes
+          -# %td=h t.collaborations
+          -# %td=h t.peopleinvolved
+          -# %td=h t.peopleimpacted
+          -# %td=h t.villagesimpacted
+          -# %td=h t.videofoldertitle
+          -# %td=h t.footageinstate
+          -# %td=h t.assignededitor
+          -# %td=h t.footagefromstate
+          -# %td=h t.editedvideofromstate
+          -# %td=h t.editstatus
+          -# %td=h t.footagereview
+          -# %td=h t.roughcutreview
+          -# %td=h t.footagerating
+          -# %td=h t.paymentapproved
+          -# %td=h t.roughcutdate
+          -# %td=h t.editdate
+          -# %td=h t.finalvideorating
+          -# %td=h t.bonus
+          -# %td=h t.youtubedate
+          -# %td=h t.youtubeurl
+          -# %td=h t.iupublishdate
+          -# %td=h t.videotitle
+          -# %td=h t.subtitleneeded
+          -# %td=h t.secondaryiuissue
+          -# %td=h t.subcategory
+          -# %td=h t.project
+          -# %td=h t.blognotes
+          %td=h t.flag
+          %td=h t.flagnotes
+          %td=h t.updatedate
+          -# %td=h t.note

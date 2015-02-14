@@ -73,7 +73,7 @@ DROP TABLE IF EXISTS `tracker`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tracker` (
-  `UID` varchar(20) NOT NULL,
+  `uid` varchar(20) NOT NULL,
   `ccname` varchar(20) DEFAULT NULL,
   `state` varchar(20) DEFAULT NULL,
   `program` varchar(30) DEFAULT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE `tracker` (
   `flagnotes` varchar(200) DEFAULT NULL,
   `updatedate` date DEFAULT NULL,
   `note` text DEFAULT NULL,
-  PRIMARY KEY (`UID`)
+  PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -142,7 +142,7 @@ DROP TABLE IF EXISTS `trackerOld`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `trackerOld` (
-  `UID` varchar(20) NOT NULL,
+  `uid` varchar(20) NOT NULL,
   `ccname` text,
   `state` text,
   `program` text,
@@ -197,7 +197,7 @@ CREATE TABLE `trackerOld` (
   `blognotes` text,
   `flag` text,
   `flagnotes` text,
-  PRIMARY KEY (`UID`)
+  PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -209,7 +209,7 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `UID` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(20) DEFAULT NULL,
   `middlename` varchar(20) DEFAULT NULL,
   `lastname` varchar(20) DEFAULT NULL,
@@ -230,7 +230,7 @@ CREATE TABLE `user` (
   `refreeName` varchar(20) DEFAULT NULL,
   `refreeContactNo` int(20) DEFAULT NULL,
   `organisation` int(20) DEFAULT NULL,
-  PRIMARY KEY (`UID`)
+  PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

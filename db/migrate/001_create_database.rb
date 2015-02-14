@@ -1,5 +1,5 @@
 class 001CreateDatabase < ActiveRecord::Migration
-  def self.up
+  def change
     create_table "ccdata", primary_key: "ccid", force: :cascade do |t|
       t.string "name",       limit: 30
       t.string "state",      limit: 30
@@ -8,7 +8,7 @@ class 001CreateDatabase < ActiveRecord::Migration
       t.string "statecodes", limit: 20
     end
 
-    create_table "tracker", primary_key: "UID", force: :cascade do |t|
+    create_table "tracker", primary_key: "uid", force: :cascade do |t|
       t.string  "ccname",                 limit: 20
       t.string  "state",                  limit: 20
       t.string  "program",                limit: 30
@@ -67,7 +67,7 @@ class 001CreateDatabase < ActiveRecord::Migration
       t.text    "note",                   limit: 65535
     end
 
-    create_table "trackerOld", primary_key: "UID", force: :cascade do |t|
+    create_table "trackerOld", primary_key: "uid", force: :cascade do |t|
       t.text "ccname",                 limit: 65535
       t.text "state",                  limit: 65535
       t.text "program",                limit: 65535
@@ -124,7 +124,7 @@ class 001CreateDatabase < ActiveRecord::Migration
       t.text "flagnotes",              limit: 65535
     end
 
-    create_table "user", primary_key: "UID", force: :cascade do |t|
+    create_table "user", primary_key: "uid", force: :cascade do |t|
       t.string  "firstname",       limit: 20
       t.string  "middlename",      limit: 20
       t.string  "lastname",        limit: 20
@@ -146,8 +146,5 @@ class 001CreateDatabase < ActiveRecord::Migration
       t.integer "refreeContactNo", limit: 4
       t.integer "organisation",    limit: 4
     end
-  end
-
-  def self.down
   end
 end

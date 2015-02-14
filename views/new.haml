@@ -1,64 +1,13 @@
 %h1 New Story
 
 %form.form-horizontal{:action => '/new', :method => 'post'}
-  .form-group
-    %label.col-sm-3.control-label UID:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'uid'}
-  .form-group
-    %label.col-sm-3.control-label CC Name:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'ccname'}
-  .form-group
-    %label.col-sm-3.control-label State:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'state'}
-  .form-group
-    %label.col-sm-3.control-label Program:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'program'}
-  .form-group
-    %label.col-sm-3.control-label IU Theme:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'iutheme'}
-  .form-group
-    %label.col-sm-3.control-label Story Description:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'description'}
+  - @arr.each do |x|
+    .form-group
+      %label.col-sm-3.control-label= "#{x}:"
+      .col-sm-9
+        %input.form-control{:type => 'text', :name => "#{x}"}
   .form-group
     %label.col-sm-3.control-label Date Story Pitched:
     .col-sm-9
       %input.form-control{:type => 'date', :name => 'storydate'}
-  .form-group
-    %label.col-sm-3.control-label Mentor:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'mentor'}
-  .form-group
-    %label.col-sm-3.control-label Story Type:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'storytype'}
-  .form-group
-    %label.col-sm-3.control-label Shoot Plan:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'shootplan'}
-  .form-group
-    %label.col-sm-3.control-label Related Story UID:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'relateduid'}
-  .form-group
-    %label.col-sm-3.control-label Impact Possible:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'impactpossible'}
-  .form-group
-    %label.col-sm-3.control-label Target Official:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'targetoffical'}
-  .form-group
-    %label.col-sm-3.control-label Desired Change:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'desiredchange'}
-  .form-group
-    %label.col-sm-3.control-label Impact Plan:
-    .col-sm-9
-      %input.form-control{:type => 'text', :name => 'impactplan'}
   %button.btn.btn-default.btn-block{:type => 'submit'} Submit
