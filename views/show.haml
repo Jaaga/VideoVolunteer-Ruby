@@ -168,7 +168,7 @@
       %td=h @track.updatedate
     %tr
       %th Correspondence Notes
-      %td=h @track.note
+      %td= @track.note
 
 %a.btn.btn-default{:href => "/edit/#{@track.uid}", :role => 'button'} Edit
 - if @track.flag.nil?

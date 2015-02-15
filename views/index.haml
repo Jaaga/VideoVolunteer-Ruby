@@ -1,15 +1,7 @@
 %h1 Excel 2.0
 %br/
 
-.btn-group-vertical#home-menu{:role => "group"}
-  %a.btn.btn-default.btn-block{:href => '/impact', :role => 'button'} Impact Form
-  %a.btn.btn-default.btn-block{:href => '/footage', :role => 'button'} Footage Status Form
-
-.btn-group-vertical#home-menu{:role => "group"}
-  %a.btn.btn-default.btn-block{:href => '/accounts', :role => 'button'} Accounts View
-  %a.btn.btn-default.btn-block{:href => '/editor', :role => 'button'} Editor View
-  %a.btn.btn-default.btn-block{:href => '/production', :role => 'button'} Production View
-
-.btn-group-vertical#home-menu{:role => "group"}
-  %a.btn.btn-default.btn-block{:href => '/flag', :role => 'button'} Flagged Stories
-  %a.btn.btn-default.btn-block{:href => '/note', :role => 'button'} Correspondence Notes
+%p
+  Total number of stories: "#{@track.count}"
+  %br
+  Number of flagged stories: "#{@flag}"

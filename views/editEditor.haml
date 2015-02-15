@@ -1,0 +1,14 @@
+%h1 Edit #{@track.uid}
+
+%form.form-horizontal{:action => "/editor/#{@track.uid}", :method => 'post'}
+  - @arr.each do |x|
+    .form-group
+      %label.col-sm-3.control-label= "#{x}:"
+      .col-sm-9
+        %input.form-control{:type => 'text', :name => "#{x}"}
+  - @dates.each do |x|
+    .form-group
+      %label.col-sm-3.control-label= "#{x}:"
+      .col-sm-9
+        %input.form-control{:type => 'date', :name => "#{x}"}
+  %button.btn.btn-default.btn-block{:type => 'submit'} Submit
