@@ -43,101 +43,39 @@ helpers do
   end
 end
 
-#
-# Forms
-#
 
 # New Stories
 
 get '/new' do
-  @arr = ['uid', 'ccname', 'state', 'program', 'iutheme', 'description', 'mentor', 'storytype', 'shootplan', 'relateduid', 'impactpossible', 'targetofficial', 'desiredchange', 'impactplan']
+  @arr = ['uid', 'ccname', 'state', 'program', 'iutheme', 'description', 'mentor', 'storytype', 'shootplan', 'relateduid', 'impactpossible', 'targetofficial', 'desiredchange', 'impactplan', 'impactfollowup', 'impactfollowupnotes', 'impactprocess', 'impactstatus', 'screeningdone', 'screeningheadcount', 'screeningnotes', 'officialinvolved', 'officialsatscreening', 'officialscreeningnotes', 'collaborations', 'peopleinvolved', 'peopleimpacted', 'villagesimpacted', 'videofoldertitle', 'assignededitor', 'editstatus', 'footagereview', 'roughcutreview', 'footagerating', 'paymentapproved', 'finalvideorating', 'bonus', 'youtubeurl', 'videotitle', 'subtitleneeded', 'secondaryiuissue', 'subcategory', 'project', 'blognotes']
+  @dates = ['storydate', 'impactdate',  'footagefromstate', 'editedvideofromstate','footageinstate','roughcutdate', 'editdate', 'iupublishdate', 'youtubedate']
 
   haml :new
 end
 
 post '/new' do
   @track = Tracker.new
-  arr = ['uid', 'ccname', 'state', 'program', 'iutheme', 'description', 'mentor', 'storytype', 'shootplan', 'relateduid', 'impactpossible', 'targetofficial', 'desiredchange', 'impactplan']
+  arr = ['uid', 'ccname', 'state', 'program', 'iutheme', 'description', 'mentor', 'storytype', 'shootplan', 'relateduid', 'impactpossible', 'targetofficial', 'desiredchange', 'impactplan', 'impactfollowup', 'impactfollowupnotes', 'impactprocess', 'impactstatus', 'screeningdone', 'screeningheadcount', 'screeningnotes', 'officialinvolved', 'officialsatscreening', 'officialscreeningnotes', 'collaborations', 'peopleinvolved', 'peopleimpacted', 'villagesimpacted', 'videofoldertitle', 'assignededitor', 'editstatus', 'footagereview', 'roughcutreview', 'footagerating', 'paymentapproved', 'finalvideorating', 'bonus', 'youtubeurl', 'videotitle', 'subtitleneeded', 'secondaryiuissue', 'subcategory', 'project', 'blognotes']
+  dates = ['storydate', 'impactdate',  'footagefromstate', 'editedvideofromstate','footageinstate','roughcutdate', 'editdate', 'iupublishdate', 'youtubedate']
 
   arr.each do |x|
     @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].blank?
   end
 
-  @track.storydate = params[:storydate] if !params[:storydate].blank?
+  dates.each do |x|
+    @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].blank?
+  end
+
   @track.updatedate = Date.today
 
   if @track.uid.length > 2
     @track.save
     redirect '/recent'
   else
-    puts "UID needs to be more than 2 characters long."
+    "UID needs to be more than 2 characters long."
   end
 end
 
-
-# Add story impact information
-get '/impact' do
-  haml :impact
-end
-
-post '/impactEditor' do
-  @track = Tracker.find_by(uid: params[:uid])
-  @arr = ['description', 'impactpossible', 'targetofficial', 'impactfollowup', 'impactfollowupnotes', 'impactprocess', 'impactstatus', 'screeningdone', 'screeningheadcount', 'screeningnotes', 'officialinvolved', 'officialsatscreening', 'officialscreeningnotes']
-  @dates = ['impactdate']
-
-  haml :editImpact
-end
-
-post '/impact/:uid' do
-  @track = Tracker.find_by(uid: params[:uid])
-  arr = ['description', 'impactpossible', 'targetofficial', 'impactfollowup', 'impactfollowupnotes', 'impactprocess', 'impactstatus', 'screeningdone', 'screeningheadcount', 'screeningnotes', 'officialinvolved', 'officialsatscreening', 'officialscreeningnotes']
-  dates = ['impactdate']
-
-  arr.each do |x|
-    @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].blank?
-  end
-
-  dates.each do |x|
-    @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].blank?
-  end
-
-  @track.updatedate = Date.today
-
-  @track.save
-  redirect '/recent'
-end
-
-# Add footage information
-get '/footage' do
-  haml :footage
-end
-
-post '/footageEditor' do
-  @track = Tracker.find_by(uid: params[:uid])
-  @arr = ['footageinstate', 'assignededitor', 'footagereview', 'footagerating']
-  @dates = ['impactdate']
-
-  haml :editFootage
-end
-
-post '/footage/:uid' do
-  @track = Tracker.find_by(uid: params[:uid])
-  arr = ['footageinstate', 'assignededitor', 'footagereview', 'footagerating']
-  dates = ['impactdate']
-
-  arr.each do |x|
-    @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].blank?
-  end
-
-  dates.each do |x|
-    @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].blank?
-  end
-
-  @track.updatedate = Date.today
-
-  @track.save
-  redirect '/recent'
-end
 
 # Recent Stories
 
@@ -145,7 +83,7 @@ get '/recent' do
   @track = Tracker.where(:updatedate => Date.today-14...Date.today+1).order("updatedate DESC")
   @title = 'Recent Stories'
 
-  haml :search_results
+  haml :results
 end
 
 
@@ -159,21 +97,21 @@ post '/search_results/uid' do
   @track = Tracker.where(uid: params[:uid]).order("uid ASC")
   @title = 'Search Results'
 
-  haml :search_results
+  haml :results
 end
 
 post '/search_results/state' do
   @track = Tracker.where(state: params[:state]).order("state ASC")
   @title = 'Search Results'
 
-  haml :search_results
+  haml :results
 end
 
 post '/search_results/ccname' do
   @track = Tracker.where(ccname: params[:ccname]).order("ccname ASC")
   @title = 'Search Results'
 
-  haml :search_results
+  haml :results
 end
 
 #
@@ -222,54 +160,13 @@ post '/edit/:uid' do
   redirect '/recent'
 end
 
-#
-# Views
-#
 
-# Accounts Team View
-get '/accounts' do
-  haml :account
+# View all stories
+
+get '/view' do
+
 end
 
-# Editor's View
-get '/editor' do
-  haml :editor
-end
-
-post '/editEditor' do
-  @track = Tracker.find_by(uid: params[:uid])
-  @arr = ['finalvideorating', 'youtubeurl']
-  @dates = ['roughcutdate', 'editdate', 'youtubedate']
-
-  haml :editEditor
-end
-
-post '/editor/:uid' do
-  @track = Tracker.find_by(uid: params[:uid])
-  arr = ['finalvideorating', 'youtubeurl']
-  dates = ['roughcutdate', 'editdate', 'youtubedate']
-
-  arr.each do |x|
-    @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].blank?
-  end
-
-  dates.each do |x|
-    @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].blank?
-  end
-
-  @track.updatedate = Date.today
-
-  @track.save
-  redirect '/recent'
-end
-
-# Production View
-get '/production' do
-  haml :production
-end
-#
-# Notes
-#
 
 # Flagging and unflagging individual stories
 
@@ -277,7 +174,7 @@ get '/flag' do
   @track = Tracker.where(flag: 'priority').order("updatedate ASC")
   @title = 'Flagged Stories'
 
-  haml :search_results
+  haml :results
 end
 
 get '/flag/:uid' do

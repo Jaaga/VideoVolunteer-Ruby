@@ -9,41 +9,16 @@
         .navbar-header
           %a.navbar-brand{:href => '/'} Video Volunteers
         %ul.nav.navbar-nav
-          %li.dropdown
-            %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown", :role => "button", :'aria-expanded' => "false"}
-              Forms
-              %span.caret
-            %ul.dropdown-menu{:role => "menu"}
-              %li
-                %a{:href => "/new"} New Story Form
-              %li
-                %a{:href => "/impact"} Impact Form
-              %li
-                %a{:href => "/footage"} Footage Status Form
-          %li.dropdown
-            %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown", :role => "button", :'aria-expanded' => "false"}
-              Views
-              %span.caret
-            %ul.dropdown-menu{:role => "menu"}
-              %li
-                %a{:href => "/accounts"} Accounts View
-              %li
-                %a{:href => "/editor"} Editor View
-              %li
-                %a{:href => "/production"} Production View
-          %li.dropdown
-            %a.dropdown-toggle{:href => "#", :'data-toggle' => "dropdown", :role => "button", :'aria-expanded' => "false"}
-              Notes
-              %span.caret
-            %ul.dropdown-menu{:role => "menu"}
-              %li
-                %a{:href => "/flag"} Flagged Stories
-              %li
-                %a{:href => "/note"} Correspondence Notes
+          %li
+            %a{:href => "/new"} New Story Form
+          %li
+            %a{:href => "/view"} View All
           %li
             %a{:href => '/recent'} Recent
           %li
             %a{:href => '/search'} Search
+          %li
+            %a{:href => "/note"} Add Note
 
     .container
       .row
@@ -54,3 +29,4 @@
 
     %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"}
     %script{:src => "/js/bootstrap.min.js"}
+    %script{:src => "/js/main.js"}

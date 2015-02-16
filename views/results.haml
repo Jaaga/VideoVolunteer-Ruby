@@ -1,0 +1,72 @@
+- arr = ['program', 'iutheme', 'mentor', 'storytype', 'shootplan', 'relateduid', 'impactpossible', 'targetofficial', 'desiredchange', 'impactplan', 'impactfollowup', 'impactfollowupnotes', 'impactprocess', 'impactstatus', 'screeningdone', 'screeningheadcount', 'screeningnotes', 'officialinvolved', 'officialsatscreening', 'officialscreeningnotes', 'collaborations', 'peopleinvolved', 'peopleimpacted', 'villagesimpacted', 'videofoldertitle', 'assignededitor', 'editstatus', 'footagereview', 'roughcutreview', 'footagerating', 'paymentapproved', 'finalvideorating', 'bonus', 'youtubeurl', 'videotitle', 'subtitleneeded', 'secondaryiuissue', 'subcategory', 'project', 'blognotes']
+- dates = ['impactdate',  'footagefromstate', 'editedvideofromstate','footageinstate','roughcutdate', 'editdate', 'iupublishdate', 'youtubedate']
+
+%h1= @title
+
+.checks
+  %p
+    %span.glyphicon.glyphicon-th-list
+    Change Columns
+  %ul.hide-list
+    %li
+      %input.0{:type => 'checkbox', :checked => true} UID
+    %li
+      %input.1{:type => 'checkbox', :checked => true} CC Name
+    %li
+      %input.2{:type => 'checkbox', :checked => true} State
+    %li
+      %input.3{:type => 'checkbox', :checked => true} Description
+    %li
+      %input.4{:type => 'checkbox', :checked => true} Story Date
+    %li
+      %input.5{:type => 'checkbox', :checked => true} Flag?
+    %li
+      %input.6{:type => 'checkbox', :checked => true} Flag Notes
+    %li
+      %input.7{:type => 'checkbox', :checked => true} Updated
+    - arr.each_with_index do |v, i|
+      %li
+        - x = i + 8
+        %input{:type => 'checkbox', :class => "#{x}"} #{v}
+    - dates.each_with_index do |y, x|
+      %li
+        - d = x + 8 + arr.length
+        %input{:type => 'checkbox', :class => "#{d}"} #{y}
+
+.table-responsive
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th.col0 UID
+        %th.col1 CC Name
+        %th.col2 State
+        %th.col3 Description
+        %th.col4 Story Date
+        %th.col5 Flag?
+        %th.col6 Flag Notes
+        %th.col7 Updated
+        - arr.each_with_index do |v, i|
+          - x = i + 8
+          %th{:class => "col#{x}"} #{v}
+        - dates.each_with_index do |y, x|
+          - d = x + 8 + arr.length
+          %th{:class => "col#{d}"} #{y}
+    %tbody
+      - @track.each do |t|
+        %tr
+          %td.col0
+            %a{:href => "/show/#{t.uid}"}
+              =h t.uid
+          %td.col1=h t.ccname
+          %td.col2=h t.state
+          %td.col3=h t.description
+          %td.col4=h t.storydate
+          %td.col5=h t.flag
+          %td.col6=h t.flagnotes
+          %td.col7=h t.updatedate
+          - arr.each_with_index do |v, i|
+            - x = i + 8
+            %td{:class => "col#{x}"}=h t.send(:"#{v}")
+          - dates.each_with_index do |y, x|
+            - d = x + 8 + arr.length
+            %td{:class => "col#{d}"}=h t.send(:"#{y}")

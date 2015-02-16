@@ -6,8 +6,9 @@
       %label.col-sm-3.control-label= "#{x}:"
       .col-sm-9
         %input.form-control{:type => 'text', :name => "#{x}"}
-  .form-group
-    %label.col-sm-3.control-label Date Story Pitched:
-    .col-sm-9
-      %input.form-control{:type => 'date', :name => 'storydate'}
+  - @dates.each do |x|
+    .form-group
+      %label.col-sm-3.control-label= "#{x}:"
+      .col-sm-9
+        %input.form-control{:type => 'date', :name => "#{x}"}
   %button.btn.btn-default.btn-block{:type => 'submit'} Submit
