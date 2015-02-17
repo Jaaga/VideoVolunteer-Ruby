@@ -77,6 +77,16 @@ post '/new' do
 end
 
 
+# View all stories
+
+get '/view' do
+  @track = Tracker.all
+  @title = 'All Stories'
+
+  haml :results
+end
+
+
 # Recent Stories
 
 get '/recent' do
@@ -158,13 +168,6 @@ post '/edit/:uid' do
 
   @track.save
   redirect '/recent'
-end
-
-
-# View all stories
-
-get '/view' do
-
 end
 
 
