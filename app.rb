@@ -97,32 +97,49 @@ get '/recent' do
 end
 
 
-# Search Functions
+# Search Function
 
 get '/search' do
   haml :search
 end
 
-post '/search_results/uid' do
-  @track = Tracker.where(uid: params[:uid]).order("uid ASC")
+post '/search' do
+  data = Array.new
+  index = Array.new
+  search = Array.new
+
+  if !params[:uid].blank?
+    data.push('"' + params[:uid] + '"')
+    index.push("uid")
+  end
+
+  if params[:flag] == "on"
+    data.push("\"priority\"")
+    index.push("flag")
+  end
+
+  if !params[:state].blank?
+    data.push('"' + params[:state] + '"')
+    index.push("state")
+  end
+
+  if !params[:ccname].blank?
+    data.push('"' + params[:ccname] + '"')
+    index.push("ccname")
+  end
+
+  index.each_with_index do |v, i|
+    search.push("#{v} = #{data[i]}")
+  end
+
+  search = search.join(" AND ")
+
+  @track = Tracker.where("#{search}")
   @title = 'Search Results'
 
   haml :results
 end
 
-post '/search_results/state' do
-  @track = Tracker.where(state: params[:state]).order("state ASC")
-  @title = 'Search Results'
-
-  haml :results
-end
-
-post '/search_results/ccname' do
-  @track = Tracker.where(ccname: params[:ccname]).order("ccname ASC")
-  @title = 'Search Results'
-
-  haml :results
-end
 
 #
 # General app mechanics

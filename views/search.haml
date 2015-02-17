@@ -1,20 +1,13 @@
 %h1 Search
 
-%form{:action => '/search_results/uid', :method => 'post'}
+
+%form{:action => '/search', :method => 'post'}
   %label UID
   %input{:type => 'text', :name => 'uid'}
-  %input{:type => 'submit'}
-
-%form{:action => '/flag', :method => 'get'}
   %label See flagged stories?
-  %input{:type => 'submit'}
-
-%form{:action => '/search_results/state', :method => 'post'}
+  %input{:type => 'checkbox', :name => 'flag'}
   %label State
   %input{:type => 'text', :name => 'state'}
-  %input{:type => 'submit'}
-
-%form{:action => '/search_results/ccname', :method => 'post'}
   %label CC Name
   %input{:type => 'text', :name => 'ccname'}
   %input{:type => 'submit'}
