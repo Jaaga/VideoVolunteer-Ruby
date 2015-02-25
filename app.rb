@@ -184,7 +184,7 @@ end
 post '/flag/:uid' do
   @track = Tracker.find_by(uid: params[:uid])
 
-  @track.flagnotes = "#{Date.today}: #{params[:note]}"
+  @track.flag_notes = "#{Date.today}: #{params[:note]}"
   @track.flag = "priority"
 
   @track.save
@@ -196,7 +196,7 @@ get '/unflag/:uid' do
   @track = Tracker.find_by(uid: params[:uid])
 
   @track.flag = nil
-  @track.flagnotes = nil
+  @track.flag_notes = nil
 
   @track.save
 
