@@ -81,7 +81,7 @@ class CreateTrackers < ActiveRecord::Migration
       t.string	:flag_notes
       t.text  	:note
 
-      t.timestamps null: false
+      t.timestamps
     end
 
     # Index for faster location of uid in table.

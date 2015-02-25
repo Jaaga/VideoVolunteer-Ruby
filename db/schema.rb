@@ -91,8 +91,8 @@ ActiveRecord::Schema.define(version: 20150224125830) do
     t.string   "flag"
     t.string   "flag_notes"
     t.text     "note"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "trackers", ["uid"], name: "index_trackers_on_uid", unique: true
