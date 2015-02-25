@@ -1,12 +1,33 @@
+- arr = ['uid', 'ccname', 'state', 'program', 'iutheme', 'description', 'mentor', 'storytype', 'shootplan', 'relateduid', 'impactpossible', 'targetofficial', 'desiredchange', 'impactplan', 'impactfollowup', 'impactfollowupnotes', 'impactprocess', 'impactstatus', 'screeningdone', 'screeningheadcount', 'screeningnotes', 'officialinvolved', 'officialsatscreening', 'officialscreeningnotes', 'collaborations', 'peopleinvolved', 'peopleimpacted', 'villagesimpacted', 'videofoldertitle', 'assignededitor', 'editstatus', 'footagereview', 'roughcutreview', 'footagerating', 'paymentapproved', 'finalvideorating', 'bonus', 'youtubeurl', 'videotitle', 'subtitleneeded', 'secondaryiuissue', 'subcategory', 'project', 'blognotes']
+- dates = ['storydate', 'impactdate',  'footagefromstate', 'editedvideofromstate','footageinstate','roughcutdate', 'editdate', 'iupublishdate', 'youtubedate']
+
+- story = 
+- footage =
+- impact =
+- screening =
+
 %h1 New Story
 
 %form.form-horizontal{:action => '/new', :method => 'post'}
-  - @arr.each do |x|
+  %h2 Story
+
+  %h2 Footage
+
+  %h2 Impact
+
+  %h2 Screening
+
+
+  %button.btn.btn-default.btn-block{:type => 'submit'} Submit
+
+
+%form.form-horizontal{:action => '/new', :method => 'post'}
+  - arr.each do |x|
     .form-group
       %label.col-sm-3.control-label= "#{x}:"
       .col-sm-9
         %input.form-control{:type => 'text', :name => "#{x}"}
-  - @dates.each do |x|
+  - dates.each do |x|
     .form-group
       %label.col-sm-3.control-label= "#{x}:"
       .col-sm-9

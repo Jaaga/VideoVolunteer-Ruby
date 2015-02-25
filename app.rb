@@ -2,28 +2,16 @@ require 'sinatra'
 require 'active_record'
 require 'sinatra/activerecord'
 require 'haml'
-require 'mysql'
+require 'sqlite3'
 require './.config/environment'
 require 'date'
 
 
 # Classes for database tables.
-class Ccdata < ActiveRecord::Base
-  self.table_name = "ccdata"
-end
-
 class Tracker < ActiveRecord::Base
-  self.table_name = "tracker"
 end
 
-class TrackerOld < ActiveRecord::Base
-  self.table_name = "trackerOld"
-end
-
-class User < ActiveRecord::Base
-  self.table_name = "user"
-end
-
+# Routes
 get '/' do
   @track = Tracker.all
   @flag = 0
@@ -47,9 +35,6 @@ end
 # New Stories
 
 get '/new' do
-  @arr = ['uid', 'ccname', 'state', 'program', 'iutheme', 'description', 'mentor', 'storytype', 'shootplan', 'relateduid', 'impactpossible', 'targetofficial', 'desiredchange', 'impactplan', 'impactfollowup', 'impactfollowupnotes', 'impactprocess', 'impactstatus', 'screeningdone', 'screeningheadcount', 'screeningnotes', 'officialinvolved', 'officialsatscreening', 'officialscreeningnotes', 'collaborations', 'peopleinvolved', 'peopleimpacted', 'villagesimpacted', 'videofoldertitle', 'assignededitor', 'editstatus', 'footagereview', 'roughcutreview', 'footagerating', 'paymentapproved', 'finalvideorating', 'bonus', 'youtubeurl', 'videotitle', 'subtitleneeded', 'secondaryiuissue', 'subcategory', 'project', 'blognotes']
-  @dates = ['storydate', 'impactdate',  'footagefromstate', 'editedvideofromstate','footageinstate','roughcutdate', 'editdate', 'iupublishdate', 'youtubedate']
-
   haml :new
 end
 
