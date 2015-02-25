@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20150224125830) do
     t.string   "state"
     t.string   "cc_name"
     t.string   "district"
+    t.string   "mentor"
     t.string   "iu_theme"
     t.string   "subcategory"
     t.string   "description"

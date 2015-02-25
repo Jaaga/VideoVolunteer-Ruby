@@ -5,6 +5,7 @@ class CreateTrackers < ActiveRecord::Migration
       t.string	:state
       t.string	:cc_name
       t.string	:district
+      t.string  :mentor
       t.string	:iu_theme
       t.string	:subcategory
       t.string	:description

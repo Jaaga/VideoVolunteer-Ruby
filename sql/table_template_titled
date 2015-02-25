@@ -3,6 +3,7 @@ STORY (FOOTAGE iutheme more important):
 'state',
 'cc_name',
 'district',
+'mentor',
 'iu_theme',
 'subcategory',
 'description',
@@ -97,4 +98,4 @@ EXTRA:
 'note',
 
 'created_at'
-'updated_at' 
+'updated_at'
