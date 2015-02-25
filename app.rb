@@ -2,7 +2,6 @@ require 'sinatra'
 require 'active_record'
 require 'sinatra/activerecord'
 require 'haml'
-require 'sqlite3'
 require './.config/environment'
 require 'date'
 
