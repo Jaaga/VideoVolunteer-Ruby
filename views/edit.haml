@@ -9,7 +9,7 @@
 
 %h1 Edit #{@track.uid}
 
-%form.form-horizontal{:action => '/new', :method => 'post'}
+%form.form-horizontal{:action => "/edit/#{@track.uid}", :method => 'post'}
   %h2 Story
   %span.glyphicon.glyphicon-plus
   .hide-list
