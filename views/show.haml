@@ -1,174 +1,70 @@
+- story = ['state', 'cc_name', 'district', 'iu_theme', 'subcategory', 'description', 'story_type', 'shoot_plan', 'story_rating']
+- footage = ['editor', 'edit_status', 'payment_status', 'iu_themes', 'description', 'folder_title', 'review_notes', 'edited_video_rating', 'youtube_url', 'video_title', 'subtitle_info', 'subtheme', 'project', 'reviewer_name', 'editor_changes_needed', 'cc_feedback', 'publishing_suggestions', 'final_video_rating', 'stalin_notes', 'video_type']
+- impact = ['impact_possible', 'target_official', 'target_official_email', 'target_official_phone', 'desired_change', 'impact_plan', 'impact_followup', 'impact_followup_notes', 'impact_uid', 'impact_process', 'impact_status', 'milestone', 'impact_time', 'collaborations', 'people_involved', 'people_impacted', 'villages_impacted', 'impact_production_status', 'impact_review', 'payment_approved', 'impact_reviewer']
+- screening = ['screening_done', 'screening_headcount', 'screening_notes', 'official_involved', 'officials_at_screening_number', 'officials_at_screening', 'official_screening_notes']
+- extra = ['flag', 'flag_notes']
+
+- story_dates = ['story_date']
+- footage_dates = ['raw_footage_review_date', 'backup_received_date', 'state_edit_date', 'edit_received_date', 'rough_cut_edit_date', 'review_date', 'finalized_date', 'youtube_date', 'iu_publish_date', 'received_cc_date', 'edit_in_goa_date', 'state_rough_cut_date', 'goa_rough_cut_date']
+- impact_dates = ['impact_date', 'impact_approval_date']
+- extra_dates = ['created_at', 'updated_at']
+
+%h1= "Story: #{@track.uid}"
+
+%h2 Story
 .table-responsive
   %table.table.table-bordered.table-striped#view-margin
-    %h1= @track.uid
+    - story.each do |x|
+      %tr
+        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %td=h @track.send(:"#{x}")
+    - story_dates.each do |x|
+      %tr
+        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %td=h @track.send(:"#{x}")
+%h2 Footage
+.table-responsive
+  %table.table.table-bordered.table-striped#view-margin
+    - footage.each do |x|
+      %tr
+        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %td=h @track.send(:"#{x}")
+    - footage_dates.each do |x|
+      %tr
+        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %td=h @track.send(:"#{x}")
+%h2 Impact
+.table-responsive
+  %table.table.table-bordered.table-striped#view-margin
+    - impact.each do |x|
+      %tr
+        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %td=h @track.send(:"#{x}")
+    - impact_dates.each do |x|
+      %tr
+        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %td=h @track.send(:"#{x}")
+%h2 Screening
+.table-responsive
+  %table.table.table-bordered.table-striped#view-margin
+    - screening.each do |x|
+      %tr
+        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %td=h @track.send(:"#{x}")
+%h2 Extra
+.table-responsive.space
+  %table.table.table-bordered.table-striped#view-margin
+    -extra.each do |x|
+      %tr
+        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %td=h @track.send(:"#{x}")
     %tr
-      %th CC Name
-      %td=h @track.ccname
-    %tr
-      %th State
-      %td=h @track.state
-    %tr
-      %th Program
-      %td=h @track.program
-    %tr
-      %th IU Theme
-      %td=h @track.iutheme
-    %tr
-      %th Description
-      %td=h @track.description
-    %tr
-      %th Story Date
-      %td=h @track.storydate
-    %tr
-      %th Mentor
-      %td=h @track.mentor
-    %tr
-      %th Story Type
-      %td=h @track.storytype
-    %tr
-      %th Shoot Plan
-      %td=h @track.shootplan
-    %tr
-      %th Related uid
-      %td=h @track.relateduid
-    %tr
-      %th Impact Possible
-      %td=h @track.impactpossible
-    %tr
-      %th Target Official
-      %td=h @track.targetofficial
-    %tr
-      %th Desired Change
-      %td=h @track.desiredchange
-    %tr
-      %th Impact Plan
-      %td=h @track.impactplan
-    %tr
-      %th Impact Followup
-      %td=h @track.impactfollowup
-    %tr
-      %th Impact Followup Notes
-      %td=h @track.impactfollowupnotes
-    %tr
-      %th Impact Process
-      %td=h @track.impactprocess
-    %tr
-      %th Impact Status
-      %td=h @track.impactstatus
-    %tr
-      %th Impact Date
-      %td=h @track.impactdate
-    %tr
-      %th Screening Done
-      %td=h @track.screeningdone
-    %tr
-      %th Screening Head Count
-      %td=h @track.screeningheadcount
-    %tr
-      %th Screening Notes
-      %td=h @track.screeningnotes
-    %tr
-      %th Official Involved
-      %td=h @track.officialinvolved
-    %tr
-      %th Officials At Screening
-      %td=h @track.officialsatscreening
-    %tr
-      %th Official Screening Notes
-      %td=h @track.officialscreeningnotes
-    %tr
-      %th Collaborations
-      %td=h @track.collaborations
-    %tr
-      %th People Involved
-      %td=h @track.peopleinvolved
-    %tr
-      %th People Impacted
-      %td=h @track.peopleimpacted
-    %tr
-      %th Villages Impacted
-      %td=h @track.villagesimpacted
-    %tr
-      %th Video Folder Title
-      %td=h @track.videofoldertitle
-    %tr
-      %th Footage In State
-      %td=h @track.footageinstate
-    %tr
-      %th Assigned Editor
-      %td=h @track.assignededitor
-    %tr
-      %th Footage From State
-      %td=h @track.footagefromstate
-    %tr
-      %th Edited Video From State
-      %td=h @track.editedvideofromstate
-    %tr
-      %th Edit Status
-      %td=h @track.editstatus
-    %tr
-      %th Footage Review
-      %td=h @track.footagereview
-    %tr
-      %th Rough Cut Review
-      %td=h @track.roughcutreview
-    %tr
-      %th Footage Rating
-      %td=h @track.footagerating
-    %tr
-      %th Payment Approved
-      %td=h @track.paymentapproved
-    %tr
-      %th Rough Cut Date
-      %td=h @track.roughcutdate
-    %tr
-      %th Edit Date
-      %td=h @track.editdate
-    %tr
-      %th Final Video Rating
-      %td=h @track.finalvideorating
-    %tr
-      %th Bonus
-      %td=h @track.bonus
-    %tr
-      %th Youtube Date
-      %td=h @track.youtubedate
-    %tr
-      %th Youtube URL
-      %td=h @track.youtubeurl
-    %tr
-      %th IU Publish Date
-      %td=h @track.iupublishdate
-    %tr
-      %th Video Title
-      %td=h @track.videotitle
-    %tr
-      %th Subtitle Needed
-      %td=h @track.subtitleneeded
-    %tr
-      %th Secondary IU Issue
-      %td=h @track.secondaryiuissue
-    %tr
-      %th Subcategory
-      %td=h @track.subcategory
-    %tr
-      %th Project
-      %td=h @track.project
-    %tr
-      %th Blog Notes
-      %td=h @track.blognotes
-    %tr
-      %th Flag
-      %td=h @track.flag
-    %tr
-      %th Flag Notes
-      %td=h @track.flagnotes
-    %tr
-      %th Update Date
-      %td=h @track.updatedate
-    %tr
-      %th Correspondence Notes
+      %th Notes
       %td= @track.note
+    -extra_dates.each do |x|
+      %tr
+        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %td=h @track.send(:"#{x}")
 
 %a.btn.btn-default{:href => "/edit/#{@track.uid}", :role => 'button'} Edit
 - if @track.flag.nil?

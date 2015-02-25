@@ -1,5 +1,11 @@
 $(document).ready(function() {
 
+  // Toggles forms and information display for each major section (footage, impact, etc)
+
+  $(".glyphicon-plus").click(function() {
+    $(this).next().toggleClass("hide-list");
+  })
+
   //
   // JQuery for results.haml
   //

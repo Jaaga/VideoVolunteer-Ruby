@@ -1,35 +1,59 @@
-- arr = ['uid', 'ccname', 'state', 'program', 'iutheme', 'description', 'mentor', 'storytype', 'shootplan', 'relateduid', 'impactpossible', 'targetofficial', 'desiredchange', 'impactplan', 'impactfollowup', 'impactfollowupnotes', 'impactprocess', 'impactstatus', 'screeningdone', 'screeningheadcount', 'screeningnotes', 'officialinvolved', 'officialsatscreening', 'officialscreeningnotes', 'collaborations', 'peopleinvolved', 'peopleimpacted', 'villagesimpacted', 'videofoldertitle', 'assignededitor', 'editstatus', 'footagereview', 'roughcutreview', 'footagerating', 'paymentapproved', 'finalvideorating', 'bonus', 'youtubeurl', 'videotitle', 'subtitleneeded', 'secondaryiuissue', 'subcategory', 'project', 'blognotes']
-- dates = ['storydate', 'impactdate',  'footagefromstate', 'editedvideofromstate','footageinstate','roughcutdate', 'editdate', 'iupublishdate', 'youtubedate']
+- story = ['uid', 'state', 'cc_name', 'district', 'iu_theme', 'subcategory', 'description', 'story_type', 'shoot_plan', 'story_rating']
+- footage = ['editor', 'edit_status', 'payment_status', 'iu_themes', 'description', 'folder_title', 'review_notes', 'edited_video_rating', 'youtube_url', 'video_title', 'subtitle_info', 'subtheme', 'project', 'reviewer_name', 'editor_changes_needed', 'cc_feedback', 'publishing_suggestions', 'final_video_rating', 'stalin_notes', 'video_type']
+- impact = ['impact_possible', 'target_official', 'target_official_email', 'target_official_phone', 'desired_change', 'impact_plan', 'impact_followup', 'impact_followup_notes', 'impact_uid', 'impact_process', 'impact_status', 'milestone', 'impact_time', 'collaborations', 'people_involved', 'people_impacted', 'villages_impacted', 'impact_production_status', 'impact_review', 'payment_approved', 'impact_reviewer']
+- screening = ['screening_done', 'screening_headcount', 'screening_notes', 'official_involved', 'officials_at_screening_number', 'officials_at_screening', 'official_screening_notes']
 
-- story = 
-- footage =
-- impact =
-- screening =
+- story_dates = ['story_date']
+- footage_dates = ['raw_footage_review_date', 'backup_received_date', 'state_edit_date', 'edit_received_date', 'rough_cut_edit_date', 'review_date', 'finalized_date', 'youtube_date', 'iu_publish_date', 'received_cc_date', 'edit_in_goa_date', 'state_rough_cut_date', 'goa_rough_cut_date']
+- impact_dates = ['impact_date', 'impact_approval_date']
 
 %h1 New Story
 
 %form.form-horizontal{:action => '/new', :method => 'post'}
   %h2 Story
-
-  %h2 Footage
-
-  %h2 Impact
-
-  %h2 Screening
-
-
-  %button.btn.btn-default.btn-block{:type => 'submit'} Submit
-
-
-%form.form-horizontal{:action => '/new', :method => 'post'}
-  - arr.each do |x|
+  - story.each do |x|
     .form-group
-      %label.col-sm-3.control-label= "#{x}:"
+      %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
       .col-sm-9
         %input.form-control{:type => 'text', :name => "#{x}"}
-  - dates.each do |x|
+  - story_dates.each do |x|
     .form-group
-      %label.col-sm-3.control-label= "#{x}:"
+      %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
       .col-sm-9
         %input.form-control{:type => 'date', :name => "#{x}"}
+  %h2 Footage
+  %span.glyphicon.glyphicon-plus
+  .hide-list
+    - footage.each do |x|
+      .form-group
+        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        .col-sm-9
+          %input.form-control{:type => 'text', :name => "#{x}"}
+    - footage_dates.each do |x|
+      .form-group
+        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        .col-sm-9
+          %input.form-control{:type => 'date', :name => "#{x}"}
+  %h2 Impact
+  %span.glyphicon.glyphicon-plus
+  .hide-list
+    - impact.each do |x|
+      .form-group
+        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        .col-sm-9
+          %input.form-control{:type => 'text', :name => "#{x}"}
+    - impact_dates.each do |x|
+      .form-group
+        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        .col-sm-9
+          %input.form-control{:type => 'date', :name => "#{x}"}
+  %h2 Screening
+  %span.glyphicon.glyphicon-plus
+  .hide-list
+    - screening.each do |x|
+      .form-group
+        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        .col-sm-9
+          %input.form-control{:type => 'text', :name => "#{x}"}
+
   %button.btn.btn-default.btn-block{:type => 'submit'} Submit

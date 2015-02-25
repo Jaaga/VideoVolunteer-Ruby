@@ -31,6 +31,10 @@ td{
   display: none;
 }
 
+.space {
+  margin-bottom: 15px;
+}
+
 #home-menu {
   width: 100%;
   margin-bottom: 10px;
