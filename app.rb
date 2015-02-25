@@ -91,22 +91,22 @@ post '/search' do
   search = Array.new
 
   if !params[:uid].blank?
-    data.push('"' + params[:uid] + '"')
+    data.push("'#{params[:uid]}'")
     index.push("uid")
   end
 
   if params[:flag] == "on"
-    data.push("\"priority\"")
+    data.push("'priority'")
     index.push("flag")
   end
 
   if !params[:state].blank?
-    data.push('"' + params[:state] + '"')
+    data.push("'#{params[:state]}'")
     index.push("state")
   end
 
   if !params[:cc_name].blank?
-    data.push('"' + params[:cc_name] + '"')
+    data.push("'#{params[:cc_name]}'")
     index.push("cc_name")
   end
 
