@@ -16,7 +16,6 @@ class CreateTrackers < ActiveRecord::Migration
       t.string	:editor
       t.string	:edit_status
       t.string	:payment_status
-      t.string	:iu_themes
       t.string	:description
       t.string	:folder_title
       t.string	:review_notes
@@ -80,6 +79,7 @@ class CreateTrackers < ActiveRecord::Migration
       t.string	:flag
       t.string	:flag_notes
       t.text  	:note
+      t.string  :updated_by
 
       t.timestamps
     end

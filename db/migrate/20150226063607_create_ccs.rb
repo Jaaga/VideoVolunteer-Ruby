@@ -9,6 +9,7 @@ class CreateCcs < ActiveRecord::Migration
       c.string :district
       c.string :phone
       c.string :mentor
+      c.string :notes
     end
   end
 end

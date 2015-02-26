@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20150226064312) do
     t.string "district"
     t.string "phone"
     t.string "mentor"
+    t.string "notes"
   end
 
   create_table "states", force: :cascade do |t|

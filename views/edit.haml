@@ -1,13 +1,20 @@
-- story = ['uid', 'state', 'cc_name', 'district', 'mentor', 'iu_theme', 'subcategory', 'description', 'story_type', 'shoot_plan', 'story_rating']
-- footage = ['editor', 'edit_status', 'payment_status', 'iu_themes', 'description', 'folder_title', 'review_notes', 'edited_video_rating', 'youtube_url', 'video_title', 'subtitle_info', 'subtheme', 'project', 'reviewer_name', 'editor_changes_needed', 'cc_feedback', 'publishing_suggestions', 'final_video_rating', 'stalin_notes', 'video_type']
-- impact = ['impact_possible', 'target_official', 'target_official_email', 'target_official_phone', 'desired_change', 'impact_plan', 'impact_followup', 'impact_followup_notes', 'impact_uid', 'impact_process', 'impact_status', 'milestone', 'impact_time', 'collaborations', 'people_involved', 'people_impacted', 'villages_impacted', 'impact_production_status', 'impact_review', 'payment_approved', 'impact_reviewer']
-- screening = ['screening_done', 'screening_headcount', 'screening_notes', 'official_involved', 'officials_at_screening_number', 'officials_at_screening', 'official_screening_notes']
+- story = ['district', 'mentor', 'iu_theme', 'subcategory', 'description', 'story_type', 'shoot_plan']
+- footage = ['editor', 'description', 'folder_title', 'review_notes', 'youtube_url', 'video_title', 'subtheme', 'project', 'reviewer_name', 'cc_feedback', 'publishing_suggestions', 'stalin_notes', 'video_type']
+- impact = ['target_official', 'target_official_email', 'target_official_phone', 'desired_change', 'impact_plan', 'impact_followup_notes', 'impact_uid', 'impact_process', 'milestone', 'impact_time', 'collaborations', 'impact_reviewer']
+- screening = ['screening_headcount', 'screening_notes', 'official_screening_notes']
 
 - story_dates = ['story_date']
-- footage_dates = ['raw_footage_review_date', 'backup_received_date', 'state_edit_date', 'edit_received_date', 'rough_cut_edit_date', 'review_date', 'finalized_date', 'youtube_date', 'iu_publish_date', 'received_cc_date', 'edit_in_goa_date', 'state_rough_cut_date', 'goa_rough_cut_date']
+- footage_dates = ['received_cc_date', 'edit_in_goa_date', 'state_rough_cut_date', 'goa_rough_cut_date']
+- status_dates = ['backup_received_date', 'raw_footage_review_date', 'state_edit_date', 'edit_received_date', 'rough_cut_edit_date', 'review_date', 'finalized_date', 'youtube_date', 'iu_publish_date']
 - impact_dates = ['impact_date', 'impact_approval_date']
 
-%h1 Edit #{@track.uid}
+- yes_no_impact = ['impact_possible', 'impact_followup', 'impact_review', 'payment_approved']
+- yes_no_screening = ['screening_done', 'officials_at_screening']
+- ratings = ['story_rating', 'edited_video_rating', 'final_video_rating']
+- numbers_impact = ['people_involved', 'people_impacted', 'villages_impacted']
+- numbers_screening = ['official_involved', 'officials_at_screening_number']
+
+%h1 Editing #{@track.uid.split('_').join(' ')}
 
 %form.form-horizontal{:action => "/edit/#{@track.uid}", :method => 'post'}
   %h2 Story
@@ -23,6 +30,14 @@
         %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
         .col-sm-9
           %input.form-control{:type => 'date', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+  %h2 Status
+  %span.glyphicon.glyphicon-plus
+  .hide-list
+    - status_dates.each do |x|
+      .form-group
+        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        .col-sm-9
+          %input.form-control{:type => 'date', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
   %h2 Footage
   %span.glyphicon.glyphicon-plus
   .hide-list
@@ -31,6 +46,37 @@
         %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
         .col-sm-9
           %input.form-control{:type => 'text', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+    .form-group
+      %label.col-sm-3.control-label= "Edit Status"
+      .col-sm-9
+        %select{:name => "edit_status"}
+          %option{:value => "#{@track.edit_status}", :selected => true, :disabled => true}= @track.edit_status
+          %option{:value => 'cleared'} cleared
+          %option{:value => 'on hold'} on hold
+    .form-group
+      %label.col-sm-3.control-label= "Impact Production Status"
+      .col-sm-9
+        %select{:name => "payment_status"}
+          %option{:value => "#{@track.payment_status}", :selected => true, :disabled => true}= @track.payment_status
+          %option{:value => 'paid'} paid
+          %option{:value => 'pay'} pay
+          %option{:value => 'hold'} hold
+    .form-group
+      %label.col-sm-3.control-label= "Subtitle Info"
+      .col-sm-9
+        %select{:name => "subtitle_info"}
+          %option{:value => "#{@track.subtitle_info}", :selected => true, :disabled => true}= @track.subtitle_info
+          %option{:value => 'has subtitles'} has subtitles
+          %option{:value => 'high priority subtitle'} high priority subtitle
+          %option{:value => 'low priority subtitle'} low priority subtitle
+    .form-group
+      %label.col-sm-3.control-label= "Editor Changes Needed"
+      .col-sm-9
+        %select{:name => "editor_changes_needed"}
+          %option{:value => "#{@track.editor_changes_needed}", :selected => true, :disabled => true}= @track.editor_changes_needed
+          %option{:value => 'required'} required
+          %option{:value => 'suggested'} suggested
+          %option{:value => 'not needed'} not needed
     - footage_dates.each do |x|
       .form-group
         %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
@@ -44,6 +90,34 @@
         %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
         .col-sm-9
           %input.form-control{:type => 'text', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+    .form-group
+      %label.col-sm-3.control-label= "Impact Status"
+      .col-sm-9
+        %select{:name => "impact_status"}
+          %option{:value => "#{@track.impact_status}", :selected => true, :disabled => true}= @track.impact_status
+          %option{:value => 'achieved'} achieved
+          %option{:value => 'not achieved'} not achieved
+    .form-group
+      %label.col-sm-3.control-label= "Impact Production Status"
+      .col-sm-9
+        %select{:name => "impact_production_status"}
+          %option{:value => "#{@track.impact_production_status}", :selected => true, :disabled => true}= @track.impact_production_status
+          %option{:value => 'done'} done
+          %option{:value => 'not done'} not done
+          %option{:value => 'in progress'} in progress
+    - yes_no_impact.each do |x|
+      .form-group
+        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        .col-sm-9
+          %select{:name => "#{x}"}
+            %option{:value => "#{@track.send(:"#{x}")}", :selected => true, :disabled => true}= @track.send(:"#{x}")
+            %option{:value => 'yes'} yes
+            %option{:value => 'no'} no
+    - numbers_impact.each do |x|
+      .form-group
+        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        .col-sm-9
+          %input.form-control{:type => 'number', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
     - impact_dates.each do |x|
       .form-group
         %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
@@ -57,5 +131,29 @@
         %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
         .col-sm-9
           %input.form-control{:type => 'text', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+    - yes_no_screening.each do |x|
+      .form-group
+        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        .col-sm-9
+          %select{:name => "#{x}"}
+            %option{:value => "#{@track.send(:"#{x}")}", :selected => true, :disabled => true}= @track.send(:"#{x}")
+            %option{:value => 'yes'} yes
+            %option{:value => 'no'} no
+    - numbers_screening.each do |x|
+      .form-group
+        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        .col-sm-9
+          %input.form-control{:type => 'number', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+  %h2 Ratings
+  %span.glyphicon.glyphicon-plus
+  .hide-list
+    - ratings.each do |x|
+      .form-group
+        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        .col-sm-9
+          %select{:name => "#{x}"}
+            %option{:value => "#{@track.send(:"#{x}")}", :selected => true, :disabled => true}= @track.send(:"#{x}")
+            - (1..4).each do |i|
+              %option{:value => i}= i
 
   %button.btn.btn-default.btn-block{:type => 'submit'} Submit
