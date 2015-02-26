@@ -17,12 +17,12 @@
       .form-group
         %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
         .col-sm-9
-          %input.form-control{:type => 'text', :name => "#{x}"}
+          %input.form-control{:type => 'text', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
     - story_dates.each do |x|
       .form-group
         %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
         .col-sm-9
-          %input.form-control{:type => 'date', :name => "#{x}"}
+          %input.form-control{:type => 'date', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
   %h2 Footage
   %span.glyphicon.glyphicon-plus
   .hide-list
@@ -30,12 +30,12 @@
       .form-group
         %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
         .col-sm-9
-          %input.form-control{:type => 'text', :name => "#{x}"}
+          %input.form-control{:type => 'text', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
     - footage_dates.each do |x|
       .form-group
         %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
         .col-sm-9
-          %input.form-control{:type => 'date', :name => "#{x}"}
+          %input.form-control{:type => 'date', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
   %h2 Impact
   %span.glyphicon.glyphicon-plus
   .hide-list
@@ -43,12 +43,12 @@
       .form-group
         %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
         .col-sm-9
-          %input.form-control{:type => 'text', :name => "#{x}"}
+          %input.form-control{:type => 'text', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
     - impact_dates.each do |x|
       .form-group
         %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
         .col-sm-9
-          %input.form-control{:type => 'date', :name => "#{x}"}
+          %input.form-control{:type => 'date', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
   %h2 Screening
   %span.glyphicon.glyphicon-plus
   .hide-list
@@ -56,6 +56,6 @@
       .form-group
         %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
         .col-sm-9
-          %input.form-control{:type => 'text', :name => "#{x}"}
+          %input.form-control{:type => 'text', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
 
   %button.btn.btn-default.btn-block{:type => 'submit'} Submit
