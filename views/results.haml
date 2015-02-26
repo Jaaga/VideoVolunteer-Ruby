@@ -27,11 +27,11 @@
     - arr.each_with_index do |v, i|
       %li
         - x = i + 8
-        %input{:type => 'checkbox', :class => "#{x}"} #{v}
+        %input{:type => 'checkbox', :class => "#{x}"} #{v.split('_').map(&:capitalize).join(' ')}
     - dates.each_with_index do |y, x|
       %li
         - d = x + 8 + arr.length
-        %input{:type => 'checkbox', :class => "#{d}"} #{y}
+        %input{:type => 'checkbox', :class => "#{d}"} #{y.split('_').map(&:capitalize).join(' ')}
 
 .table-responsive
   %table.table.table-bordered.table-striped
@@ -47,10 +47,10 @@
         %th.col7 Updated at
         - arr.each_with_index do |v, i|
           - x = i + 8
-          %th{:class => "col#{x}"} #{v}
+          %th{:class => "col#{x}"} #{v.split('_').map(&:capitalize).join(' ')}
         - dates.each_with_index do |y, x|
           - d = x + 8 + arr.length
-          %th{:class => "col#{d}"} #{y}
+          %th{:class => "col#{d}"} #{y.split('_').map(&:capitalize).join(' ')}
     %tbody
       - @track.each do |t|
         %tr
