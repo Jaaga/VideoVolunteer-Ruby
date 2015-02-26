@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(version: 20150226064312) do
     t.string   "editor"
     t.string   "edit_status"
     t.string   "payment_status"
-    t.string   "iu_themes"
     t.string   "folder_title"
     t.string   "review_notes"
     t.string   "edited_video_rating"
@@ -109,6 +108,7 @@ ActiveRecord::Schema.define(version: 20150226064312) do
     t.string   "flag"
     t.string   "flag_notes"
     t.text     "note"
+    t.string   "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
