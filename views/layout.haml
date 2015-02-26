@@ -24,6 +24,8 @@
       .row
         .col-md-1
         .col-md-10
+          - if flash[:error]
+            %p= flash[:error]
           = yield
         .col-md-1
 
