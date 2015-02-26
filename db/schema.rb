@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 20150226064312) do
   end
 
   create_table "states", force: :cascade do |t|
-    t.string "state"
-    t.string "state_abb"
+    t.string "state",     null: false
+    t.string "state_abb", null: false
     t.string "district"
   end
 
