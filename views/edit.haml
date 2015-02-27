@@ -14,7 +14,7 @@
 - numbers_impact = ['people_involved', 'people_impacted', 'villages_impacted']
 - numbers_screening = ['official_involved', 'officials_at_screening_number']
 
-%h1 Editing #{@track.uid.split('_').join(' ')}
+%h1 #{@track.uid.split('_').join(' ')} by #{@track.cc_name} - #{@track.iu_theme}
 
 %form.form-horizontal{:action => "/edit/#{@track.uid}", :method => 'post'}
   %h2 Story

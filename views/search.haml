@@ -1,37 +1,40 @@
 - arr = ['uid', 'state', 'cc_name', 'district', 'mentor', 'iu_theme', 'subcategory', 'description', 'story_type', 'shoot_plan', 'story_rating',  'editor', 'edit_status', 'payment_status', 'iu_themes', 'description', 'folder_title', 'review_notes', 'edited_video_rating', 'youtube_url', 'video_title', 'subtitle_info', 'subtheme', 'project', 'reviewer_name', 'editor_changes_needed', 'cc_feedback', 'publishing_suggestions', 'final_video_rating', 'stalin_notes', 'video_type',   'impact_possible', 'target_official', 'target_official_email', 'target_official_phone', 'desired_change', 'impact_plan', 'impact_followup', 'impact_followup_notes', 'impact_uid', 'impact_process', 'impact_status', 'milestone', 'impact_time', 'collaborations', 'people_involved', 'people_impacted', 'villages_impacted', 'impact_production_status', 'impact_review', 'payment_approved', 'impact_reviewer',  'screening_done', 'screening_headcount', 'screening_notes', 'official_involved', 'officials_at_screening_number', 'officials_at_screening', 'official_screening_notes', 'flag', 'flag_date', 'flag_notes', 'note']
+- dates = ['story_pitch_date', 'received_cc_date', 'edit_in_goa_date', 'state_rough_cut_date', 'goa_rough_cut_date', 'raw_footage_review_date', 'backup_received_date', 'state_edit_date', 'edit_received_date', 'rough_cut_edit_date', 'review_date', 'finalized_date', 'youtube_date', 'iu_publish_date', 'impact_date', 'impact_approval_date', 'flag_date']
 
 %h1 Search
 
-%form.form-horizontal{:action => '/search', :method => 'post'}
+%h2 Custom Search
+%form.form-horizontal{:action => '/search/custom', :method => 'post'}
   .form-group
-    %select{:name => 'column'}
+    - (0..8).each do |i|
+      %select{:name => "column_#{i}"}
+        %option{value: '', selected: true, disabled: true}
+        - arr.each do |x|
+          %option{:value => x} #{x.split('_').map(&:capitalize).join(' ')}
+      %select{:name => "operator_#{i}"}
+        %option{:value => 'IS'} IS
+        %option{:value => 'IS NOT'} IS NOT
+      %input{:type => 'text', :name => "input_#{i}"}
+      %br
+      %select{:name => "chain_#{i}"}
+        %option{value: '', selected: true, disabled: true}
+        %option{:value => 'AND'} AND
+        %option{:value => 'OR'} OR
+      %br
+
+    %select{:name => 'column_9'}
+      %option{value: '', selected: true, disabled: true}
       - arr.each do |x|
-        %option{:value => x} #{x}
-    %select{:name => 'operator'}
+        %option{:value => x} #{x.split('_').map(&:capitalize).join(' ')}
+    %select{:name => 'operator_9'}
       %option{:value => 'IS'} IS
       %option{:value => 'IS NOT'} IS NOT
-    %input{:type => 'text', :name => 'input'}
+    %input{:type => 'text', :name => 'input_9'}
   %button.btn.btn-default.btn-block{:type => 'submit'} Submit
 
+%h2 Standard Searches
 %form.form-horizontal{:action => '/search', :method => 'post'}
   .form-group
-    -# %label.control-label UID
-    -# %input.form-control{:type => 'text', :name => 'uid'}
-    -# %label.control-label See flagged stories?
-    -# %input.form-control{:type => 'checkbox', :name => 'flag'}
-    -# %label.control-label Specific flag:
-    -# %select.form-control{:name => 'flag_notes'}
-    -#   %option{:value => '', :selected => true, :disabled => true}
-    -#   %option{:value => 'State Coordinator'} State Coordinator
-    -#   %option{:value => 'Training & Mentoring'} Training & Mentoring
-    -#   %option{:value => 'Communications'} Communications
-    -#   %option{:value => 'Production'} Production
-    -#   %option{:value => 'Executive Directors'} Executive Directors
-    -# %label.control-label State
-    -# %input.form-control{:type => 'text', :name => 'state'}
-    -# %label.control-label CC Name
-    -# %input.form-control{:type => 'text', :name => 'cc_name'}
-
     %label.control-label Pitched but has no video yet:
     %input.form-control{:type => 'checkbox', :name => 'no_video'}
 

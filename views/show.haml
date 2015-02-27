@@ -12,7 +12,7 @@
 
 - ratings = ['story_rating', 'edited_video_rating', 'final_video_rating']
 
-%h1= "Story: #{@track.uid.split('_').join(' ')}"
+%h1 #{@track.uid.split('_').join(' ')} by #{@track.cc_name} - #{@track.iu_theme}
 
 %h2 Story
 .table-responsive
