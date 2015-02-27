@@ -164,25 +164,40 @@ end
 # Custom queries come through here.
 post '/search/custom' do
   search = Array.new
+  query = 0
+  chain = 1
 
   # Goes through each query row and checks if data is entered for the search query.
   (0..9).each do |x|
     if !params[:"column_#{x}"].blank? && !params[:"input_#{x}"].blank?
       search.push("#{params[:"column_#{x}"]} #{params[:"operator_#{x}"]} '#{params[:"input_#{x}"]}'")
+      query += 1
     end
 
     # Only add chain if input was filled in and column was chosen.
     if !params[:"chain_#{x}"].blank? && !params[:"column_#{x}"].blank? && !params[:"input_#{x}"].blank?
       search.push(params[:"chain_#{x}"])
+      chain += 1
     end
   end
 
-  search = search.join(' ')
+  # Flash error if there are not enough operators for the queries.
+  if query == 1
+    @track = Tracker.where(search)
+    @title = 'Search Results'
 
-  @track = Tracker.where(search)
-  @title = 'Search Results'
+    haml :results
+  elsif query != chain
+    flash[:error] = "Need an AND or OR for multiple criteria."
+    redirect '/search'
+  else
+    search = search.join(' ')
 
-  haml :results
+    @track = Tracker.where(search)
+    @title = 'Search Results'
+
+    haml :results
+  end
 end
 
 
