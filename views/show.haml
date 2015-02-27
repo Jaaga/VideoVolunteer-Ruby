@@ -19,73 +19,73 @@
   %table.table.table-bordered.table-striped#view-margin
     - story.each do |x|
       %tr
-        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %th= name_modifier(x)
         %td=h @track.send(:"#{x}")
     - story_dates.each do |x|
       %tr
-        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %th= name_modifier(x)
         %td=h @track.send(:"#{x}")
 %h2 Status
 .table-responsive
   %table.table.table-bordered.table-striped#view-margin
     - status_dates.each do |x|
       %tr
-        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %th= name_modifier(x)
         %td=h @track.send(:"#{x}")
 %h2 Footage
 .table-responsive
   %table.table.table-bordered.table-striped#view-margin
     - footage.each do |x|
       %tr
-        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %th= name_modifier(x)
         %td=h @track.send(:"#{x}")
     - footage_dates.each do |x|
       %tr
-        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %th= name_modifier(x)
         %td=h @track.send(:"#{x}")
 %h2 Impact
 .table-responsive
   %table.table.table-bordered.table-striped#view-margin
     - impact.each do |x|
       %tr
-        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %th= name_modifier(x)
         %td=h @track.send(:"#{x}")
     - impact_dates.each do |x|
       %tr
-        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %th= name_modifier(x)
         %td=h @track.send(:"#{x}")
 %h2 Screening
 .table-responsive
   %table.table.table-bordered.table-striped#view-margin
     - screening.each do |x|
       %tr
-        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %th= name_modifier(x)
         %td=h @track.send(:"#{x}")
 %h2 Rating
 .table-responsive
   %table.table.table-bordered.table-striped#view-margin
     - ratings.each do |x|
       %tr
-        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %th= name_modifier(x)
         %td=h @track.send(:"#{x}")
 %h2 Extra
 .table-responsive.space
   %table.table.table-bordered.table-striped#view-margin
     -extra.each do |x|
       %tr
-        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %th= name_modifier(x)
         %td=h @track.send(:"#{x}")
     %tr
       %th Notes
       %td= @track.note
     -extra_dates.each do |x|
       %tr
-        %th= x.split('_').map(&:capitalize).join(' ').capitalize
+        %th= name_modifier(x)
         %td=h @track.send(:"#{x}")
 
-%a.btn.btn-default{:href => "/edit/#{@track.uid}", :role => 'button'} Edit
+%a.btn.btn-default{href: "/edit/#{@track.uid}", role: 'button'} Edit
 - if @track.flag.nil?
-  %a.btn.btn-default{:href => "/flag/#{@track.uid}", :role => 'button'} Flag
+  %a.btn.btn-default{href: "/flag/#{@track.uid}", role: 'button'} Flag
 - else
-  %a.btn.btn-default{:href => "/unflag/#{@track.uid}", :role => 'button'} Unflag
-%a.btn.btn-default{:href => "/delete/#{@track.uid}", :role => 'button'} Delete
+  %a.btn.btn-default{href: "/unflag/#{@track.uid}", role: 'button'} Unflag
+%a.btn.btn-default{href: "/delete/#{@track.uid}", role: 'button'} Delete

@@ -1,5 +1,8 @@
-- arr = ['district', 'mentor', 'iu_theme', 'subcategory', 'story_type', 'shoot_plan', 'story_rating',  'editor', 'edit_status', 'payment_status', 'description', 'folder_title', 'review_notes', 'edited_video_rating', 'youtube_url', 'video_title', 'subtitle_info', 'subtheme', 'project', 'reviewer_name', 'editor_changes_needed', 'cc_feedback', 'publishing_suggestions', 'final_video_rating', 'stalin_notes', 'video_type',   'impact_possible', 'target_official', 'target_official_email', 'target_official_phone', 'desired_change', 'impact_plan', 'impact_followup', 'impact_followup_notes', 'impact_uid', 'impact_process', 'impact_status', 'milestone', 'impact_time', 'collaborations', 'people_involved', 'people_impacted', 'villages_impacted', 'impact_production_status', 'impact_review', 'payment_approved', 'impact_reviewer',  'screening_done', 'screening_headcount', 'screening_notes', 'official_involved', 'officials_at_screening_number', 'officials_at_screening', 'official_screening_notes', 'note']
-- dates = ['received_cc_date', 'edit_in_goa_date', 'state_rough_cut_date', 'goa_rough_cut_date', 'story_pitch_date', 'raw_footage_review_date', 'backup_received_date', 'state_edit_date', 'edit_received_date', 'rough_cut_edit_date', 'review_date', 'finalized_date', 'youtube_date', 'iu_publish_date', 'impact_date', 'impact_approval_date', 'created_at']
+- arr = global_arr_set
+- dates = global_dates_set.push('created_at')
+- defaults = ['cc_name', 'state', 'description', 'story_pitch_date',
+              'flag', 'flag_date', 'flag_notes', 'updated_at']
+- count = defaults.length + 1
 
 %h1= @title
 
@@ -9,68 +12,49 @@
     Change Columns
   %ul.hide-list
     %li
-      %input.0{:type => 'checkbox', :checked => true} UID
-    %li
-      %input.1{:type => 'checkbox', :checked => true} CC Name
-    %li
-      %input.2{:type => 'checkbox', :checked => true} State
-    %li
-      %input.3{:type => 'checkbox', :checked => true} Description
-    %li
-      %input.4{:type => 'checkbox', :checked => true} Story Date
-    %li
-      %input.5{:type => 'checkbox', :checked => true} Flag?
-    %li
-      %input.6{:type => 'checkbox', :checked => true} Flag Date
-    %li
-      %input.7{:type => 'checkbox', :checked => true} Flag Notes
-    %li
-      %input.8{:type => 'checkbox', :checked => true} Updated at
+      %input.0{type: 'checkbox', checked: true} UID
+    - x = 1
+    - defaults.each do |v|
+      %li
+        %input{class: "#{x}", type: 'checkbox', checked: true} #{name_modifier(v)}
+      - x += 1
     - arr.each_with_index do |v, i|
       %li
-        - x = i + 9
-        %input{:type => 'checkbox', :class => "#{x}"} #{v.split('_').map(&:capitalize).join(' ')}
+        - x = i + count
+        %input{type: 'checkbox', class: "#{x}"} #{name_modifier(v)}
     - dates.each_with_index do |y, x|
       %li
-        - d = x + 9 + arr.length
-        %input{:type => 'checkbox', :class => "#{d}"} #{y.split('_').map(&:capitalize).join(' ')}
+        - d = x + count + arr.length
+        %input{type: 'checkbox', class: "#{d}"} #{name_modifier(y)}
 
 .table-responsive
   %table.table.table-bordered.table-striped
     %thead
       %tr
         %th.col0 UID
-        %th.col1 CC Name
-        %th.col2 State
-        %th.col3 Description
-        %th.col4 Story Date
-        %th.col5 Flag?
-        %th.col6 Flag Date
-        %th.col7 Flag Notes
-        %th.col8 Updated at
+        - x = 1
+        - defaults.each do |v|
+          %th{class: "col#{x}"} #{name_modifier(v)}
+          - x += 1
         - arr.each_with_index do |v, i|
-          - x = i + 9
-          %th{:class => "col#{x}"} #{v.split('_').map(&:capitalize).join(' ')}
+          - x = i + count
+          %th{class: "col#{x}"} #{name_modifier(v)}
         - dates.each_with_index do |y, x|
-          - d = x + 9 + arr.length
-          %th{:class => "col#{d}"} #{y.split('_').map(&:capitalize).join(' ')}
+          - d = x + count + arr.length
+          %th{class: "col#{d}"} #{name_modifier(y)}
     %tbody
       - @track.each do |t|
         %tr
           %td.col0
-            %a{:href => "/show/#{t.uid}"}
+            %a{href: "/show/#{t.uid}"}
               =h t.uid
-          %td.col1=h t.cc_name
-          %td.col2=h t.state
-          %td.col3=h t.description
-          %td.col4=h t.story_pitch_date
-          %td.col5=h t.flag
-          %td.col6=h t.flag_date
-          %td.col7=h t.flag_notes
-          %td.col8=h t.updated_at
+          - x = 1
+          - defaults.each do |v|
+            %td{class: "col#{x}"}=h t.send(:"#{v}")
+            - x += 1
           - arr.each_with_index do |v, i|
-            - x = i + 9
-            %td{:class => "col#{x}"}=h t.send(:"#{v}")
+            - x = i + count
+            %td{class: "col#{x}"}=h t.send(:"#{v}")
           - dates.each_with_index do |y, x|
-            - d = x + 9 + arr.length
-            %td{:class => "col#{d}"}=h t.send(:"#{y}")
+            - d = x + count + arr.length
+            %td{class: "col#{d}"}=h t.send(:"#{y}")

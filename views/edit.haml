@@ -16,144 +16,144 @@
 
 %h1 #{@track.uid.split('_').join(' ')} by #{@track.cc_name} - #{@track.iu_theme}
 
-%form.form-horizontal{:action => "/edit/#{@track.uid}", :method => 'post'}
+%form.form-horizontal{action: "/edit/#{@track.uid}", method: 'post'}
   %h2 Story
   %span.glyphicon.glyphicon-plus
   .hide-list
     - story.each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
         .col-sm-9
-          %input.form-control{:type => 'text', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+          %input.form-control{type: 'text', name: "#{x}", value: "#{@track.send(:"#{x}")}"}
     - story_dates.each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
         .col-sm-9
-          %input.form-control{:type => 'date', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+          %input.form-control{type: 'date', name: "#{x}", value: "#{@track.send(:"#{x}")}"}
   %h2 Status
   %span.glyphicon.glyphicon-plus
   .hide-list
     - status_dates.each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
         .col-sm-9
-          %input.form-control{:type => 'date', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+          %input.form-control{type: 'date', name: "#{x}", value: "#{@track.send(:"#{x}")}"}
   %h2 Footage
   %span.glyphicon.glyphicon-plus
   .hide-list
     - footage.each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
         .col-sm-9
-          %input.form-control{:type => 'text', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+          %input.form-control{type: 'text', name: "#{x}", value: "#{@track.send(:"#{x}")}"}
     .form-group
       %label.col-sm-3.control-label= "Edit Status"
       .col-sm-9
-        %select{:name => "edit_status"}
-          %option{:value => "#{@track.edit_status}", :selected => true, :disabled => true}= @track.edit_status
-          %option{:value => 'cleared'} cleared
-          %option{:value => 'on hold'} on hold
+        %select{name: "edit_status"}
+          %option{value: "#{@track.edit_status}", selected: true, disabled: true}= @track.edit_status
+          %option{value: 'cleared'} cleared
+          %option{value: 'on hold'} on hold
     .form-group
       %label.col-sm-3.control-label= "Impact Production Status"
       .col-sm-9
-        %select{:name => "payment_status"}
-          %option{:value => "#{@track.payment_status}", :selected => true, :disabled => true}= @track.payment_status
-          %option{:value => 'paid'} paid
-          %option{:value => 'pay'} pay
-          %option{:value => 'hold'} hold
+        %select{name: "payment_status"}
+          %option{value: "#{@track.payment_status}", selected: true, disabled: true}= @track.payment_status
+          %option{value: 'paid'} paid
+          %option{value: 'pay'} pay
+          %option{value: 'hold'} hold
     .form-group
       %label.col-sm-3.control-label= "Subtitle Info"
       .col-sm-9
-        %select{:name => "subtitle_info"}
-          %option{:value => "#{@track.subtitle_info}", :selected => true, :disabled => true}= @track.subtitle_info
-          %option{:value => 'has subtitles'} has subtitles
-          %option{:value => 'high priority subtitle'} high priority subtitle
-          %option{:value => 'low priority subtitle'} low priority subtitle
+        %select{name: "subtitle_info"}
+          %option{value: "#{@track.subtitle_info}", selected: true, disabled: true}= @track.subtitle_info
+          %option{value: 'has subtitles'} has subtitles
+          %option{value: 'high priority subtitle'} high priority subtitle
+          %option{value: 'low priority subtitle'} low priority subtitle
     .form-group
       %label.col-sm-3.control-label= "Editor Changes Needed"
       .col-sm-9
-        %select{:name => "editor_changes_needed"}
-          %option{:value => "#{@track.editor_changes_needed}", :selected => true, :disabled => true}= @track.editor_changes_needed
-          %option{:value => 'required'} required
-          %option{:value => 'suggested'} suggested
-          %option{:value => 'not needed'} not needed
+        %select{name: "editor_changes_needed"}
+          %option{value: "#{@track.editor_changes_needed}", selected: true, disabled: true}= @track.editor_changes_needed
+          %option{value: 'required'} required
+          %option{value: 'suggested'} suggested
+          %option{value: 'not needed'} not needed
     - footage_dates.each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
         .col-sm-9
-          %input.form-control{:type => 'date', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+          %input.form-control{type: 'date', name: "#{x}", value: "#{@track.send(:"#{x}")}"}
   %h2 Impact
   %span.glyphicon.glyphicon-plus
   .hide-list
     - impact.each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
         .col-sm-9
-          %input.form-control{:type => 'text', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+          %input.form-control{type: 'text', name: "#{x}", value: "#{@track.send(:"#{x}")}"}
     .form-group
       %label.col-sm-3.control-label= "Impact Status"
       .col-sm-9
-        %select{:name => "impact_status"}
-          %option{:value => "#{@track.impact_status}", :selected => true, :disabled => true}= @track.impact_status
-          %option{:value => 'achieved'} achieved
-          %option{:value => 'not achieved'} not achieved
+        %select{name: "impact_status"}
+          %option{value: "#{@track.impact_status}", selected: true, disabled: true}= @track.impact_status
+          %option{value: 'achieved'} achieved
+          %option{value: 'not achieved'} not achieved
     .form-group
       %label.col-sm-3.control-label= "Impact Production Status"
       .col-sm-9
-        %select{:name => "impact_production_status"}
-          %option{:value => "#{@track.impact_production_status}", :selected => true, :disabled => true}= @track.impact_production_status
-          %option{:value => 'done'} done
-          %option{:value => 'not done'} not done
-          %option{:value => 'in progress'} in progress
+        %select{name: "impact_production_status"}
+          %option{value: "#{@track.impact_production_status}", selected: true, disabled: true}= @track.impact_production_status
+          %option{value: 'done'} done
+          %option{value: 'not done'} not done
+          %option{value: 'in progress'} in progress
     - yes_no_impact.each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
         .col-sm-9
-          %select{:name => "#{x}"}
-            %option{:value => "#{@track.send(:"#{x}")}", :selected => true, :disabled => true}= @track.send(:"#{x}")
-            %option{:value => 'yes'} yes
-            %option{:value => 'no'} no
+          %select{name: "#{x}"}
+            %option{value: "#{@track.send(:"#{x}")}", selected: true, disabled: true}= @track.send(:"#{x}")
+            %option{value: 'yes'} yes
+            %option{value: 'no'} no
     - numbers_impact.each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
         .col-sm-9
-          %input.form-control{:type => 'number', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+          %input.form-control{type: 'number', name: "#{x}", value: "#{@track.send(:"#{x}")}"}
     - impact_dates.each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
         .col-sm-9
-          %input.form-control{:type => 'date', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+          %input.form-control{type: 'date', name: "#{x}", value: "#{@track.send(:"#{x}")}"}
   %h2 Screening
   %span.glyphicon.glyphicon-plus
   .hide-list
     - screening.each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
         .col-sm-9
-          %input.form-control{:type => 'text', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+          %input.form-control{type: 'text', name: "#{x}", value: "#{@track.send(:"#{x}")}"}
     - yes_no_screening.each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
         .col-sm-9
-          %select{:name => "#{x}"}
-            %option{:value => "#{@track.send(:"#{x}")}", :selected => true, :disabled => true}= @track.send(:"#{x}")
-            %option{:value => 'yes'} yes
-            %option{:value => 'no'} no
+          %select{name: "#{x}"}
+            %option{value: "#{@track.send(:"#{x}")}", selected: true, disabled: true}= @track.send(:"#{x}")
+            %option{value: 'yes'} yes
+            %option{value: 'no'} no
     - numbers_screening.each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
         .col-sm-9
-          %input.form-control{:type => 'number', :name => "#{x}", :value => "#{@track.send(:"#{x}")}"}
+          %input.form-control{type: 'number', name: "#{x}", value: "#{@track.send(:"#{x}")}"}
   %h2 Ratings
   %span.glyphicon.glyphicon-plus
   .hide-list
     - ratings.each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{x.split('_').map(&:capitalize).join(' ')}:"
+        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
         .col-sm-9
-          %select{:name => "#{x}"}
-            %option{:value => "#{@track.send(:"#{x}")}", :selected => true, :disabled => true}= @track.send(:"#{x}")
+          %select{name: "#{x}"}
+            %option{value: "#{@track.send(:"#{x}")}", selected: true, disabled: true}= @track.send(:"#{x}")
             - (1..4).each do |i|
-              %option{:value => i}= i
+              %option{value: i}= i
 
-  %button.btn.btn-default.btn-block{:type => 'submit'} Submit
+  %button.btn.btn-default.btn-block{type: 'submit'} Submit
