@@ -96,6 +96,7 @@ EXTRA:
 'flag_date'
 'flag_notes',
 'note',
+'updated_by',
 
-'created_at'
-'updated_at'
+'created_at',
+'updated_at',
