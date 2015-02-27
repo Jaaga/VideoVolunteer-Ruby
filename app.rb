@@ -149,25 +149,34 @@ post '/search' do
   index = Array.new
   search = Array.new
 
-  if params[:flag] == "on"
-    data.push("'priority'")
-    index.push("flag")
-  end
+  # if params[:no_video] == "on"
+  #   search.push("story_pitch_date NOT NULL AND backup_received_date IS NULL")
+  # end
+  #
+  # if params[:no_publish] == "on"
+  #   search.push("rough_cut_edit_date NOT NULL AND youtube_date IS NULL")
+  # end
+  #
+  # if params[:flag] == "on"
+  #   data.push("'priority'")
+  #   index.push("flag")
+  # end
+  #
+  # arr.each do |x|
+  #   if !params[:"#{x}"].blank?
+  #     data.push("'#{params[:"#{x}"]}'")
+  #     index.push(x)
+  #   end
+  # end
+  #
+  # index.each_with_index do |v, i|
+  #   search.push("#{v} = #{data[i]}")
+  # end
+  #
+  # search = search.join(" AND ")
 
-  arr.each do |x|
-    if !params[:"#{x}"].blank?
-      data.push("'#{params[:"#{x}"]}'")
-      index.push(x)
-    end
-  end
-
-  index.each_with_index do |v, i|
-    search.push("#{v} = #{data[i]}")
-  end
-
-  search = search.join(" AND ")
-
-  @track = Tracker.where("#{search}")
+  # @track = Tracker.where("#{search}")
+  @track = Tracker.where("#{params[:column]} #{params[:operator]} #{params[:input]}")
   @title = 'Search Results'
 
   haml :results
