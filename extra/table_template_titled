@@ -11,7 +11,7 @@ STORY (FOOTAGE iutheme more important):
 'shoot_plan',
 'story_rating',
 
-'story_date',
+'story_pitch_date',
 
 
 FOOTAGE:
@@ -42,7 +42,6 @@ FOOTAGE:
 'goa_rough_cut_date',
 
 --- Current Status (subcategory of FOOTAGE):
-'story_date',
 'raw_footage_review_date',
 'backup_received_date',
 'state_edit_date',

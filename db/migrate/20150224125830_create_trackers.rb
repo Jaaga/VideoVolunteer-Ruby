@@ -12,7 +12,7 @@ class CreateTrackers < ActiveRecord::Migration
       t.string	:story_type
       t.string	:shoot_plan
       t.string  :story_rating
-      t.date	  :story_date
+      t.date	  :story_pitch_date
       t.string	:editor
       t.string	:edit_status
       t.string	:payment_status
