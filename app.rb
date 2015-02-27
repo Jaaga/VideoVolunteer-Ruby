@@ -71,13 +71,11 @@ post '/new' do
     # For making UID. Getting list of UID's from state.
     @temp = Tracker.where(state: @cc.state)
     num = Array.new
-    p @temp
     if !@temp.empty?
       # Save each UID in an array
       @temp.each do |x|
         num.push(x.uid)
       end
-      p num
       # Sort it then save the highest number
       num.sort!
       num = num[num.length - 1].split('_')
@@ -142,18 +140,16 @@ get '/search' do
 end
 
 # Standard searches will be here.
-post '/search' do
+post '/search/:standard' do
   search = Array.new
 
-  if params[:no_video] == "on"
+  if params[:standard] == 'pitch'
     search.push("story_pitch_date NOT NULL AND backup_received_date IS NULL")
   end
 
-  if params[:no_publish] == "on"
+  if params[:standard] == 'rough'
     search.push("rough_cut_edit_date NOT NULL AND youtube_date IS NULL")
   end
-
-  search = search.join(" AND ")
 
   @track = Tracker.where(search)
   @title = 'Search Results'
@@ -169,13 +165,13 @@ post '/search/custom' do
 
   # Goes through each query row and checks if data is entered for the search query.
   (0..9).each do |x|
-    if !params[:"column_#{x}"].blank? && !params[:"input_#{x}"].blank?
+    if !params[:"column_#{x}"].blank?
       search.push("#{params[:"column_#{x}"]} #{params[:"operator_#{x}"]} '#{params[:"input_#{x}"]}'")
       query += 1
     end
 
     # Only add chain if input was filled in and column was chosen.
-    if !params[:"chain_#{x}"].blank? && !params[:"column_#{x}"].blank? && !params[:"input_#{x}"].blank?
+    if !params[:"chain_#{x}"].blank? && !params[:"column_#{x}"].blank?
       search.push(params[:"chain_#{x}"])
       chain += 1
     end

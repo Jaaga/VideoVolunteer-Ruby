@@ -33,12 +33,8 @@
   %button.btn.btn-default.btn-block{:type => 'submit'} Submit
 
 %h2 Standard Searches
-%form.form-horizontal{:action => '/search', :method => 'post'}
-  .form-group
-    %label.control-label Pitched but has no video yet:
-    %input.form-control{:type => 'checkbox', :name => 'no_video'}
+%form.form-horizontal{:action => '/search/pitch', :method => 'post'}
+  %button.btn.btn-default.btn-block{:type => 'submit'} Pitched but has no video yet.
 
-    %label.control-label Rough cut received but has not been published yet:
-    %input.form-control{:type => 'checkbox', :name => 'no_publish'}
-
-  %button.btn.btn-default.btn-block{:type => 'submit'} Submit
+%form.form-horizontal{:action => '/search/rough', :method => 'post'}
+  %button.btn.btn-default.btn-block{:type => 'submit'} Rough cut received but has not been published yet.
