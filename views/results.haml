@@ -21,16 +21,18 @@
     %li
       %input.5{:type => 'checkbox', :checked => true} Flag?
     %li
-      %input.6{:type => 'checkbox', :checked => true} Flag Notes
+      %input.6{:type => 'checkbox', :checked => true} Flag Date
     %li
-      %input.7{:type => 'checkbox', :checked => true} Updated at
+      %input.7{:type => 'checkbox', :checked => true} Flag Notes
+    %li
+      %input.8{:type => 'checkbox', :checked => true} Updated at
     - arr.each_with_index do |v, i|
       %li
-        - x = i + 8
+        - x = i + 9
         %input{:type => 'checkbox', :class => "#{x}"} #{v.split('_').map(&:capitalize).join(' ')}
     - dates.each_with_index do |y, x|
       %li
-        - d = x + 8 + arr.length
+        - d = x + 9 + arr.length
         %input{:type => 'checkbox', :class => "#{d}"} #{y.split('_').map(&:capitalize).join(' ')}
 
 .table-responsive
@@ -43,13 +45,14 @@
         %th.col3 Description
         %th.col4 Story Date
         %th.col5 Flag?
-        %th.col6 Flag Notes
-        %th.col7 Updated at
+        %th.col6 Flag Date
+        %th.col7 Flag Notes
+        %th.col8 Updated at
         - arr.each_with_index do |v, i|
-          - x = i + 8
+          - x = i + 9
           %th{:class => "col#{x}"} #{v.split('_').map(&:capitalize).join(' ')}
         - dates.each_with_index do |y, x|
-          - d = x + 8 + arr.length
+          - d = x + 9 + arr.length
           %th{:class => "col#{d}"} #{y.split('_').map(&:capitalize).join(' ')}
     %tbody
       - @track.each do |t|
@@ -62,11 +65,12 @@
           %td.col3=h t.description
           %td.col4=h t.story_pitch_date
           %td.col5=h t.flag
-          %td.col6=h t.flag_notes
-          %td.col7=h t.updated_at
+          %td.col6=h t.flag_date
+          %td.col7=h t.flag_notes
+          %td.col8=h t.updated_at
           - arr.each_with_index do |v, i|
-            - x = i + 8
+            - x = i + 9
             %td{:class => "col#{x}"}=h t.send(:"#{v}")
           - dates.each_with_index do |y, x|
-            - d = x + 8 + arr.length
+            - d = x + 9 + arr.length
             %td{:class => "col#{d}"}=h t.send(:"#{y}")

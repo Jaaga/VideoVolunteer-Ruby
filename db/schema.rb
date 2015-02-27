@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226064312) do
+ActiveRecord::Schema.define(version: 20150227071433) do
 
   create_table "ccs", force: :cascade do |t|
     t.string "full_name"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20150226064312) do
     t.string   "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "flag_date"
   end
 
   add_index "trackers", ["uid"], name: "index_trackers_on_uid", unique: true

@@ -93,6 +93,7 @@ SCREENING:
 
 EXTRA:
 'flag',
+'flag_date'
 'flag_notes',
 'note',
 

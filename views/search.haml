@@ -6,6 +6,14 @@
   %input{:type => 'text', :name => 'uid'}
   %label See flagged stories?
   %input{:type => 'checkbox', :name => 'flag'}
+  %label Specific flag:
+  %select{:name => 'flag_notes'}
+    %option{:value => '', :selected => true, :disabled => true}
+    %option{:value => 'State Coordinator'} State Coordinator
+    %option{:value => 'Training & Mentoring'} Training & Mentoring
+    %option{:value => 'Communications'} Communications
+    %option{:value => 'Production'} Production
+    %option{:value => 'Executive Directors'} Executive Directors
   %label State
   %input{:type => 'text', :name => 'state'}
   %label CC Name
