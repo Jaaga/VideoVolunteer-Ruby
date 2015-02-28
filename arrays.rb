@@ -3,7 +3,7 @@
 module Arrays
 
   def global_arr_set
-    return ['district', 'mentor', 'iu_theme', 'subcategory','description',
+    return ['iu_theme', 'subcategory',
             'story_type', 'shoot_plan', 'story_rating',  'editor',
             'edit_status', 'payment_status', 'folder_title', 'review_notes',
             'edited_video_rating', 'youtube_url', 'video_title', 'subtitle_info',

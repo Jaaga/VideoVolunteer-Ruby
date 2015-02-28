@@ -82,7 +82,7 @@ post '/new' do
     @track.district = @cc.district
     @track.mentor = @cc.mentor
 
-    arr = global_arr_set.pop('district', 'mentor').push('cc_name', 'flag', 'flag_notes')
+    arr = global_arr_set.push('cc_name', 'flag', 'flag_notes', 'description')
     dates = global_dates_set
 
     arr.each do |x|
@@ -129,25 +129,7 @@ get '/search' do
   haml :search
 end
 
-# Standard searches will be here.
-post '/search/:standard' do
-  search = Array.new
-
-  if params[:standard] == 'pitch'
-    search.push("story_pitch_date NOT NULL AND backup_received_date IS NULL")
-  end
-
-  if params[:standard] == 'rough'
-    search.push("rough_cut_edit_date NOT NULL AND youtube_date IS NULL")
-  end
-
-  @track = Tracker.where(search)
-  @title = 'Search Results'
-
-  haml :results
-end
-
-# Custom queries come through here.
+# Custom queries come through here. Must be before post /search/:standard
 post '/search/custom' do
   search = Array.new
   query = 0
@@ -168,12 +150,7 @@ post '/search/custom' do
   end
 
   # Flash error if there are not enough operators for the queries.
-  if query == 1
-    @track = Tracker.where(search)
-    @title = 'Search Results'
-
-    haml :results
-  elsif query != chain
+  if query != chain
     flash[:error] = "Need an AND or OR for multiple criteria."
     redirect '/search'
   else
@@ -184,6 +161,25 @@ post '/search/custom' do
 
     haml :results
   end
+end
+
+
+# Standard searches will be here.
+post '/search/:standard' do
+  search = Array.new
+
+  if params[:standard] == 'pitch'
+    search.push("story_pitch_date NOT NULL AND backup_received_date IS NULL")
+  end
+
+  if params[:standard] == 'rough'
+    search.push("rough_cut_edit_date NOT NULL AND youtube_date IS NULL")
+  end
+
+  @track = Tracker.where(search)
+  @title = 'Search Results'
+
+  haml :results
 end
 
 
@@ -214,7 +210,7 @@ end
 
 post '/edit/:uid' do
   @track = Tracker.find_by(uid: params[:uid])
-  arr = global_arr_set.push('flag', 'flag_notes')
+  arr = global_arr_set.push('district', 'mentor', 'flag', 'flag_notes', 'description')
   dates = global_dates_set
 
   arr.each do |x|
