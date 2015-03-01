@@ -137,7 +137,13 @@ post '/search/custom' do
 
   # Goes through each query row and checks if data is entered for the search query.
   (0..9).each do |x|
-    if !params[:"column_#{x}"].blank?
+    if !params[:"column_#{x}"].blank? && params[:"input_#{x}"].blank?
+      search.push("#{params[:"column_#{x}"]} #{params[:"operator_#{x}"]} NULL")
+      query += 1
+    elsif !params[:"column_#{x}"].blank? && params[:"operator_#{x}"] == "LIKE"
+      search.push("#{params[:"column_#{x}"]} #{params[:"operator_#{x}"]} '%#{params[:"input_#{x}"]}%'")
+      query += 1
+    elsif !params[:"column_#{x}"].blank?
       search.push("#{params[:"column_#{x}"]} #{params[:"operator_#{x}"]} '#{params[:"input_#{x}"]}'")
       query += 1
     end

@@ -16,6 +16,7 @@
         %select{name: "operator_#{i}"}
           %option{value: 'IS'} IS
           %option{value: 'IS NOT'} IS NOT
+          %option{value: 'LIKE'} CONTAINS
         %input{type: 'text', name: "input_#{i}"}
         %br
         %select{name: "chain_#{i}"}
