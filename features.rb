@@ -16,9 +16,9 @@ module Features
       id = num[1].to_i + 1
 
       # Make unique UID from state abbreviation and newly created number
-      return "#{state_abb}_#{id.to_s}"
+      return "#{ state_abb }_#{ id.to_s }"
     else
-      return "#{state_abb}_1001"
+      return "#{ state_abb }_1001"
     end
   end
 

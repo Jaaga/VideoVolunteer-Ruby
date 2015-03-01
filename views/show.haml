@@ -1,91 +1,96 @@
-- story = ['state', 'cc_name', 'district', 'mentor', 'iu_theme', 'subcategory', 'description', 'story_type', 'shoot_plan']
-- footage = ['editor', 'edit_status', 'payment_status', 'folder_title', 'review_notes', 'youtube_url', 'video_title', 'subtitle_info', 'subtheme', 'project', 'reviewer_name', 'editor_changes_needed', 'cc_feedback', 'publishing_suggestions', 'stalin_notes', 'video_type']
-- impact = ['impact_possible', 'target_official', 'target_official_email', 'target_official_phone', 'desired_change', 'impact_plan', 'impact_followup', 'impact_followup_notes', 'impact_uid', 'impact_process', 'impact_status', 'milestone', 'impact_time', 'collaborations', 'people_involved', 'people_impacted', 'villages_impacted', 'impact_production_status', 'impact_review', 'payment_approved', 'impact_reviewer']
-- screening = ['screening_done', 'screening_headcount', 'screening_notes', 'official_involved', 'officials_at_screening_number', 'officials_at_screening', 'official_screening_notes']
-- extra = ['flag', 'flag_notes', 'updated_by']
+-# - story = ['state', 'cc_name', 'district', 'mentor', 'iu_theme', 'subcategory', 'description', 'story_type', 'shoot_plan']
+-# - footage = ['editor', 'edit_status', 'payment_status', 'folder_title', 'review_notes', 'youtube_url', 'video_title', 'subtitle_info', 'subtheme', 'project', 'reviewer_name', 'editor_changes_needed', 'cc_feedback', 'publishing_suggestions', 'stalin_notes', 'video_type']
+-# - impact = ['impact_possible', 'target_official', 'target_official_email', 'target_official_phone', 'desired_change', 'impact_plan', 'impact_followup', 'impact_followup_notes', 'impact_uid', 'impact_process', 'impact_status', 'milestone', 'impact_time', 'collaborations', 'people_involved', 'people_impacted', 'villages_impacted', 'impact_production_status', 'impact_review', 'payment_approved', 'impact_reviewer']
+-# - screening = ['screening_done', 'screening_headcount', 'screening_notes', 'official_involved', 'officials_at_screening_number', 'officials_at_screening', 'official_screening_notes']
+-# - extra = ['flag', 'flag_notes', 'updated_by']
 
-- story_dates = ['story_pitch_date']
-- footage_dates = ['received_cc_date', 'edit_in_goa_date', 'state_rough_cut_date', 'goa_rough_cut_date']
-- status_dates = ['backup_received_date', 'raw_footage_review_date', 'state_edit_date', 'edit_received_date', 'rough_cut_edit_date', 'review_date', 'finalized_date', 'youtube_date', 'iu_publish_date']
-- impact_dates = ['impact_date', 'impact_approval_date']
-- extra_dates = ['flag_date', 'created_at', 'updated_at']
+-# - story_dates = ['story_pitch_date']
+-# - footage_dates = ['received_cc_date', 'edit_in_goa_date', 'state_rough_cut_date', 'goa_rough_cut_date']
+-# - status_dates = ['backup_received_date', 'raw_footage_review_date', 'state_edit_date', 'edit_received_date', 'rough_cut_edit_date', 'review_date', 'finalized_date', 'youtube_date', 'iu_publish_date']
+-# - impact_dates = ['impact_date', 'impact_approval_date']
+-# - extra_dates = ['flag_date', 'created_at', 'updated_at']
 
-- ratings = ['story_rating', 'edited_video_rating', 'final_video_rating']
+-# - ratings = ['story_rating', 'edited_video_rating', 'final_video_rating']
 
-%h1 #{@track.uid.split('_').join(' ')} by #{@track.cc_name} - #{@track.iu_theme}
+- main = main_set
+- main[:story].push('state', 'cc_name', 'district', 'mentor')
+- dates = date_set
+- extra = extra_set
+
+%h1 #{ @track.uid.split('_').join(' ') } by #{ @track.cc_name } - #{ @track.iu_theme }
 
 %h2 Story
 .table-responsive
   %table.table.table-bordered.table-striped#view-margin
-    - story.each do |x|
+    - main[:story].each do |x|
       %tr
         %th= name_modifier(x)
-        %td=h @track.send(:"#{x}")
-    - story_dates.each do |x|
+        %td=h @track.send(:"#{ x }")
+    - dates[:story_dates].each do |x|
       %tr
         %th= name_modifier(x)
-        %td=h @track.send(:"#{x}")
+        %td=h @track.send(:"#{ x }")
 %h2 Status
 .table-responsive
   %table.table.table-bordered.table-striped#view-margin
-    - status_dates.each do |x|
+    - dates[:status_dates].each do |x|
       %tr
         %th= name_modifier(x)
-        %td=h @track.send(:"#{x}")
+        %td=h @track.send(:"#{ x }")
 %h2 Footage
 .table-responsive
   %table.table.table-bordered.table-striped#view-margin
-    - footage.each do |x|
+    - main[:footage].each do |x|
       %tr
         %th= name_modifier(x)
-        %td=h @track.send(:"#{x}")
-    - footage_dates.each do |x|
+        %td=h @track.send(:"#{ x }")
+    - dates[:footage_dates].each do |x|
       %tr
         %th= name_modifier(x)
-        %td=h @track.send(:"#{x}")
+        %td=h @track.send(:"#{ x }")
 %h2 Impact
 .table-responsive
   %table.table.table-bordered.table-striped#view-margin
-    - impact.each do |x|
+    - main[:impact].each do |x|
       %tr
         %th= name_modifier(x)
-        %td=h @track.send(:"#{x}")
-    - impact_dates.each do |x|
+        %td=h @track.send(:"#{ x }")
+    - dates[:impact_dates].each do |x|
       %tr
         %th= name_modifier(x)
-        %td=h @track.send(:"#{x}")
+        %td=h @track.send(:"#{ x }")
 %h2 Screening
 .table-responsive
   %table.table.table-bordered.table-striped#view-margin
-    - screening.each do |x|
+    - main[:screening].each do |x|
       %tr
         %th= name_modifier(x)
-        %td=h @track.send(:"#{x}")
+        %td=h @track.send(:"#{ x }")
 %h2 Rating
 .table-responsive
   %table.table.table-bordered.table-striped#view-margin
-    - ratings.each do |x|
+    - extra[:ratings].each do |x|
       %tr
         %th= name_modifier(x)
-        %td=h @track.send(:"#{x}")
+        %td=h @track.send(:"#{ x }")
 %h2 Extra
 .table-responsive.space
   %table.table.table-bordered.table-striped#view-margin
-    -extra.each do |x|
+    - main[:extra].each do |x|
       %tr
         %th= name_modifier(x)
-        %td=h @track.send(:"#{x}")
+        %td=h @track.send(:"#{ x }")
     %tr
       %th Notes
       %td= @track.note
-    -extra_dates.each do |x|
+    - dates[:extra_dates].each do |x|
       %tr
         %th= name_modifier(x)
-        %td=h @track.send(:"#{x}")
+        %td=h @track.send(:"#{ x }")
 
-%a.btn.btn-default{href: "/edit/#{@track.uid}", role: 'button'} Edit
+%a.btn.btn-default{ href: "/edit/#{ @track.uid }", role: 'button' } Edit
 - if @track.flag.nil?
-  %a.btn.btn-default{href: "/flag/#{@track.uid}", role: 'button'} Flag
+  %a.btn.btn-default{ href: "/flag/#{ @track.uid }", role: 'button' } Flag
 - else
-  %a.btn.btn-default{href: "/unflag/#{@track.uid}", role: 'button'} Unflag
-%a.btn.btn-default{href: "/delete/#{@track.uid}", role: 'button'} Delete
+  %a.btn.btn-default{ href: "/unflag/#{ @track.uid }", role: 'button' } Unflag
+%a.btn.btn-default{ href: "/delete/#{ @track.uid }", role: 'button' } Delete

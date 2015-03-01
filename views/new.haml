@@ -1,171 +1,174 @@
-- story = ['iu_theme', 'subcategory', 'description', 'story_type', 'shoot_plan']
-- footage = ['editor', 'folder_title', 'review_notes', 'youtube_url', 'video_title', 'subtheme', 'project', 'reviewer_name', 'cc_feedback', 'publishing_suggestions', 'stalin_notes', 'video_type']
-- impact = ['target_official', 'target_official_email', 'target_official_phone', 'desired_change', 'impact_plan', 'impact_followup_notes', 'impact_uid', 'impact_process', 'milestone', 'impact_time', 'collaborations', 'impact_reviewer']
-- screening = ['screening_headcount', 'screening_notes', 'official_screening_notes']
+-# - story = ['iu_theme', 'subcategory', 'description', 'story_type', 'shoot_plan']
+-# - footage = ['editor', 'folder_title', 'review_notes', 'youtube_url', 'video_title', 'subtheme', 'project', 'reviewer_name', 'cc_feedback', 'publishing_suggestions', 'stalin_notes', 'video_type']
+-# - impact = ['target_official', 'target_official_email', 'target_official_phone', 'desired_change', 'impact_plan', 'impact_followup_notes', 'impact_uid', 'impact_process', 'milestone', 'impact_time', 'collaborations', 'impact_reviewer']
+-# - screening = ['screening_headcount', 'screening_notes', 'official_screening_notes']
+-#
+-# - story_dates = ['story_pitch_date']
+-# - footage_dates = ['received_cc_date', 'edit_in_goa_date', 'state_rough_cut_date', 'goa_rough_cut_date']
+-# - status_dates = ['backup_received_date', 'raw_footage_review_date', 'state_edit_date', 'edit_received_date', 'rough_cut_edit_date', 'review_date', 'finalized_date', 'youtube_date', 'iu_publish_date']
+-# - impact_dates = ['impact_date', 'impact_approval_date']
+-#
+-# - yes_no_impact = ['impact_possible', 'impact_followup', 'impact_review', 'payment_approved']
+-# - yes_no_screening = ['screening_done', 'officials_at_screening']
+-# - ratings = ['story_rating', 'edited_video_rating', 'final_video_rating']
+-# - numbers_impact = ['people_involved', 'people_impacted', 'villages_impacted']
+-# - numbers_screening = ['official_involved', 'officials_at_screening_number']
 
-- story_dates = ['story_pitch_date']
-- footage_dates = ['received_cc_date', 'edit_in_goa_date', 'state_rough_cut_date', 'goa_rough_cut_date']
-- status_dates = ['backup_received_date', 'raw_footage_review_date', 'state_edit_date', 'edit_received_date', 'rough_cut_edit_date', 'review_date', 'finalized_date', 'youtube_date', 'iu_publish_date']
-- impact_dates = ['impact_date', 'impact_approval_date']
-
-- yes_no_impact = ['impact_possible', 'impact_followup', 'impact_review', 'payment_approved']
-- yes_no_screening = ['screening_done', 'officials_at_screening']
-- ratings = ['story_rating', 'edited_video_rating', 'final_video_rating']
-- numbers_impact = ['people_involved', 'people_impacted', 'villages_impacted']
-- numbers_screening = ['official_involved', 'officials_at_screening_number']
-
-- name = Array.new
+- main = main_set
+- dates = date_set
+- extra = extra_set
 
 %h1 New Story
 
-%h3= "State: #{@state.state}, #{@state.state_abb}"
+%h3= "State: #{ @state.state }, #{ @state.state_abb }"
 
-%form.form-horizontal{action: '/new', method: 'post'}
+%form.form-horizontal{ action: '/new', method: 'post' }
   %h2 Story
   .form-group
     %label.col-sm-3.control-label CC Name:
     .col-sm-9
-      %select{name: 'cc_name'}
-        %option{value: '', selected: true, disabled: true}
+      %select{ name: 'cc_name' }
+        %option{ value: '', selected: true, disabled: true }
+        - name = Array.new
         - @cc.each do |x|
           - name.push(x.full_name)
         - name.sort!
         - name.each do |x|
-          %option{value: x} #{x}
-  - story.each do |x|
+          %option{ value: x } #{ x }
+  - main[:story].each do |x|
     .form-group
-      %label.col-sm-3.control-label= "#{name_modifier(x)}:"
+      %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
       .col-sm-9
-        %input.form-control{type: 'text', name: "#{x}"}
-  - story_dates.each do |x|
+        %input.form-control{ type: 'text', name: "#{ x }" }
+  - dates[:story_dates].each do |x|
     .form-group
-      %label.col-sm-3.control-label= "#{name_modifier(x)}:"
+      %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
       .col-sm-9
-        %input.form-control{type: 'date', name: "#{x}"}
+        %input.form-control{ type: 'date', name: "#{ x }" }
   %h2 Status
   %span.glyphicon.glyphicon-plus
   .hide-list
-    - status_dates.each do |x|
+    - dates[:status_dates].each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
+        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
         .col-sm-9
-          %input.form-control{type: 'date', name: "#{x}"}
+          %input.form-control{ type: 'date', name: "#{ x }" }
   %h2 Footage
   %span.glyphicon.glyphicon-plus
   .hide-list
-    - footage.each do |x|
+    - main[:footage].each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
+        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
         .col-sm-9
-          %input.form-control{type: 'text', name: "#{x}"}
+          %input.form-control{ type: 'text', name: "#{ x }" }
     .form-group
       %label.col-sm-3.control-label= "Edit Status"
       .col-sm-9
-        %select{name: "edit_status"}
-          %option{value: '', selected: true, disabled: true}
-          %option{value: 'cleared'} cleared
-          %option{value: 'on hold'} on hold
+        %select{ name: "edit_status" }
+          %option{ value: '', selected: true, disabled: true }
+          %option{ value: 'cleared' } cleared
+          %option{ value: 'on hold' } on hold
     .form-group
       %label.col-sm-3.control-label= "Impact Production Status"
       .col-sm-9
-        %select{name: "payment_status"}
-          %option{value: '', selected: true, disabled: true}
-          %option{value: 'paid'} paid
-          %option{value: 'pay'} pay
-          %option{value: 'hold'} hold
+        %select{ name: "payment_status" }
+          %option{ value: '', selected: true, disabled: true }
+          %option{ value: 'paid' } paid
+          %option{ value: 'pay' } pay
+          %option{ value: 'hold' } hold
     .form-group
       %label.col-sm-3.control-label= "Subtitle Info"
       .col-sm-9
-        %select{name: "subtitle_info"}
-          %option{value: '', selected: true, disabled: true}
-          %option{value: 'has subtitles'} has subtitles
-          %option{value: 'high priority subtitle'} high priority subtitle
-          %option{value: 'low priority subtitle'} low priority subtitle
+        %select{ name: "subtitle_info" }
+          %option{ value: '', selected: true, disabled: true }
+          %option{ value: 'has subtitles' } has subtitles
+          %option{ value: 'high priority subtitle' } high priority subtitle
+          %option{ value: 'low priority subtitle' } low priority subtitle
     .form-group
       %label.col-sm-3.control-label= "Editor Changes Needed"
       .col-sm-9
-        %select{name: "editor_changes_needed"}
-          %option{value: '', selected: true, disabled: true}
-          %option{value: 'required'} required
-          %option{value: 'suggested'} suggested
-          %option{value: 'not needed'} not needed
-    - footage_dates.each do |x|
+        %select{ name: "editor_changes_needed" }
+          %option{ value: '', selected: true, disabled: true }
+          %option{ value: 'required' } required
+          %option{ value: 'suggested' } suggested
+          %option{ value: 'not needed' } not needed
+    - dates[:footage_dates].each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
+        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
         .col-sm-9
-          %input.form-control{type: 'date', name: "#{x}"}
+          %input.form-control{ type: 'date', name: "#{ x }" }
   %h2 Impact
   %span.glyphicon.glyphicon-plus
   .hide-list
-    - impact.each do |x|
+    - main[:impact].each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
+        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
         .col-sm-9
-          %input.form-control{type: 'text', name: "#{x}"}
+          %input.form-control{ type: 'text', name: "#{ x }" }
     .form-group
       %label.col-sm-3.control-label= "Impact Status"
       .col-sm-9
-        %select{name: "impact_status"}
-          %option{value: '', selected: true, disabled: true}
-          %option{value: 'achieved'} achieved
-          %option{value: 'not achieved'} not achieved
+        %select{ name: "impact_status" }
+          %option{ value: '', selected: true, disabled: true }
+          %option{ value: 'achieved' } achieved
+          %option{ value: 'not achieved' } not achieved
     .form-group
       %label.col-sm-3.control-label= "Impact Production Status"
       .col-sm-9
-        %select{name: "impact_production_status"}
-          %option{value: '', selected: true, disabled: true}
-          %option{value: 'done'} done
-          %option{value: 'not done'} not done
-          %option{value: 'in progress'} in progress
-    - yes_no_impact.each do |x|
+        %select{ name: "impact_production_status" }
+          %option{ value: '', selected: true, disabled: true }
+          %option{ value: 'done' } done
+          %option{ value: 'not done' } not done
+          %option{ value: 'in progress' } in progress
+    - extra[:yes_no_impact].each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
+        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
         .col-sm-9
-          %select{name: "#{x}"}
-            %option{value: '', selected: true, disabled: true}
-            %option{value: 'yes'} yes
-            %option{value: 'no'} no
-    - numbers_impact.each do |x|
+          %select{ name: "#{ x }" }
+            %option{ value: '', selected: true, disabled: true }
+            %option{ value: 'yes' } yes
+            %option{ value: 'no' } no
+    - extra[:numbers_impact].each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
+        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
         .col-sm-9
-          %input.form-control{type: 'number', name: "#{x}"}
-    - impact_dates.each do |x|
+          %input.form-control{ type: 'number', name: "#{ x }" }
+    - dates[:impact_dates].each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
+        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
         .col-sm-9
-          %input.form-control{type: 'date', name: "#{x}"}
+          %input.form-control{ type: 'date', name: "#{ x }" }
   %h2 Screening
   %span.glyphicon.glyphicon-plus
   .hide-list
-    - screening.each do |x|
+    - main[:screening].each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
+        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
         .col-sm-9
-          %input.form-control{type: 'text', name: "#{x}"}
-    - yes_no_screening.each do |x|
+          %input.form-control{ type: 'text', name: "#{ x }" }
+    - extra[:yes_no_screening].each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
+        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
         .col-sm-9
-          %select{name: "#{x}"}
-            %option{value: '', selected: true, disabled: true}
-            %option{value: 'yes'} yes
-            %option{value: 'no'} no
-    - numbers_screening.each do |x|
+          %select{ name: "#{ x }" }
+            %option{ value: '', selected: true, disabled: true }
+            %option{ value: 'yes' } yes
+            %option{ value: 'no' } no
+    - extra[:numbers_screening].each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
+        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
         .col-sm-9
-          %input.form-control{type: 'number', name: "#{x}"}
+          %input.form-control{ type: 'number', name: "#{ x }" }
   %h2 Ratings
   %span.glyphicon.glyphicon-plus
   .hide-list
-    - ratings.each do |x|
+    - extra[:ratings].each do |x|
       .form-group
-        %label.col-sm-3.control-label= "#{name_modifier(x)}:"
+        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
         .col-sm-9
-          %select{name: "#{x}"}
-            %option{value: '', selected: true, disabled: true}
+          %select{ name: "#{ x }" }
+            %option{ value: '', selected: true, disabled: true }
             - (1..4).each do |i|
-              %option{value: i}= i
+              %option{ value: i }= i
 
-  %button.btn.btn-default.btn-block{type: 'submit'} Submit
+  %button.btn.btn-default.btn-block{ type: 'submit' } Submit

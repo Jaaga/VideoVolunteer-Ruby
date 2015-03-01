@@ -1,9 +1,9 @@
-%form{:action => "/flag/#{@track.uid}", :method => 'post'}
-  %label Flagged for:
-  %select{:name => 'note'}
-    %option{:value => 'State Coordinator'} State Coordinator
-    %option{:value => 'Training & Mentoring'} Training & Mentoring
-    %option{:value => 'Communications'} Communications
-    %option{:value => 'Production'} Production
-    %option{:value => 'Executive Directors'} Executive Directors
-  %input{:type => 'submit'}
+%form{ action: "/flag/#{ @track.uid }", method: 'post' }
+  %label Flagged for
+  %select{ name: 'note' }
+    %option{ value: 'State Coordinator' } State Coordinator
+    %option{ value: 'Training & Mentoring' } Training & Mentoring
+    %option{ value: 'Communications' } Communications
+    %option{ value: 'Production' } Production
+    %option{ value: 'Executive Directors' } Executive Directors
+  %input{ type: 'submit' }

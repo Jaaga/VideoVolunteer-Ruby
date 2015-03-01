@@ -86,15 +86,16 @@ post '/new' do
     dates = global_dates_set
 
     arr.each do |x|
-      @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].blank?
+      @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
     end
 
     dates.each do |x|
-      @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].blank?
+      @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
     end
 
     if @track.uid.length > 2
       @track.save
+      flash[:notice] = "Story successfully saved as #{ @track.uid }."
       redirect '/recent'
     else
       "UID needs to be more than 2 characters long."
@@ -137,20 +138,20 @@ post '/search/custom' do
 
   # Goes through each query row and checks if data is entered for the search query.
   (0..9).each do |x|
-    if !params[:"column_#{x}"].blank? && params[:"input_#{x}"].blank?
-      search.push("#{params[:"column_#{x}"]} #{params[:"operator_#{x}"]} NULL")
+    if !params[:"column_#{ x }"].blank? && params[:"input_#{ x }"].blank?
+      search.push("#{ params[:"column_#{ x }"] } #{ params[:"operator_#{ x }"] } NULL")
       query += 1
-    elsif !params[:"column_#{x}"].blank? && params[:"operator_#{x}"] == "LIKE"
-      search.push("#{params[:"column_#{x}"]} #{params[:"operator_#{x}"]} '%#{params[:"input_#{x}"]}%'")
+    elsif !params[:"column_#{ x }"].blank? && params[:"operator_#{ x }"] == "LIKE"
+      search.push("#{ params[:"column_#{ x }"] } #{ params[:"operator_#{ x }"] } '%#{ params[:"input_#{ x }"] }%'")
       query += 1
-    elsif !params[:"column_#{x}"].blank?
-      search.push("#{params[:"column_#{x}"]} #{params[:"operator_#{x}"]} '#{params[:"input_#{x}"]}'")
+    elsif !params[:"column_#{ x }"].blank?
+      search.push("#{ params[:"column_#{ x }"] } #{ params[:"operator_#{ x }"] } '#{ params[:"input_#{ x }"] }'")
       query += 1
     end
 
     # Only add chain if input was filled in and column was chosen.
-    if !params[:"chain_#{x}"].blank? && !params[:"column_#{x}"].blank?
-      search.push(params[:"chain_#{x}"])
+    if !params[:"chain_#{ x }"].blank? && !params[:"column_#{ x }"].blank?
+      search.push(params[:"chain_#{ x }"])
       chain += 1
     end
   end
@@ -205,6 +206,7 @@ get '/delete/:uid' do
   @track = Tracker.find_by(uid: params[:uid])
   @track.destroy
 
+  flash[:notice] = "#{ @track.uid } successfully deleted."
   redirect '/recent'
 end
 
@@ -220,14 +222,15 @@ post '/edit/:uid' do
   dates = global_dates_set
 
   arr.each do |x|
-    @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].blank?
+    @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
   end
 
   dates.each do |x|
-    @track.send(:"#{x}=", params[:"#{x}"]) if !params[:"#{x}"].blank?
+    @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
   end
 
   @track.save
+  flash[:notice] = "Tracker #{ @track.uid } successfully edited."
   redirect '/recent'
 end
 
@@ -251,16 +254,16 @@ end
 post '/flag/:uid' do
   if params[:note].blank?
     flash[:error] = "Need information for flag."
-    redirect "/flag/#{params[:uid]}"
+    redirect "/flag/#{ params[:uid] }"
   else
     @track = Tracker.find_by(uid: params[:uid])
 
-    @track.flag_notes = "#{params[:note]}"
+    @track.flag_notes = "#{ params[:note] }"
     @track.flag = "priority"
     @track.flag_date = Date.today
 
     @track.save
-
+    flash[:notice] = "Flag successfully added to #{ @track.uid }."
     redirect '/recent'
   end
 end
@@ -273,7 +276,7 @@ get '/unflag/:uid' do
   @track.flag_date = nil
 
   @track.save
-
+  flash[:notice] = "#{ @track.uid } successfully unflagged."
   redirect '/recent'
 end
 
@@ -289,17 +292,20 @@ post '/note' do
     flash[:error] = "UID needed."
     redirect '/note'
   else
-    @track = Tracker.find_by(uid: params[:uid])
+    @track = Tracker.find_by(uid: params[:uid].upcase)
 
-    if @track.note.blank?
-      @track.note = "#{Date.today}: #{params[:note]}"
+    if @track == nil
+      flash[:error] = "Invalid UID."
+      redirect '/note'
+    elsif @track.note.blank?
+      @track.note = "#{ Date.today }: #{ params[:note] }"
     else
       temp = @track.note
-      @track.note = "#{Date.today}: #{params[:note]}<br>#{temp}"
+      @track.note = "#{ Date.today }: #{ params[:note] }<br>#{ temp }"
     end
 
     @track.save
-
+    flash[:notice] = "Note successfully added to #{ @track.uid }."
     redirect '/recent'
   end
 end

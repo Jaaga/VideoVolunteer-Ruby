@@ -4,10 +4,10 @@
   - name.push(x.state)
 - name.sort!
 
-%form{:action => "/new/state", :method => 'post'}
+%form{ action: "/new/state", method: 'post' }
   %label State?
-  %select{:name => 'state'}
-    %option{:value => '', :selected => true, :disabled => true}
+  %select{ name: 'state' }
+    %option{ value: '', selected: true, disabled: true }
     - name.each do |x|
-      %option{:value => x} #{x}
-  %input{:type => 'submit'}
+      %option{ value: x } #{ x }
+  %input{ type: 'submit' }

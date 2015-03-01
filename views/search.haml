@@ -4,42 +4,42 @@
 %h1 Search
 
 %h2 Custom Search
-%form.form-horizontal{action: '/search/custom', method: 'post'}
+%form.form-horizontal{ action: '/search/custom', method: 'post' }
   %span.glyphicon.glyphicon-plus
   .hide-list
     .form-group
       - (0..8).each do |i|
-        %select{name: "column_#{i}"}
-          %option{value: '', selected: true, disabled: true}
+        %select{ name: "column_#{ i }" }
+          %option{ value: '', selected: true, disabled: true }
           - arr.each do |x|
-            %option{value: x} #{name_modifier(x)}
-        %select{name: "operator_#{i}"}
-          %option{value: 'IS'} IS
-          %option{value: 'IS NOT'} IS NOT
-          %option{value: 'LIKE'} CONTAINS
-        %input{type: 'text', name: "input_#{i}"}
+            %option{ value: x } #{ name_modifier(x) }
+        %select{ name: "operator_#{ i }" }
+          %option{ value: 'IS' } IS
+          %option{ value: 'IS NOT' } IS NOT
+          %option{ value: 'LIKE' } CONTAINS
+        %input{ type: 'text', name: "input_#{ i }" }
         %br
-        %select{name: "chain_#{i}"}
-          %option{value: '', selected: true, disabled: true}
-          %option{value: 'AND'} AND
-          %option{value: 'OR'} OR
+        %select{ name: "chain_#{ i }" }
+          %option{ value: '', selected: true, disabled: true }
+          %option{ value: 'AND' } AND
+          %option{ value: 'OR' } OR
         %br
 
-      %select{name: 'column_9'}
-        %option{value: '', selected: true, disabled: true}
+      %select{ name: 'column_9' }
+        %option{ value: '', selected: true, disabled: true }
         - arr.each do |x|
-          %option{value: x} #{name_modifier(x)}
-      %select{name: 'operator_9'}
-        %option{value: 'IS'} IS
-        %option{value: 'IS NOT'} IS NOT
-      %input{type: 'text', name: 'input_9'}
-    %button.btn.btn-default.btn-block{type: 'submit'} Submit
+          %option{ value: x } #{ name_modifier(x) }
+      %select{ name: 'operator_9' }
+        %option{ value: 'IS' } IS
+        %option{ value: 'IS NOT' } IS NOT
+      %input{ type: 'text', name: 'input_9' }
+    %button.btn.btn-default.btn-block{ type: 'submit' } Submit
 
 %h2 Standard Searches
 %span.glyphicon.glyphicon-plus
 .hide-list
-  %form.form-horizontal{action: '/search/pitch', method: 'post'}
-    %button.btn.btn-default.btn-block{type: 'submit'} Pitched but has no video yet.
+  %form.form-horizontal{ action: '/search/pitch', method: 'post' }
+    %button.btn.btn-default.btn-block{ type: 'submit' } Pitched but has no video yet.
 
-  %form.form-horizontal{action: '/search/rough', method: 'post'}
-    %button.btn.btn-default.btn-block{type: 'submit'} Rough cut received but has not been published yet.
+  %form.form-horizontal{ action: '/search/rough', method: 'post' }
+    %button.btn.btn-default.btn-block{ type: 'submit' } Rough cut received but has not been published yet.

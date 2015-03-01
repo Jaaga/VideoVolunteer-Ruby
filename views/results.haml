@@ -12,20 +12,20 @@
     Change Columns
   %ul.hide-list
     %li
-      %input.0{type: 'checkbox', checked: true} UID
+      %input.0{ type: 'checkbox', checked: true } UID
     - x = 1
     - defaults.each do |v|
       %li
-        %input{class: "#{x}", type: 'checkbox', checked: true} #{name_modifier(v)}
+        %input{ class: "#{ x }", type: 'checkbox', checked: true } #{ name_modifier(v) }
       - x += 1
     - arr.each_with_index do |v, i|
       %li
         - x = i + count
-        %input{type: 'checkbox', class: "#{x}"} #{name_modifier(v)}
+        %input{ type: 'checkbox', class: "#{ x }" } #{ name_modifier(v) }
     - dates.each_with_index do |y, x|
       %li
         - d = x + count + arr.length
-        %input{type: 'checkbox', class: "#{d}"} #{name_modifier(y)}
+        %input{ type: 'checkbox', class: "#{ d }" } #{ name_modifier(y) }
 
 .table-responsive
   %table.table.table-bordered.table-striped
@@ -34,27 +34,27 @@
         %th.col0 UID
         - x = 1
         - defaults.each do |v|
-          %th{class: "col#{x}"} #{name_modifier(v)}
+          %th{ class: "col#{ x }" } #{ name_modifier(v) }
           - x += 1
         - arr.each_with_index do |v, i|
           - x = i + count
-          %th{class: "col#{x}"} #{name_modifier(v)}
+          %th{ class: "col#{ x }" } #{ name_modifier(v) }
         - dates.each_with_index do |y, x|
           - d = x + count + arr.length
-          %th{class: "col#{d}"} #{name_modifier(y)}
+          %th{ class: "col#{ d }" } #{ name_modifier(y) }
     %tbody
       - @track.each do |t|
         %tr
           %td.col0
-            %a{href: "/show/#{t.uid}"}
+            %a{ href: "/show/#{ t.uid }" }
               =h t.uid
           - x = 1
           - defaults.each do |v|
-            %td{class: "col#{x}"}=h t.send(:"#{v}")
+            %td{ class: "col#{ x }" }=h t.send(:"#{ v }")
             - x += 1
           - arr.each_with_index do |v, i|
             - x = i + count
-            %td{class: "col#{x}"}=h t.send(:"#{v}")
+            %td{ class: "col#{ x }" }=h t.send(:"#{ v }")
           - dates.each_with_index do |y, x|
             - d = x + count + arr.length
-            %td{class: "col#{d}"}=h t.send(:"#{y}")
+            %td{ class: "col#{ d }" }=h t.send(:"#{ y }")

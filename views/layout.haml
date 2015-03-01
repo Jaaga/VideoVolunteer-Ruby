@@ -1,24 +1,24 @@
 !!!
 %html
   %head
-    %link{:href => "/css/bootstrap.min.css", :rel => "stylesheet"}
-    %link{:href => "/css/main.css", :rel => "stylesheet"}
+    %link{ href: "/css/bootstrap.min.css", rel: "stylesheet" }
+    %link{ href: "/css/main.css", rel: "stylesheet" }
   %body
     %nav.navbar.navbar-default.navbar-static-top.navbar-inverse
       .container-fluid
         .navbar-header
-          %a.navbar-brand{:href => '/'} Video Volunteers
+          %a.navbar-brand{ href: '/' } Video Volunteers
         %ul.nav.navbar-nav
           %li
-            %a{:href => "/new"} New Story Form
+            %a{ href: "/new" } New Story Form
           %li
-            %a{:href => "/view"} View All
+            %a{ href: "/view" } View All
           %li
-            %a{:href => '/recent'} Recent
+            %a{ href: '/recent' } Recent
           %li
-            %a{:href => '/search'} Search
+            %a{ href: '/search' } Search
           %li
-            %a{:href => "/note"} Add Note
+            %a{ href: "/note" } Add Note
 
     .container
       .row
@@ -26,9 +26,11 @@
         .col-md-10
           - if flash[:error]
             %p= flash[:error]
+          - elsif flash[:notice]
+            %p= flash[:notice]
           = yield
         .col-md-1
 
-    %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"}
-    %script{:src => "/js/bootstrap.min.js"}
-    %script{:src => "/js/main.js"}
+    %script{ src: "/js/jquery-1.11.2.min.js" }
+    %script{ src: "/js/bootstrap.min.js" }
+    %script{ src: "/js/main.js" }
