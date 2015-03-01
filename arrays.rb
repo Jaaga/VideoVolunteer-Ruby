@@ -1,4 +1,5 @@
-# Array setters for sets that are used multiple times.
+# Array setters for sets that are used multiple times. This is used to show,
+# edit and create new columns for trackers.
 
 module Arrays
 
@@ -29,8 +30,8 @@ module Arrays
 
   def main_set()
     story = ['iu_theme', 'subcategory', 'description', 'story_type', 'shoot_plan']
-    footage = ['editor', 'edit_status', 'payment_status', 'folder_title', 'review_notes', 'youtube_url', 'video_title', 'subtitle_info', 'subtheme', 'project', 'reviewer_name', 'editor_changes_needed', 'cc_feedback', 'publishing_suggestions', 'stalin_notes', 'video_type']
-    impact = ['impact_possible', 'target_official', 'target_official_email', 'target_official_phone', 'desired_change', 'impact_plan', 'impact_followup', 'impact_followup_notes', 'impact_uid', 'impact_process', 'impact_status', 'milestone', 'impact_time', 'collaborations', 'people_involved', 'people_impacted', 'villages_impacted', 'impact_production_status', 'impact_review', 'payment_approved', 'impact_reviewer']
+    footage = ['editor', 'folder_title', 'review_notes', 'youtube_url', 'video_title', 'subtheme', 'project', 'reviewer_name', 'cc_feedback', 'publishing_suggestions', 'stalin_notes', 'video_type']
+    impact = ['impact_possible', 'target_official', 'target_official_email', 'target_official_phone', 'desired_change', 'impact_plan', 'impact_followup', 'impact_followup_notes', 'impact_uid', 'impact_process', 'milestone', 'impact_time', 'collaborations', 'people_involved', 'people_impacted', 'villages_impacted', 'impact_review', 'payment_approved', 'impact_reviewer']
     screening = ['screening_done', 'screening_headcount', 'screening_notes', 'official_involved', 'officials_at_screening_number', 'officials_at_screening', 'official_screening_notes']
     extra = ['flag', 'flag_notes', 'updated_by']
     return { story: story, footage: footage, impact: impact, screening: screening, extra: extra }
