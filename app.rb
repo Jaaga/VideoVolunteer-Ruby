@@ -1,11 +1,11 @@
 require 'sinatra'
 require 'active_record'
 require 'sinatra/activerecord'
-# For showing input errors.
-require 'sinatra/flash'
+require 'sinatra/flash'           # For showing input errors.
 require 'haml'
 require 'date'
 require './.config/environment'
+
 require_relative './features'
 require_relative './arrays'
 
@@ -23,6 +23,15 @@ end
 class State < ActiveRecord::Base
 end
 
+
+# For escaping user inputed code.
+helpers do
+  def h(text)
+    Rack::Utils.escape_html(text)
+  end
+end
+
+
 # Routes
 get '/' do
   @track = Tracker.all
@@ -34,15 +43,6 @@ get '/' do
 
   haml :index
 end
-
-
-# For escaping user inputed code.
-helpers do
-  def h(text)
-    Rack::Utils.escape_html(text)
-  end
-end
-
 
 # New Stories
 
