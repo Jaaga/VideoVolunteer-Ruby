@@ -1,3 +1,5 @@
+# Methods that are needed for display and id generation.
+
 module Features
   def name_modifier(x)
     return x.split('_').map(&:capitalize).join(' ')

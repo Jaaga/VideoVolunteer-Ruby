@@ -2,79 +2,29 @@
 - main[:story].push('state', 'cc_name', 'district', 'mentor')
 - main[:footage].push('edit_status', 'payment_status', 'subtitle_info', 'editor_changes_needed')
 - main[:impact].push('impact_status', 'impact_production_status')
+- main[:extra].push('note')
 - dates = date_set
 - extra = extra_set
 
 %h1 #{ @track.uid.split('_').join(' ') } by #{ @track.cc_name } - #{ @track.iu_theme }
 
-%h2 Story
-.table-responsive
-  %table.table.table-bordered.table-striped#view-margin
-    - main[:story].each do |x|
-      %tr
-        %th= name_modifier(x)
-        %td=h @track.send(:"#{ x }")
-    - dates[:story_dates].each do |x|
-      %tr
-        %th= name_modifier(x)
-        %td=h @track.send(:"#{ x }")
-%h2 Status
-.table-responsive
-  %table.table.table-bordered.table-striped#view-margin
-    - dates[:status_dates].each do |x|
-      %tr
-        %th= name_modifier(x)
-        %td=h @track.send(:"#{ x }")
-%h2 Footage
-.table-responsive
-  %table.table.table-bordered.table-striped#view-margin
-    - main[:footage].each do |x|
-      %tr
-        %th= name_modifier(x)
-        %td=h @track.send(:"#{ x }")
-    - dates[:footage_dates].each do |x|
-      %tr
-        %th= name_modifier(x)
-        %td=h @track.send(:"#{ x }")
-%h2 Impact
-.table-responsive
-  %table.table.table-bordered.table-striped#view-margin
-    - main[:impact].each do |x|
-      %tr
-        %th= name_modifier(x)
-        %td=h @track.send(:"#{ x }")
-    - dates[:impact_dates].each do |x|
-      %tr
-        %th= name_modifier(x)
-        %td=h @track.send(:"#{ x }")
-%h2 Screening
-.table-responsive
-  %table.table.table-bordered.table-striped#view-margin
-    - main[:screening].each do |x|
-      %tr
-        %th= name_modifier(x)
-        %td=h @track.send(:"#{ x }")
-%h2 Rating
-.table-responsive
-  %table.table.table-bordered.table-striped#view-margin
-    - extra[:ratings].each do |x|
-      %tr
-        %th= name_modifier(x)
-        %td=h @track.send(:"#{ x }")
-%h2 Extra
-.table-responsive.space
-  %table.table.table-bordered.table-striped#view-margin
-    - main[:extra].each do |x|
-      %tr
-        %th= name_modifier(x)
-        %td=h @track.send(:"#{ x }")
-    %tr
-      %th Notes
-      %td= @track.note
-    - dates[:extra_dates].each do |x|
-      %tr
-        %th= name_modifier(x)
-        %td=h @track.send(:"#{ x }")
+
+/ Each line renders a table with a title, and then populates the cells with
+/ the tracker information for the selected tracker.
+= haml :show_table, locals: {title: 'Story', track: @track,
+                            column1: main[:story], column2: dates[:story_dates]}
+= haml :show_table, locals: {title: 'Status', track: @track,
+                            column1: dates[:status_dates], column2: []}
+= haml :show_table, locals: {title: 'Footage', track: @track,
+                            column1: main[:footage], column2: dates[:footage_dates]}
+= haml :show_table, locals: {title: 'Impact', track: @track,
+                            column1: main[:impact], column2: dates[:impact_dates]}
+= haml :show_table, locals: {title: 'Screening', track: @track,
+                            column1: main[:screening], column2: []}
+= haml :show_table, locals: {title: 'Rating', track: @track,
+                            column1: extra[:ratings], column2: []}
+= haml :show_table, locals: {title: 'Extra', track: @track,
+                            column1: main[:extra], column2: dates[:extra_dates]}
 
 %a.btn.btn-default{ href: "/edit/#{ @track.uid }", role: 'button' } Edit
 - if @track.flag.nil?

@@ -8,9 +8,12 @@ require './.config/environment'
 
 require_relative './features'
 require_relative './arrays'
+require_relative './forms'
 
 include Features
 include Arrays
+include Forms
+
 enable :sessions
 
 # Classes for database tables.

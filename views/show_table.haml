@@ -1,0 +1,8 @@
+/ Generates each table used by /show/:uid. Uses method show from forms.db to
+/ generate the table cells.
+
+%h2= title
+.table-responsive
+  %table.table.table-bordered.table-striped#view-margin
+    = show(track, column1)
+    = show(track, column2) if !column2.blank?
