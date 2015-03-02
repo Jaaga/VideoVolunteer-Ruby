@@ -294,6 +294,9 @@ post '/note' do
   if params[:uid].blank?
     flash[:error] = "UID needed."
     redirect '/note'
+  elsif params[:note].blank?
+    flash[:error] = "A note is needed."
+    redirect '/note'
   else
     @track = Tracker.find_by(uid: params[:uid].upcase)
 

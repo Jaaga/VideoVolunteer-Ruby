@@ -109,7 +109,7 @@ describe "error messages" do
   end
 
   it "should appear if not enough operations are chosen for search queries" do
-    post '/search/custom', params = { chain_1: 'AND', column1: 'flag'}
+    post '/search/custom', params = { chain_1: 'AND', column1: 'flag' }
     expect(last_response.status).to eq 302
     get '/search'
     expect(last_response.body).to include('Need an AND or OR for multiple criteria.')
@@ -127,6 +127,34 @@ describe "error messages" do
     expect(last_response.status).to eq 302
     get '/recent'
     expect(last_response.body).to include('Could not find story to delete.')
+  end
+
+  it "should appear if the flag note is blank" do
+    post '/flag/GJ_1002', params = { note: '' }
+    expect(last_response.status).to eq 302
+    get '/flag/GJ_1002'
+    expect(last_response.body).to include('Need information for flag.')
+  end
+
+  it "should appear if no UID is entered for a note" do
+    post '/note', params = { uid: '', note: 'example' }
+    expect(last_response.status).to eq 302
+    get '/note'
+    expect(last_response.body).to include('UID needed.')
+  end
+
+  it "should appear if no note is entered" do
+    post '/note', params = { uid: 'nil', note: '' }
+    expect(last_response.status).to eq 302
+    get '/note'
+    expect(last_response.body).to include('A note is needed.')
+  end
+
+  it "should appear if an invalid UID is entered for a note" do
+    post '/note', params = { uid: 'nil', note: 'example' }
+    expect(last_response.status).to eq 302
+    get '/note'
+    expect(last_response.body).to include('Invalid UID.')
   end
 end
 
