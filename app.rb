@@ -159,7 +159,7 @@ post '/search/custom' do
 
   # Flash error if there are not enough operators for the queries.
   if query != chain
-    flash[:error] = "Need an AND or OR for multiple criteria."
+    flash[:error] = "Need enough AND's or OR's for multiple criteria."
     redirect '/search'
   else
     search = search.join(' ')

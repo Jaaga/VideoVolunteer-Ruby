@@ -1,5 +1,8 @@
+# GJ_1001 unflagged and BH_1001 flagged are needed to run these tests.
+
 require File.expand_path '../spec_helper.rb', __FILE__
 
+# Test getting pages
 describe "app.rb" do
   it "should get /" do
     get '/'
@@ -32,6 +35,7 @@ describe "app.rb" do
   end
 end
 
+# Test all functionalities of trackers.
 describe "the life of a tracker" do
   it "should be created with a state" do
     post '/new/state', params = { state: 'Goa' }
@@ -65,7 +69,7 @@ describe "the life of a tracker" do
     post '/flag/GO_1001', params = { note: 'State Coordinator' }
     expect(last_response.status).to eq 302
     get '/recent'
-    expect(last_response.body).to include('priority')
+    expect(last_response.body).to include('State Coordinator')
     expect(last_response.body).to include('Flag successfully added to GO_1001.')
   end
 
@@ -73,7 +77,7 @@ describe "the life of a tracker" do
     get '/unflag/GO_1001'
     expect(last_response.status).to eq 302
     get '/recent'
-    expect(last_response.body).not_to include('priority')
+    expect(last_response.body).not_to include('State Coordinator')
     expect(last_response.body).to include('GO_1001 successfully unflagged.')
   end
 
@@ -93,6 +97,7 @@ describe "the life of a tracker" do
   end
 end
 
+# Test error messages given by sinatra-flash.
 describe "error messages" do
   it "should appear if no state is chosen" do
     post '/new/state', params = { state: '' }
@@ -112,7 +117,7 @@ describe "error messages" do
     post '/search/custom', params = { chain_1: 'AND', column1: 'flag' }
     expect(last_response.status).to eq 302
     get '/search'
-    expect(last_response.body).to include('Need an AND or OR for multiple criteria.')
+    expect(last_response.body).to include('Need enough AND\'s or OR\'s for multiple criteria.')
   end
 
   it "should appear if the uid doesn't exist" do
@@ -130,9 +135,9 @@ describe "error messages" do
   end
 
   it "should appear if the flag note is blank" do
-    post '/flag/GJ_1002', params = { note: '' }
+    post '/flag/GJ_1001', params = { note: '' }
     expect(last_response.status).to eq 302
-    get '/flag/GJ_1002'
+    get '/flag/GJ_1001'
     expect(last_response.body).to include('Need information for flag.')
   end
 
@@ -158,6 +163,38 @@ describe "error messages" do
   end
 end
 
+# Test the custom searches
 describe "searching" do
+  it "should work when there are enough operators per queries" do
+    post '/search/custom', params = { chain_1: 'AND', column1: 'flag',
+                                      operator_1: 'IS', column2: 'cc_name',
+                                      operator_2: 'IS' }
+    expect(last_response.status).to eq 302
+    get 'results'
+    expect(last_response.body).not_to include('priority')
+  end
 
+  it "should work with one query and no AND/OR operator" do
+    post '/search/custom', params = { column1: 'flag', operator_1: 'IS' }
+    expect(last_response.status).to eq 302
+    get 'results'
+    expect(last_response.body).not_to include('priority')
+  end
+
+  it "should not work when there are too many AND/OR operators" do
+    post '/search/custom', params = { chain_1: 'AND', column1: 'flag',
+                                      operator_1: 'IS', column2: 'cc_name',
+                                      operator_2: 'IS', chain_2: 'OR' }
+    expect(last_response.status).to eq 302
+    get '/search'
+    expect(last_response.body).to include('Need enough AND\'s or OR\'s for multiple criteria.')
+  end
+
+  it "should not work if there are not enough AND/OR operators" do
+    post '/search/custom', params = { column1: 'flag', operator_1: 'IS',
+                                      column2: 'cc_name', operator_2: 'IS' }
+    expect(last_response.status).to eq 302
+    get '/search'
+    expect(last_response.body).to include('Need enough AND\'s or OR\'s for multiple criteria.')
+  end
 end
