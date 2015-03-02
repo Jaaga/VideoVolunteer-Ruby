@@ -85,7 +85,7 @@ post '/new' do
     @track.district = @cc.district
     @track.mentor = @cc.mentor
 
-    arr = global_arr_set.push('cc_name', 'flag', 'flag_notes', 'description')
+    arr = global_arr_set.push('cc_name')
     dates = global_dates_set
 
     arr.each do |x|
@@ -231,7 +231,7 @@ end
 
 post '/edit/:uid' do
   @track = Tracker.find_by(uid: params[:uid])
-  arr = global_arr_set.push('district', 'mentor', 'description')
+  arr = global_arr_set.push('district', 'mentor')
   dates = global_dates_set
 
   arr.each do |x|
