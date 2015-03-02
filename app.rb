@@ -98,7 +98,8 @@ post '/new' do
       flash[:notice] = "Story successfully saved as #{ @track.uid }."
       redirect '/recent'
     else
-      "UID needs to be more than 2 characters long."
+      flash[:error] = "Did not save story tracker. UID needs to be more than 2 characters long."
+      redirect '/recent'
     end
   end
 end
@@ -198,16 +199,25 @@ end
 
 get '/show/:uid' do
   @track = Tracker.find_by(uid: params[:uid])
-
-  haml :show
+  if @track == nil
+    flash[:error] = "Could not find story to show."
+    redirect '/recent'
+  else
+    haml :show
+  end
 end
 
 get '/delete/:uid' do
   @track = Tracker.find_by(uid: params[:uid])
-  @track.destroy
+  if @track == nil
+    flash[:error] = "Could not find story to delete."
+    redirect '/recent'
+  else
+    @track.destroy
 
-  flash[:notice] = "#{ @track.uid } successfully deleted."
-  redirect '/recent'
+    flash[:notice] = "#{ @track.uid } successfully deleted."
+    redirect '/recent'
+  end
 end
 
 get '/edit/:uid' do
@@ -237,13 +247,6 @@ end
 
 # Flagging and unflagging individual stories
 
-# This get is currently unused, but being kept in case the feature is needed in the future.
-# get '/flag' do
-#   @track = Tracker.where(flag: 'priority').order("updated_at ASC")
-#   @title = 'Flagged Stories'
-#
-#   haml :results
-# end
 
 get '/flag/:uid' do
   @track = Tracker.find_by(uid: params[:uid])
