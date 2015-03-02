@@ -1,4 +1,4 @@
-configure :development do
+configure :development, :test do
   set :database, 'sqlite3:tracker.db'
   set :show_exceptions, true
 end

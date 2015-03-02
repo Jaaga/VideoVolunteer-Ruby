@@ -1,4 +1,4 @@
-# GJ_1001 unflagged and BH_1001 flagged are needed to run these tests.
+# Testing main app file app.rb
 
 require File.expand_path '../spec_helper.rb', __FILE__
 
@@ -37,6 +37,12 @@ end
 
 # Test all functionalities of trackers.
 describe "the life of a tracker" do
+  before(:all) do
+    post '/new', params = { cc_name: 'Neeru Rathod' }
+    post '/new', params = { cc_name: 'Indu Devi' }
+    post '/flag/BH_1001', params = { note: 'Production' }
+  end
+
   it "should be created with a state" do
     post '/new/state', params = { state: 'Goa' }
     expect(last_response.body).to include('Goa')
@@ -196,5 +202,10 @@ describe "searching" do
     expect(last_response.status).to eq 302
     get '/search'
     expect(last_response.body).to include('Need enough AND\'s or OR\'s for multiple criteria.')
+  end
+
+  after (:all) do
+    get '/delete/BH_1001'
+    get '/delete/GJ_1001'
   end
 end
