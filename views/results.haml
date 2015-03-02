@@ -1,8 +1,11 @@
-- arr = global_arr_set.push('district', 'mentor').sort
+- arr = global_arr_set.push('district', 'mentor', 'note').sort
 - dates = global_dates_set.push('created_at').sort
 - defaults = ['cc_name', 'state', 'story_pitch_date',
               'flag', 'flag_date', 'flag_notes', 'updated_at']
-- count = defaults.length + 1
+/ x=1 for UID
+- x = 1
+- count = defaults.length + x
+- final_count = count + arr.length
 
 %h1= @title
 
@@ -13,48 +16,24 @@
   %ul.hide-list
     %li
       %input.0{ type: 'checkbox', checked: true } UID
-    - x = 1
-    - defaults.each do |v|
-      %li
-        %input{ class: "#{ x }", type: 'checkbox', checked: true } #{ name_modifier(v) }
-      - x += 1
-    - arr.each_with_index do |v, i|
-      %li
-        - x = i + count
-        %input{ type: 'checkbox', class: "#{ x }" } #{ name_modifier(v) }
-    - dates.each_with_index do |y, x|
-      %li
-        - d = x + count + arr.length
-        %input{ type: 'checkbox', class: "#{ d }" } #{ name_modifier(y) }
+    = results_check(defaults, x, true)
+    = results_check(arr, count)
+    = results_check(dates, final_count)
 
 .table-responsive
   %table.table.table-bordered.table-striped
     %thead
       %tr
         %th.col0 UID
-        - x = 1
-        - defaults.each do |v|
-          %th{ class: "col#{ x }" } #{ name_modifier(v) }
-          - x += 1
-        - arr.each_with_index do |v, i|
-          - x = i + count
-          %th{ class: "col#{ x }" } #{ name_modifier(v) }
-        - dates.each_with_index do |y, x|
-          - d = x + count + arr.length
-          %th{ class: "col#{ d }" } #{ name_modifier(y) }
+        = results_head(defaults, x)
+        = results_head(arr, count)
+        = results_head(dates, final_count)
     %tbody
       - @track.each do |t|
         %tr
           %td.col0
             %a{ href: "/show/#{ t.uid }" }
               =h t.uid
-          - x = 1
-          - defaults.each do |v|
-            %td{ class: "col#{ x }" }=h t.send(:"#{ v }")
-            - x += 1
-          - arr.each_with_index do |v, i|
-            - x = i + count
-            %td{ class: "col#{ x }" }=h t.send(:"#{ v }")
-          - dates.each_with_index do |y, x|
-            - d = x + count + arr.length
-            %td{ class: "col#{ d }" }=h t.send(:"#{ y }")
+          = results_body(defaults, x, t)
+          = results_body(arr, count, t)
+          = results_body(dates, final_count, t)

@@ -9,7 +9,7 @@ module Arrays
     arr = main_set.values.flatten + extra_set.values.flatten
     return arr - ["edit_status", "payment_status", "subtitle_info",
                   "editor_changes_needed", "impact_status",
-                  "impact_production_status", "note"]
+                  "impact_production_status", "flag", "flag_notes"]
   end
 
   def global_dates_set
