@@ -93,12 +93,12 @@ post '/new' do
       @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
     end
 
-    if @track.uid.length > 2
+    if @track.uid.length > 3
       @track.save
       flash[:notice] = "Story successfully saved as #{ @track.uid }."
       redirect '/recent'
     else
-      flash[:error] = "Did not save story tracker. UID needs to be more than 2 characters long."
+      flash[:error] = "Did not save story tracker because UID failed to generate."
       redirect '/recent'
     end
   end
@@ -228,7 +228,7 @@ end
 
 post '/edit/:uid' do
   @track = Tracker.find_by(uid: params[:uid])
-  arr = global_arr_set.push('district', 'mentor', 'flag', 'flag_notes', 'description')
+  arr = global_arr_set.push('district', 'mentor', 'description')
   dates = global_dates_set
 
   arr.each do |x|
