@@ -49,70 +49,76 @@ module Forms
     temp.join
   end
 
-  # Used to set forms for new.haml. This method sets forms for text and date
+  # Used to set forms for new.haml and edit.haml . This method sets forms for text and date
   # fields, along with columns that require unique dropdowns. The second arg is
   # is passed so that special fields can be identified. number and yesno are for
   # identifying the fields that need a yes/no dropdown or an integer type but
-  # are not easily identifiable by their column name. 
-  def new_set(arr, special = [], number = [], yesno = [])
+  # are not easily identifiable by their column name. track is for edit.haml and
+  # is used to display the original value of the column.
+  def new_set(arr, special = [], number = [], yesno = [], track = nil)
     arr.map do |x|
+      value = !track.blank? ? track.send(:"#{ x }") : ''
       if special.include? x
-        new_set_special([x])
+        new_set_special([x], value)
       elsif number.include? x
-        new_set_number([x])
+        new_set_number([x], value)
       elsif yesno.include? x
-        new_set_yesno([x])
+        new_set_yesno([x], value)
       elsif x.include? '_date'
         "<div class = 'form-group'>
           <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
           <div class = 'col-sm-9'>
-            <input class = 'form-control' type = 'date' name = #{ x }></div></div>"
+            <input class = 'form-control' type = 'date' name = #{ x } value =
+            #{ value }></div></div>"
       elsif x.include? '_rating'
         "<div class = 'form-group'>
           <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
           <div class = 'col-sm-9'>
             <input class = 'form-control' type = 'number' name = #{ x } min = '1'
-            max = '5'></div></div>"
+            max = '5' value = #{ value }>
+          </div></div>"
       else
         "<div class = 'form-group'>
           <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
           <div class = 'col-sm-9'>
-            <input class = 'form-control' type = 'text' name = #{ x }></div></div>"
+            <input class = 'form-control' type = 'text' name = #{ x } value =
+            #{ value }></div></div>"
       end
     end.join
   end
 
   # Set the forms for columns that only take in integers.
-  def new_set_number(arr)
+  def new_set_number(arr, value = nil)
     arr.map do |x|
       "<div class = 'form-group'>
         <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
         <div class = 'col-sm-9'>
-          <input class = 'form-control' type = 'number' name = #{ x }></div></div>"
+          <input class = 'form-control' type = 'number' name = #{ x } value =
+          #{ value }></div></div>"
     end.join
   end
 
   # Set the forms for columns with yes/no dropdowns.
-  def new_set_yesno(arr)
+  def new_set_yesno(arr, value = nil)
     arr.map do |x|
       "<div class = 'form-group'>
         <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
         <div class = 'col-sm-9'><select name = '#{ x }'>
-          <option value = '' selected = 'true' disabled = 'true'></option>
+          <option value = #{ value } selected = 'true' disabled = 'true'></option>
           <option value = 'yes'>yes</option>
           <option value = 'no'>no</option></select></div></div>"
     end.join
   end
 
   # Set the forms for columns with specific dropdowns.
-  def new_set_special(arr)
+  def new_set_special(arr, value = nil)
     arr.map do |x|
       if x == 'edit_status'
         "<div class='form-group'>
           <label class='col-sm-3 control-label'>Edit Status</label>
           <div class='col-sm-9'>
             <select name='edit_status'>
-              <option disabled selected value=''></option>
+              <option disabled selected value = #{ value }></option>
               <option value='cleared'>cleared</option>
               <option value='on hold'>on hold</option>
             </select>
@@ -123,7 +129,7 @@ module Forms
           <label class='col-sm-3 control-label'>Payment Status</label>
           <div class='col-sm-9'>
             <select name='payment_status'>
-              <option disabled selected value=''></option>
+              <option disabled selected value = #{ value }></option>
               <option value='paid'>paid</option>
               <option value='pay'>pay</option>
               <option value='hold'>hold</option>
@@ -135,7 +141,7 @@ module Forms
           <label class='col-sm-3 control-label'>Subtitle Info</label>
           <div class='col-sm-9'>
             <select name='subtitle_info'>
-              <option disabled selected value=''></option>
+              <option disabled selected value = #{ value }></option>
               <option value='has subtitles'>has subtitles</option>
               <option value='high priority subtitle'>high priority subtitle</option>
               <option value='low priority subtitle'>low priority subtitle</option>
@@ -147,7 +153,7 @@ module Forms
           <label class='col-sm-3 control-label'>Editor Changes Needed</label>
           <div class='col-sm-9'>
             <select name='editor_changes_needed'>
-              <option disabled selected value=''></option>
+              <option disabled selected value = #{ value }></option>
               <option value='required'>required</option>
               <option value='suggested'>suggested</option>
               <option value='not needed'>not needed</option>
@@ -159,7 +165,7 @@ module Forms
           <label class='col-sm-3 control-label'>Impact Status</label>
           <div class='col-sm-9'>
             <select name='impact_status'>
-              <option disabled selected value=''></option>
+              <option disabled selected value = #{ value }></option>
               <option value='achieved'>achieved</option>
               <option value='not achieved'>not achieved</option>
             </select>
@@ -170,7 +176,7 @@ module Forms
           <label class='col-sm-3 control-label'>Impact Production Status</label>
           <div class='col-sm-9'>
             <select name='impact_production_status'>
-              <option disabled selected value=''></option>
+              <option disabled selected value = #{ value }></option>
               <option value='done'>done</option>
               <option value='not done'>not done</option>
               <option value='in progress'>in progress</option>
