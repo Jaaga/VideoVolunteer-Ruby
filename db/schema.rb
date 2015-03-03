@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227071433) do
+ActiveRecord::Schema.define(version: 20150226064312) do
 
   create_table "ccs", force: :cascade do |t|
     t.string "full_name"
@@ -102,17 +102,17 @@ ActiveRecord::Schema.define(version: 20150227071433) do
     t.string   "screening_done"
     t.string   "screening_headcount"
     t.string   "screening_notes"
-    t.string   "official_involved"
+    t.string   "officials_involved"
     t.string   "officials_at_screening_number"
     t.string   "officials_at_screening"
     t.string   "official_screening_notes"
     t.string   "flag"
     t.string   "flag_notes"
+    t.date     "flag_date"
     t.text     "note"
     t.string   "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "flag_date"
   end
 
   add_index "trackers", ["uid"], name: "index_trackers_on_uid", unique: true

@@ -7,9 +7,7 @@ module Arrays
     # Values creates a multidimensional array from the hash and removes the keys.
     # Make the global array based off of the other arrays.
     arr = main_set.values.flatten + extra_set.values.flatten
-    return arr - ["edit_status", "payment_status", "subtitle_info",
-                  "editor_changes_needed", "impact_status",
-                  "impact_production_status", "flag", "flag_notes"]
+    return arr.uniq - ['flag', 'flag_notes', 'flag-date']
   end
 
   def global_dates_set
@@ -23,15 +21,11 @@ module Arrays
     footage = ['editor', 'folder_title', 'review_notes', 'youtube_url',
               'video_title', 'subtheme', 'project', 'reviewer_name',
               'cc_feedback', 'publishing_suggestions', 'stalin_notes', 'video_type']
-    impact = ['impact_possible', 'target_official', 'target_official_email',
-              'target_official_phone', 'desired_change', 'impact_plan',
-              'impact_followup', 'impact_followup_notes', 'impact_uid',
-              'impact_process', 'milestone', 'impact_time', 'collaborations',
-              'people_involved', 'people_impacted', 'villages_impacted',
-              'impact_review', 'payment_approved', 'impact_reviewer']
-    screening = ['screening_done', 'screening_headcount', 'screening_notes',
-                'official_involved', 'officials_at_screening_number',
-                'officials_at_screening', 'official_screening_notes']
+    impact = ['target_official', 'target_official_email', 'target_official_phone',
+              'desired_change', 'impact_plan', 'impact_followup_notes',
+              'impact_uid', 'impact_process', 'milestone', 'impact_time',
+              'collaborations', 'impact_reviewer']
+    screening = ['screening_notes', 'official_screening_notes']
     extra = ['flag', 'flag_notes', 'updated_by']
     return { story: story, footage: footage, impact: impact, screening: screening, extra: extra }
   end
@@ -54,8 +48,17 @@ module Arrays
     yes_no_screening = ['screening_done', 'officials_at_screening']
     ratings = ['story_rating', 'edited_video_rating', 'final_video_rating']
     numbers_impact = ['people_involved', 'people_impacted', 'villages_impacted']
-    numbers_screening = ['official_involved', 'officials_at_screening_number']
+    numbers_screening = ['screening_headcount', 'officials_involved',
+                         'officials_at_screening_number']
+    special_footage = ['edit_status', 'payment_status', 'subtitle_info',
+                      'editor_changes_needed']
+    special_impact = ['impact_status', 'impact_production_status']
+    special_all = ['edit_status', 'payment_status', 'subtitle_info',
+                   'editor_changes_needed', 'impact_status', 'impact_production_status']
     return { yes_no_impact: yes_no_impact, yes_no_screening: yes_no_screening,
-              ratings: ratings, numbers_impact: numbers_impact, numbers_screening: numbers_screening }
+             ratings: ratings, numbers_impact: numbers_impact,
+             numbers_screening: numbers_screening,
+             special_footage: special_footage, special_impact: special_impact,
+             special_all: special_all}
   end
 end

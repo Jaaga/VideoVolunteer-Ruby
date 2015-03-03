@@ -2,157 +2,33 @@
 - dates = date_set
 - extra = extra_set
 
+- story = main[:story] + dates[:story_dates]
+- status = dates[:status_dates]
+- footage = main[:footage] + dates[:footage_dates] + extra[:special_footage]
+- impact = main[:impact] + dates[:impact_dates] + extra[:special_impact] + extra[:numbers_impact] + extra[:yes_no_impact]
+- screening = main[:screening] + extra[:numbers_screening] + extra[:yes_no_screening]
+- ratings = extra[:ratings]
+
 %h1 New Story
 
 %h3= "State: #{ @state.state }, #{ @state.state_abb }"
 
 %form.form-horizontal{ action: '/new', method: 'post' }
-  %h2 Story
-  .form-group
-    %label.col-sm-3.control-label CC Name:
-    .col-sm-9
-      %select{ name: 'cc_name' }
-        %option{ value: '', selected: true, disabled: true }
-        - name = Array.new
-        - @cc.each do |x|
-          - name.push(x.full_name)
-        - name.sort!
-        - name.each do |x|
-          %option{ value: x } #{ x }
-  - main[:story].each do |x|
-    .form-group
-      %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
-      .col-sm-9
-        %input.form-control{ type: 'text', name: "#{ x }" }
-  - dates[:story_dates].each do |x|
-    .form-group
-      %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
-      .col-sm-9
-        %input.form-control{ type: 'date', name: "#{ x }" }
-  %h2 Status
-  %span.glyphicon.glyphicon-plus
-  .hide-list
-    - dates[:status_dates].each do |x|
-      .form-group
-        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
-        .col-sm-9
-          %input.form-control{ type: 'date', name: "#{ x }" }
-  %h2 Footage
-  %span.glyphicon.glyphicon-plus
-  .hide-list
-    - main[:footage].each do |x|
-      .form-group
-        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
-        .col-sm-9
-          %input.form-control{ type: 'text', name: "#{ x }" }
-    .form-group
-      %label.col-sm-3.control-label= "Edit Status"
-      .col-sm-9
-        %select{ name: "edit_status" }
-          %option{ value: '', selected: true, disabled: true }
-          %option{ value: 'cleared' } cleared
-          %option{ value: 'on hold' } on hold
-    .form-group
-      %label.col-sm-3.control-label= "Impact Production Status"
-      .col-sm-9
-        %select{ name: "payment_status" }
-          %option{ value: '', selected: true, disabled: true }
-          %option{ value: 'paid' } paid
-          %option{ value: 'pay' } pay
-          %option{ value: 'hold' } hold
-    .form-group
-      %label.col-sm-3.control-label= "Subtitle Info"
-      .col-sm-9
-        %select{ name: "subtitle_info" }
-          %option{ value: '', selected: true, disabled: true }
-          %option{ value: 'has subtitles' } has subtitles
-          %option{ value: 'high priority subtitle' } high priority subtitle
-          %option{ value: 'low priority subtitle' } low priority subtitle
-    .form-group
-      %label.col-sm-3.control-label= "Editor Changes Needed"
-      .col-sm-9
-        %select{ name: "editor_changes_needed" }
-          %option{ value: '', selected: true, disabled: true }
-          %option{ value: 'required' } required
-          %option{ value: 'suggested' } suggested
-          %option{ value: 'not needed' } not needed
-    - dates[:footage_dates].each do |x|
-      .form-group
-        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
-        .col-sm-9
-          %input.form-control{ type: 'date', name: "#{ x }" }
-  %h2 Impact
-  %span.glyphicon.glyphicon-plus
-  .hide-list
-    - main[:impact].each do |x|
-      .form-group
-        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
-        .col-sm-9
-          %input.form-control{ type: 'text', name: "#{ x }" }
-    .form-group
-      %label.col-sm-3.control-label= "Impact Status"
-      .col-sm-9
-        %select{ name: "impact_status" }
-          %option{ value: '', selected: true, disabled: true }
-          %option{ value: 'achieved' } achieved
-          %option{ value: 'not achieved' } not achieved
-    .form-group
-      %label.col-sm-3.control-label= "Impact Production Status"
-      .col-sm-9
-        %select{ name: "impact_production_status" }
-          %option{ value: '', selected: true, disabled: true }
-          %option{ value: 'done' } done
-          %option{ value: 'not done' } not done
-          %option{ value: 'in progress' } in progress
-    - extra[:yes_no_impact].each do |x|
-      .form-group
-        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
-        .col-sm-9
-          %select{ name: "#{ x }" }
-            %option{ value: '', selected: true, disabled: true }
-            %option{ value: 'yes' } yes
-            %option{ value: 'no' } no
-    - extra[:numbers_impact].each do |x|
-      .form-group
-        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
-        .col-sm-9
-          %input.form-control{ type: 'number', name: "#{ x }" }
-    - dates[:impact_dates].each do |x|
-      .form-group
-        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
-        .col-sm-9
-          %input.form-control{ type: 'date', name: "#{ x }" }
-  %h2 Screening
-  %span.glyphicon.glyphicon-plus
-  .hide-list
-    - main[:screening].each do |x|
-      .form-group
-        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
-        .col-sm-9
-          %input.form-control{ type: 'text', name: "#{ x }" }
-    - extra[:yes_no_screening].each do |x|
-      .form-group
-        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
-        .col-sm-9
-          %select{ name: "#{ x }" }
-            %option{ value: '', selected: true, disabled: true }
-            %option{ value: 'yes' } yes
-            %option{ value: 'no' } no
-    - extra[:numbers_screening].each do |x|
-      .form-group
-        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
-        .col-sm-9
-          %input.form-control{ type: 'number', name: "#{ x }" }
-  %h2 Ratings
-  %span.glyphicon.glyphicon-plus
-  .hide-list
-    - extra[:ratings].each do |x|
-      .form-group
-        %label.col-sm-3.control-label= "#{ name_modifier(x) }:"
-        .col-sm-9
-          %select{ name: "#{ x }" }
-            %option{ value: '', selected: true, disabled: true }
-            - (1..4).each do |i|
-              %option{ value: i }= i
+  = haml :new_form, locals: { title: 'Story', columns: story, special: [],
+                              number: [], yesno: [] }
+  = haml :new_form, locals: { title: 'Status', columns: status, special: [],
+                              number: [], yesno: [] }
+  = haml :new_form, locals: { title: 'Footage', columns: footage,
+                              special: extra[:special_all], number: [], yesno: [] }
+  = haml :new_form, locals: { title: 'Impact', columns: impact,
+                              special: extra[:special_all],
+                              number: extra[:numbers_impact],
+                              yesno: extra[:yes_no_impact] }
+  = haml :new_form, locals: { title: 'Screening', columns: screening,
+                              special: [],
+                              number: extra[:numbers_screening],
+                              yesno: extra[:yes_no_screening] }
+  = haml :new_form, locals: { title: 'Ratings', columns: ratings, special: [],
+                              number: [], yesno: [] }
 
   %button.btn.btn-default.btn-block{ type: 'submit' } Submit

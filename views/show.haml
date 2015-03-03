@@ -8,23 +8,22 @@
 
 %h1 #{ @track.uid.split('_').join(' ') } by #{ @track.cc_name } - #{ @track.iu_theme }
 
-
 / Each line renders a table with a title, and then populates the cells with
 / the tracker information for the selected tracker.
-= haml :show_table, locals: {title: 'Story', track: @track,
-                            column1: main[:story], column2: dates[:story_dates]}
+= haml :show_table, locals: { title: 'Story', track: @track,
+                            column1: main[:story], column2: dates[:story_dates] }
 = haml :show_table, locals: {title: 'Status', track: @track,
-                            column1: dates[:status_dates], column2: []}
-= haml :show_table, locals: {title: 'Footage', track: @track,
-                            column1: main[:footage], column2: dates[:footage_dates]}
-= haml :show_table, locals: {title: 'Impact', track: @track,
-                            column1: main[:impact], column2: dates[:impact_dates]}
-= haml :show_table, locals: {title: 'Screening', track: @track,
-                            column1: main[:screening], column2: []}
-= haml :show_table, locals: {title: 'Rating', track: @track,
-                            column1: extra[:ratings], column2: []}
-= haml :show_table, locals: {title: 'Extra', track: @track,
-                            column1: main[:extra], column2: dates[:extra_dates]}
+                            column1: dates[:status_dates], column2: [] }
+= haml :show_table, locals: { title: 'Footage', track: @track,
+                            column1: main[:footage], column2: dates[:footage_dates] }
+= haml :show_table, locals: { title: 'Impact', track: @track,
+                            column1: main[:impact], column2: dates[:impact_dates] }
+= haml :show_table, locals: { title: 'Screening', track: @track,
+                            column1: main[:screening], column2: [] }
+= haml :show_table, locals: { title: 'Rating', track: @track,
+                            column1: extra[:ratings], column2: [] }
+= haml :show_table, locals: { title: 'Extra', track: @track,
+                            column1: main[:extra], column2: dates[:extra_dates] }
 
 %a.btn.btn-default{ href: "/edit/#{ @track.uid }", role: 'button' } Edit
 - if @track.flag.nil?

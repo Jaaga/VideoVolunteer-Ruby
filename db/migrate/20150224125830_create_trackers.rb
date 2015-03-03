@@ -72,12 +72,13 @@ class CreateTrackers < ActiveRecord::Migration
       t.string	:screening_done
       t.string	:screening_headcount
       t.string	:screening_notes
-      t.string	:official_involved
+      t.string	:officials_involved
       t.string	:officials_at_screening_number
       t.string	:officials_at_screening
       t.string	:official_screening_notes
       t.string	:flag
       t.string	:flag_notes
+      t.date    :flag_date
       t.text  	:note
       t.string  :updated_by
 

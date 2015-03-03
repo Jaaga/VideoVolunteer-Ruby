@@ -1,0 +1,16 @@
+%h2= title
+%span.glyphicon.glyphicon-plus
+.hide-list
+  - if title == 'Story'
+    .form-group
+      %label.col-sm-3.control-label CC Name:
+      .col-sm-9
+        %select{ name: 'cc_name' }
+          %option{ value: '', selected: true, disabled: true }
+          - name = Array.new
+          - @cc.each do |x|
+            - name.push(x.full_name)
+          - name.sort!
+          - name.each do |x|
+            %option{ value: x } #{ x }
+  = new_set(columns, special, number, yesno)
