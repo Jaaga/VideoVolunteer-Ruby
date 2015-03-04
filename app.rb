@@ -86,13 +86,8 @@ post '/new' do
     @track.mentor = @cc.mentor
 
     arr = global_arr_set.push('cc_name')
-    dates = global_dates_set
 
     arr.each do |x|
-      @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
-    end
-
-    dates.each do |x|
       @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
     end
 
@@ -232,19 +227,14 @@ end
 post '/edit/:uid' do
   @track = Tracker.find_by(uid: params[:uid])
   arr = global_arr_set.push('district', 'mentor')
-  dates = global_dates_set
 
   arr.each do |x|
     @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
   end
 
-  dates.each do |x|
-    @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
-  end
-
   @track.save
   flash[:notice] = "Tracker #{ @track.uid } successfully edited."
-  redirect '/recent'
+  redirect "/show/#{@track.uid}"
 end
 
 

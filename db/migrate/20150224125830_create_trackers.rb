@@ -55,8 +55,12 @@ class CreateTrackers < ActiveRecord::Migration
       t.string	:impact_followup
       t.string	:impact_followup_notes
       t.string	:impact_uid
+      t.string  :original_uid
       t.string	:impact_process
       t.string	:impact_status
+      t.string  :impact_video_notes
+      t.string  :important_impact
+      t.string  :impact_achieved
       t.string	:milestone
       t.string	:impact_time
       t.string	:collaborations

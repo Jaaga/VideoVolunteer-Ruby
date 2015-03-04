@@ -1,29 +1,27 @@
-- main = main_set
-- main[:story].push('state', 'cc_name', 'district', 'mentor')
-- main[:footage].push('edit_status', 'payment_status', 'subtitle_info', 'editor_changes_needed')
-- main[:impact].push('impact_status', 'impact_production_status')
-- main[:extra].push('note')
-- dates = date_set
-- extra = extra_set
+- all = array_set
+- all[:story].push('state', 'cc_name', 'district', 'mentor')
+- all[:footage].push('edit_status', 'payment_status', 'subtitle_info', 'editor_changes_needed')
+- all[:impact].push('impact_status', 'impact_production_status')
+- all[:extra].push('note')
 
 %h1 #{ @track.uid.split('_').join(' ') } by #{ @track.cc_name } - #{ @track.iu_theme }
 
-/ Each line renders a table with a title, and then populates the cells with
-/ the tracker information for the selected tracker.
+-# Each line renders a table with a title, and then populates the cells with
+-# the tracker information for the selected tracker.
 = haml :show_table, locals: { title: 'Story', track: @track,
-                            column1: main[:story], column2: dates[:story_dates] }
+                            column: all[:story] }
 = haml :show_table, locals: {title: 'Status', track: @track,
-                            column1: dates[:status_dates], column2: [] }
+                            column: all[:status] }
 = haml :show_table, locals: { title: 'Footage', track: @track,
-                            column1: main[:footage], column2: dates[:footage_dates] }
+                            column: all[:footage] }
 = haml :show_table, locals: { title: 'Impact', track: @track,
-                            column1: main[:impact], column2: dates[:impact_dates] }
+                            column: all[:impact] }
 = haml :show_table, locals: { title: 'Screening', track: @track,
-                            column1: main[:screening], column2: [] }
+                            column: all[:screening] }
 = haml :show_table, locals: { title: 'Rating', track: @track,
-                            column1: extra[:ratings], column2: [] }
+                            column: all[:ratings] }
 = haml :show_table, locals: { title: 'Extra', track: @track,
-                            column1: main[:extra], column2: dates[:extra_dates] }
+                            column: all[:extra] }
 
 %a.btn.btn-default{ href: "/edit/#{ @track.uid }", role: 'button' } Edit
 - if @track.flag.nil?

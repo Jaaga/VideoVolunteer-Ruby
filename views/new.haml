@@ -1,34 +1,25 @@
-- main = main_set
-- dates = date_set
-- extra = extra_set
-
-- story = main[:story] + dates[:story_dates]
-- status = dates[:status_dates]
-- footage = main[:footage] + dates[:footage_dates] + extra[:special_footage]
-- impact = main[:impact] + dates[:impact_dates] + extra[:special_impact] + extra[:numbers_impact] + extra[:yes_no_impact]
-- screening = main[:screening] + extra[:numbers_screening] + extra[:yes_no_screening]
-- ratings = extra[:ratings]
+- all = array_set
 
 %h1 New Story
 
 %h3= "State: #{ @state.state }, #{ @state.state_abb }"
 
 %form.form-horizontal{ action: '/new', method: 'post' }
-  = haml :new_form, locals: { title: 'Story', columns: story, special: [],
+  = haml :new_form, locals: { title: 'Story', columns: all[:story], special: [],
                               number: [], yesno: [] }
-  = haml :new_form, locals: { title: 'Status', columns: status, special: [],
+  = haml :new_form, locals: { title: 'Status', columns: all[:status], special: [],
                               number: [], yesno: [] }
-  = haml :new_form, locals: { title: 'Footage', columns: footage,
-                              special: extra[:special_all], number: [], yesno: [] }
-  = haml :new_form, locals: { title: 'Impact', columns: impact,
-                              special: extra[:special_all],
-                              number: extra[:numbers_impact],
-                              yesno: extra[:yes_no_impact] }
-  = haml :new_form, locals: { title: 'Screening', columns: screening,
+  = haml :new_form, locals: { title: 'Footage', columns: all[:footage],
+                              special: all[:special], number: [], yesno: [] }
+  = haml :new_form, locals: { title: 'Impact', columns: all[:impact],
+                              special: all[:special],
+                              number: all[:numbers],
+                              yesno: all[:yesno] }
+  = haml :new_form, locals: { title: 'Screening', columns: all[:screening],
                               special: [],
-                              number: extra[:numbers_screening],
-                              yesno: extra[:yes_no_screening] }
-  = haml :new_form, locals: { title: 'Ratings', columns: ratings, special: [],
+                              number: all[:numbers],
+                              yesno: all[:yesno] }
+  = haml :new_form, locals: { title: 'Ratings', columns: all[:ratings], special: [],
                               number: [], yesno: [] }
 
   %button.btn.btn-default.btn-block{ type: 'submit' } Submit

@@ -1,8 +1,11 @@
-- arr = global_arr_set.push('district', 'mentor', 'note').sort
-- dates = global_dates_set.push('created_at').sort
+-# Defautls are visible on load wihle all other columns are hidden.
+- arr = global_arr_set.push('district', 'mentor').sort
 - defaults = ['cc_name', 'state', 'story_pitch_date',
               'flag', 'flag_date', 'flag_notes', 'updated_at']
-/ x=1 to take into account displaying the UID seperately.
+- arr -= defaults
+
+-# x=1 to take into account displaying the UID seperately and so that the
+-# checkboxes show/hide the right column.
 - x = 1
 - count = defaults.length + x
 - final_count = count + arr.length
@@ -18,7 +21,6 @@
       %input.0{ type: 'checkbox', checked: true } UID
     = results_check(defaults, x, true)
     = results_check(arr, count)
-    = results_check(dates, final_count)
 
 .table-responsive
   %table.table.table-bordered.table-striped
@@ -27,7 +29,6 @@
         %th.col0 UID
         = results_head(defaults, x)
         = results_head(arr, count)
-        = results_head(dates, final_count)
     %tbody
       - @track.each do |t|
         %tr
@@ -36,4 +37,3 @@
               =h t.uid
           = results_body(defaults, x, t)
           = results_body(arr, count, t)
-          = results_body(dates, final_count, t)

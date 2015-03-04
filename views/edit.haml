@@ -1,34 +1,25 @@
-- main = main_set
-- main[:story].push('district', 'mentor')
-- dates = date_set
-- extra = extra_set
-
-- story = main[:story] + dates[:story_dates]
-- status = dates[:status_dates]
-- footage = main[:footage] + dates[:footage_dates] + extra[:special_footage]
-- impact = main[:impact] + dates[:impact_dates] + extra[:special_impact] + extra[:numbers_impact] + extra[:yes_no_impact]
-- screening = main[:screening] + extra[:numbers_screening] + extra[:yes_no_screening]
-- ratings = extra[:ratings]
+- all = array_set
+- all[:story].push('district', 'mentor')
 
 %h1 #{ @track.uid.split('_').join(' ') } by #{ @track.cc_name } - #{ @track.iu_theme }
 
 %form.form-horizontal{ action: "/edit/#{ @track.uid }", method: 'post' }
-  
-  = haml :edit_form, locals: { title: 'Story', columns: story, special: [],
+
+  = haml :edit_form, locals: { title: 'Story', columns: all[:story], special: [],
                             number: [], yesno: [], track: @track }
-  = haml :edit_form, locals: { title: 'Status', columns: status, special: [],
+  = haml :edit_form, locals: { title: 'Status', columns: all[:status], special: [],
                             number: [], yesno: [], track: @track }
-  = haml :edit_form, locals: { title: 'Footage', columns: footage,
-                            special: extra[:special_all], number: [], yesno: [], track: @track }
-  = haml :edit_form, locals: { title: 'Impact', columns: impact,
-                            special: extra[:special_all],
-                            number: extra[:numbers_impact],
-                            yesno: extra[:yes_no_impact], track: @track }
-  = haml :edit_form, locals: { title: 'Screening', columns: screening,
+  = haml :edit_form, locals: { title: 'Footage', columns: all[:footage],
+                            special: all[:special], number: [], yesno: [], track: @track }
+  = haml :edit_form, locals: { title: 'Impact', columns: all[:impact],
+                            special: all[:special],
+                            number: all[:numbers],
+                            yesno: all[:yesno], track: @track }
+  = haml :edit_form, locals: { title: 'Screening', columns: all[:screening],
                             special: [],
-                            number: extra[:numbers_screening],
-                            yesno: extra[:yes_no_screening], track: @track }
-  = haml :edit_form, locals: { title: 'Ratings', columns: ratings, special: [],
+                            number: all[:numbers],
+                            yesno: all[:yesno], track: @track }
+  = haml :edit_form, locals: { title: 'Ratings', columns: all[:ratings], special: [],
                             number: [], yesno: [], track: @track }
 
   %button.btn.btn-default.btn-block{ type: 'submit' } Submit
