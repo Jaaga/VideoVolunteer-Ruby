@@ -11,7 +11,8 @@ Activerecord, PostegreSQL, HAML, and RSpec for testing.
 
 ## Project Layout
 
------ | ------
+Folder | Notes
+--- | ---
 /extra | Text files for keeping track of column names for each table.
 /lib | Contains all ruby files with methods created for this project.
 /spec | Testing files.
