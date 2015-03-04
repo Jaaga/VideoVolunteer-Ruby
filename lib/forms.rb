@@ -77,12 +77,12 @@ module Forms
           <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
           <div class = 'col-sm-9'>
           <select name = '#{ x }'>
-            <option selected = 'true' disabled = 'true' value = #{ value }></option>
-            <option value = '1'>1</option>
-            <option value = '2'>2</option>
-            <option value = '3'>3</option>
-            <option value = '4'>4</option>
-            <option value = '5'>5</option>
+            <option selected = 'true' disabled = 'true' value = #{ value }>#{ value }</option>
+            <option value = '1'>1 - Poor (CC must reshoot)</option>
+            <option value = '2'>2 - Mediocre</option>
+            <option value = '3'>3 - Very Good</option>
+            <option value = '4'>4 - One of the Best Videos I've Seen</option>
+            <option value = '5'>5 - Speechless</option>
           </select></div></div>"
       else
         "<div class = 'form-group'>
@@ -112,23 +112,47 @@ module Forms
       "<div class = 'form-group'>
         <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
         <div class = 'col-sm-9'><select name = '#{ x }'>
-          <option selected = 'true' disabled = 'true' value = #{ value }></option>
+          <option selected = 'true' disabled = 'true' value = #{ value }>#{ value }</option>
           <option value = 'yes'>yes</option>
           <option value = 'no'>no</option></select></div></div>"
     end.join
   end
 
   # Set the forms for columns with specific dropdowns.
+  # If the dropdowns aren't showing up, all[:special] may need to be added to
+  # the haml render located in new.haml or edit.haml (special = [] for some).
   def new_set_special(arr, value = nil)
     arr.map do |x|
-      if x == 'edit_status'
+      if (x == 'iu_theme') || (x == 'subcategory')
+        "<div class='form-group'>
+          <label class='col-sm-3 control-label'>
+          #{name_modifier(x)}</label>
+          <div class='col-sm-9'>
+            <select name='#{ x }'>
+              <option disabled selected value = #{ value }>#{ value }</option>
+              #{ theme_set("#{x}") }
+            </select>
+          </div>
+        </div>"
+      elsif x == 'story_type'
+        "<div class='form-group'>
+          <label class='col-sm-3 control-label'>
+          #{name_modifier(x)}</label>
+          <div class='col-sm-9'>
+            <select name='#{ x }'>
+              <option disabled selected value = #{ value }>#{ value }</option>
+              #{ theme_set("#{x}") }
+            </select>
+          </div>
+        </div>"
+      elsif x == 'proceed_with_edit_and_payment'
         "<div class='form-group'>
           <label class='col-sm-3 control-label'>Edit Status</label>
           <div class='col-sm-9'>
-            <select name='edit_status'>
-              <option disabled selected value = #{ value }></option>
-              <option value='cleared'>cleared</option>
-              <option value='on hold'>on hold</option>
+            <select name='#{ x }'>
+              <option disabled selected value = #{ value }>#{ value }</option>
+              <option value='cleared'>Cleared</option>
+              <option value='on hold'>On Hold</option>
             </select>
           </div>
         </div>"
@@ -137,10 +161,10 @@ module Forms
           <label class='col-sm-3 control-label'>Payment Status</label>
           <div class='col-sm-9'>
             <select name='payment_status'>
-              <option disabled selected value = #{ value }></option>
-              <option value='paid'>paid</option>
-              <option value='pay'>pay</option>
-              <option value='hold'>hold</option>
+              <option disabled selected value = #{ value }>#{ value }</option>
+              <option value='paid'>Approved</option>
+              <option value='pay'>Paid</option>
+              <option value='hold'>Hold</option>
             </select>
           </div>
         </div>"
@@ -149,10 +173,10 @@ module Forms
           <label class='col-sm-3 control-label'>Subtitle Info</label>
           <div class='col-sm-9'>
             <select name='subtitle_info'>
-              <option disabled selected value = #{ value }></option>
+              <option disabled selected value = #{ value }>#{ value }</option>
               <option value='has subtitles'>has subtitles</option>
-              <option value='high priority subtitle'>high priority subtitle</option>
-              <option value='low priority subtitle'>low priority subtitle</option>
+              <option value='high priority subtitle'>High Priority Subtitle</option>
+              <option value='low priority subtitle'>Low Priority Subtitle</option>
             </select>
           </div>
         </div>"
@@ -161,10 +185,10 @@ module Forms
           <label class='col-sm-3 control-label'>Editor Changes Needed</label>
           <div class='col-sm-9'>
             <select name='editor_changes_needed'>
-              <option disabled selected value = #{ value }></option>
-              <option value='required'>required</option>
-              <option value='suggested'>suggested</option>
-              <option value='not needed'>not needed</option>
+              <option disabled selected value = #{ value }>#{ value }</option>
+              <option value='required'>Required</option>
+              <option value='suggested'>Suggested</option>
+              <option value='not needed'>Not Needed</option>
             </select>
           </div>
         </div>"
@@ -173,25 +197,37 @@ module Forms
           <label class='col-sm-3 control-label'>Impact Status</label>
           <div class='col-sm-9'>
             <select name='impact_status'>
-              <option disabled selected value = #{ value }></option>
-              <option value='achieved'>achieved</option>
-              <option value='not achieved'>not achieved</option>
-            </select>
-          </div>
-        </div>"
-      elsif x == 'impact_production_status'
-        "<div class='form-group'>
-          <label class='col-sm-3 control-label'>Impact Production Status</label>
-          <div class='col-sm-9'>
-            <select name='impact_production_status'>
-              <option disabled selected value = #{ value }></option>
-              <option value='done'>done</option>
-              <option value='not done'>not done</option>
-              <option value='in progress'>in progress</option>
+              <option disabled selected value = #{ value }>#{ value }</option>
+              <option value='achieved'>Achieved</option>
+              <option value='not achieved'>Not Achieved</option>
             </select>
           </div>
         </div>"
       end
     end.join
+  end
+
+  def theme_set(column)
+    themes = ['Arts and Culture', 'Caste', 'Gender', 'Religion and Identity',
+              'Indigenous People', 'Governance and Accountability',
+              'Corruption', 'Health', 'Education', 'Livelihoods',
+              'Food and Social Security', 'Water', 'Information Technology',
+              'Environment', 'Roads and Public Works', 'Power and Energy',
+              'Mining', 'State Repression', 'Forced Evictions', 'Sanitation',
+              'Impact']
+
+    types = ['Entitlement Violation', 'Newsworthy', 'Human Interest',
+             'Human Rights Violation', 'CC Profile', 'Community Profile',
+             'Mini-doc', 'Special Video', 'Campaign Video']
+
+    if (column == 'iu_theme') || (column == 'subcategory')
+      themes.map do |x|
+        "<option value='#{ x }'>#{ x }</option>"
+      end.join
+    elsif column == 'story_type'
+      types.map do |x|
+        "<option value='#{ x }'>#{ x }</option>"
+      end.join
+    end
   end
 end

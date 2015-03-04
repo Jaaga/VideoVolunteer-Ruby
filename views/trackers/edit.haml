@@ -1,19 +1,23 @@
 - all = array_set
-- all[:story].push('district', 'mentor')
+- all[:story].unshift('district', 'mentor')
 
 %h1 #{ @track.uid.split('_').join(' ') } by #{ @track.cc_name } - #{ @track.iu_theme }
 
 %form.form-horizontal{ action: "/edit/#{ @track.uid }", method: 'post' }
 
   = haml :'trackers/edit_form', locals: { title: 'Story', columns: all[:story],
-                                          special: [], number: [], yesno: [],
-                                          track: @track }
+                                          special: all[:special], number: [],
+                                          yesno: [], track: @track }
   = haml :'trackers/edit_form', locals: { title: 'Status', columns: all[:status],
                                           special: [], number: [], yesno: [],
                                           track: @track }
-  = haml :'trackers/edit_form', locals: { title: 'Footage',
+  = haml :'trackers/edit_form', locals: { title: 'Edit/Review/Upload Section',
                                           columns: all[:footage],
                                           special: all[:special], number: [],
+                                          yesno: all[:yesno], track: @track }
+  = haml :'trackers/edit_form', locals: { title: 'Review',
+                                          columns: all[:review],
+                                          special: [], number: [],
                                           yesno: [], track: @track }
   = haml :'trackers/edit_form', locals: { title: 'Impact', columns: all[:impact],
                                           special: all[:special],
@@ -23,6 +27,10 @@
                                           columns: all[:screening], special: [],
                                           number: all[:numbers],
                                           yesno: all[:yesno], track: @track }
+  = haml :'trackers/edit_form', locals: { title: 'Payment',
+                                          columns: all[:payment],
+                                          special: all[:special], number: [],
+                                          yesno: [], track: @track }
   = haml :'trackers/edit_form', locals: { title: 'Ratings',
                                           columns: all[:ratings], special: [],
                                           number: [], yesno: [], track: @track }

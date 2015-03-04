@@ -11,10 +11,10 @@ class CreateTrackers < ActiveRecord::Migration
       t.string	:description
       t.string	:story_type
       t.string	:shoot_plan
-      t.string  :story_rating
+      t.string  :footage_rating
       t.date	  :story_pitch_date
-      t.string	:editor
-      t.string	:edit_status
+      t.string	:editor_currently_in_charge
+      t.string	:proceed_with_edit_and_payment
       t.string	:payment_status
       t.string	:description
       t.string	:folder_title
@@ -23,24 +23,27 @@ class CreateTrackers < ActiveRecord::Migration
       t.string	:youtube_url
       t.string	:video_title
       t.string	:subtitle_info
-      t.string	:subtheme
       t.string	:project
       t.string	:reviewer_name
       t.string	:editor_changes_needed
+      t.string  :final_review_notes
+      t.string  :high_potential
+      t.string  :community_participation_description
+      t.string  :broll
+      t.string  :interview
+      t.string  :voice_over
+      t.string  :video_diary
+      t.string  :p2c
       t.string	:cc_feedback
       t.string	:publishing_suggestions
       t.string	:final_video_rating
       t.string	:stalin_notes
-      t.string	:video_type
-      t.date	  :received_cc_date
-      t.date	  :edit_in_goa_date
-      t.date	  :state_rough_cut_date
-      t.date	  :goa_rough_cut_date
+      t.date	  :footage_received_from_cc_date
       t.date	  :story_date
       t.date	  :raw_footage_review_date
       t.date	  :backup_received_date
       t.date	  :state_edit_date
-      t.date	  :edit_received_date
+      t.date	  :edit_received_in_goa_date
       t.date	  :rough_cut_edit_date
       t.date	  :review_date
       t.date	  :finalized_date
@@ -61,13 +64,13 @@ class CreateTrackers < ActiveRecord::Migration
       t.string  :impact_video_notes
       t.string  :important_impact
       t.string  :impact_achieved
+      t.string  :impact_achieved_description
       t.string	:milestone
       t.string	:impact_time
       t.string	:collaborations
       t.string	:people_involved
       t.string	:people_impacted
       t.string	:villages_impacted
-      t.string	:impact_production_status
       t.string	:impact_review
       t.string	:payment_approved
       t.string	:impact_reviewer

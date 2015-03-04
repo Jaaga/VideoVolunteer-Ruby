@@ -16,40 +16,44 @@ module Arrays
   # signal the form setting methods that certain columns need different input
   # types for data entry.
   def array_set
-    story = ['iu_theme', 'subcategory', 'description', 'story_type',
+    story = ['iu_theme', 'subcategory', 'description', 'story_type', 'project',
              'shoot_plan', 'story_pitch_date']
-    status = ['backup_received_date', 'raw_footage_review_date',
-              'state_edit_date', 'edit_received_date', 'rough_cut_edit_date',
-              'review_date', 'finalized_date', 'youtube_date', 'iu_publish_date']
-    footage = ['editor', 'folder_title', 'review_notes', 'youtube_url',
-               'video_title', 'subtheme', 'project', 'reviewer_name',
-               'cc_feedback', 'publishing_suggestions', 'stalin_notes', 'video_type',
-               'received_cc_date', 'edit_in_goa_date', 'state_rough_cut_date',
-               'goa_rough_cut_date', 'edit_status', 'payment_status',
-               'subtitle_info', 'editor_changes_needed',
-               'payment_status', 'subtitle_info', 'editor_changes_needed']
-    impact = ['target_official', 'target_official_email', 'target_official_phone',
-              'desired_change', 'impact_plan', 'impact_followup_notes',
-              'impact_uid', 'original_uid', 'impact_process', 'milestone', 'impact_time',
+    status = ['footage_received_from_cc_date', 'raw_footage_review_date',
+              'state_edit_date', 'rough_cut_edit_date',
+              'review_date', 'edit_received_in_goa_date', 'finalized_date', 'youtube_date', 'iu_publish_date', 'backup_received_date']
+    footage = ['editor_currently_in_charge', 'folder_title', 'edited_video_rating', 'reviewer_name',
+               'editor_changes_needed', 'final_review_notes', 'publishing_suggestions', 'cc_feedback',
+               'subtitle_info', 'stalin_notes',
+               'proceed_with_edit_and_payment',
+               'editor_changes_needed',
+               'subtitle_info', 'high_potential',
+               'review_notes', 'youtube_url', 'video_title']
+    review = ['community_participation_description', 'broll', 'interview',
+              'voice_over', 'video_diary', 'p2c']
+    impact = ['impact_plan', 'impact_achieved_description', 'target_official', 'target_official_email', 'target_official_phone',
+              'desired_change', 'impact_followup_notes',
+              'impact_uid', 'original_uid', 'impact_process', 'milestone', 'impact_achieved', 'impact_time',
               'collaborations', 'impact_reviewer', 'impact_date',
               'impact_approval_date', 'impact_possible', 'impact_followup',
               'impact_review', 'payment_approved', 'people_involved', 'people_impacted',
-              'villages_impacted', 'impact_status', 'impact_production_status',
-              'impact_video_notes', 'important_impact', 'impact_achieved']
-    screening = ['screening_notes', 'official_screening_notes', 'screening_done',
+              'villages_impacted', 'impact_status',
+              'impact_video_notes', 'important_impact']
+    screening = ['screening_done', 'screening_notes', 'official_screening_notes',
                  'officials_at_screening', 'screening_headcount', 'officials_involved',
                  'officials_at_screening_number']
-    ratings = ['story_rating', 'edited_video_rating', 'final_video_rating']
+    payment = ['payment_status']
+    ratings = ['footage_rating', 'final_video_rating']
     extra = ['note', 'flag', 'flag_notes', 'updated_by', 'flag_date', 'created_at', 'updated_at']
-    special = ['edit_status', 'payment_status', 'subtitle_info',
-               'editor_changes_needed', 'impact_status', 'impact_production_status']
-    yesno = ['impact_possible', 'impact_followup', 'impact_review',
+    special = ['iu_theme', 'subcategory', 'story_type', 'proceed_with_edit_and_payment',
+               'payment_status', 'subtitle_info', 'editor_changes_needed',
+               'impact_status']
+    yesno = ['high_potential', 'impact_possible', 'impact_followup', 'impact_review',
              'payment_approved', 'impact_achieved', 'screening_done', 'officials_at_screening']
     numbers = ['people_involved', 'people_impacted', 'villages_impacted',
                'screening_headcount', 'officials_involved', 'officials_at_screening_number']
 
-    return { story: story, status: status, footage: footage, impact: impact,
-            screening: screening, ratings: ratings, extra: extra, special: special,
+    return { story: story, status: status, footage: footage, review: review, impact: impact,
+            screening: screening, payment: payment, ratings: ratings, extra: extra, special: special,
             yesno: yesno, numbers: numbers}
   end
 end
