@@ -3,6 +3,20 @@
   %head
     %link{ href: "/css/bootstrap.min.css", rel: "stylesheet" }
     %link{ href: "/css/main.css", rel: "stylesheet" }
+    %script{ src: "/js/jquery-1.11.2.min.js" }
+    %script{ src: "/js/js-webshim/minified/polyfiller.js" }
+    :javascript
+      // configure before calling webshims.polyfill
+      webshim.setOptions("forms-ext",
+      { replaceUI: true,
+        types: 'date',
+        "widgets":
+          { "yearSelect": true, "monthSelect": true, "daySelect": true }
+      });
+
+      webshim.polyfill('forms forms-ext');
+    %script{ src: "/js/bootstrap.min.js" }
+    %script{ src: "/js/main.js" }
   %body
     %nav.navbar.navbar-default.navbar-static-top.navbar-inverse
       .container-fluid
@@ -30,7 +44,3 @@
             %p= flash[:notice]
           = yield
         .col-md-1
-
-    %script{ src: "/js/jquery-1.11.2.min.js" }
-    %script{ src: "/js/bootstrap.min.js" }
-    %script{ src: "/js/main.js" }

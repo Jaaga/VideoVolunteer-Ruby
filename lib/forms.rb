@@ -76,9 +76,14 @@ module Forms
         "<div class = 'form-group'>
           <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
           <div class = 'col-sm-9'>
-            <input class = 'form-control' type = 'number' name = #{ x } min = '1'
-            max = '5' value = #{ value }>
-          </div></div>"
+          <select name = '#{ x }'>
+            <option selected = 'true' disabled = 'true' value = #{ value }></option>
+            <option value = '1'>1</option>
+            <option value = '2'>2</option>
+            <option value = '3'>3</option>
+            <option value = '4'>4</option>
+            <option value = '5'>5</option>
+          </select></div></div>"
       else
         "<div class = 'form-group'>
           <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
