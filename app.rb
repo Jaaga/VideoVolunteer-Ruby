@@ -6,9 +6,9 @@ require 'haml'
 require 'date'
 require './.config/environment'
 
-require_relative './features'
-require_relative './arrays'
-require_relative './forms'
+require_relative './lib/features'
+require_relative './lib/arrays'
+require_relative './lib/forms'
 
 include Features
 include Arrays
@@ -52,9 +52,10 @@ end
 get '/new' do
   @state = State.all
 
-  haml :new_state
+  haml :'trackers/new_state'
 end
 
+# Getting the state name to give a dropdown of CC's for the state.
 post '/new/state' do
   if params[:state].blank?
     flash[:error] = "A state must be selected."
@@ -63,10 +64,11 @@ post '/new/state' do
     @state = State.find_by(state: params[:state])
     @cc = Cc.where(state_abb: @state.state_abb)
 
-    haml :new
+    haml :'trackers/new'
   end
 end
 
+# Saving the data entered for a new story.
 post '/new' do
   if params[:cc_name].blank?
     flash[:error] = "A CC must be selected."
@@ -109,7 +111,7 @@ get '/view' do
   @track = Tracker.all
   @title = 'All Stories'
 
-  haml :results
+  haml :'trackers/results'
 end
 
 
@@ -119,14 +121,14 @@ get '/recent' do
   @track = Tracker.where(updated_at: Date.today-14...Date.today+1).order("updated_at DESC")
   @title = 'Recent Stories'
 
-  haml :results
+  haml :'trackers/results'
 end
 
 
 # Search Function
 
 get '/search' do
-  haml :search
+  haml :'trackers/search'
 end
 
 # Custom queries come through here. Must be before post /search/:standard
@@ -165,7 +167,7 @@ post '/search/custom' do
     @track = Tracker.where(search)
     @title = 'Search Results'
 
-    haml :results
+    haml :'trackers/results'
   end
 end
 
@@ -185,7 +187,7 @@ post '/search/:standard' do
   @track = Tracker.where(search)
   @title = 'Search Results'
 
-  haml :results
+  haml :'trackers/results'
 end
 
 
@@ -201,7 +203,7 @@ get '/show/:uid' do
     flash[:error] = "Could not find story to show."
     redirect '/recent'
   else
-    haml :show
+    haml :'trackers/show'
   end
 end
 
@@ -218,12 +220,15 @@ get '/delete/:uid' do
   end
 end
 
+# Shows the original data in input forms.
 get '/edit/:uid' do
   @track = Tracker.find_by(uid: params[:uid])
 
-  haml :edit
+  haml :'trackers/edit'
 end
 
+# Saves the data found in get /edit/:uid. It's important that the old data shows,
+# otherwise editing will erase the old data if nothing new is put into the fields.
 post '/edit/:uid' do
   @track = Tracker.find_by(uid: params[:uid])
   arr = global_arr_set.push('district', 'mentor')
@@ -244,7 +249,7 @@ end
 get '/flag/:uid' do
   @track = Tracker.find_by(uid: params[:uid])
 
-  haml :flagnote
+  haml :'trackers/flagnote'
 end
 
 post '/flag/:uid' do
@@ -280,9 +285,11 @@ end
 # Making notes on stories/videos
 
 get '/note' do
-  haml :note
+  haml :'trackers/note'
 end
 
+# Adds a note based on the uid of the story. All notes have dates on them. New
+# notes are added at the top with a line break.
 post '/note' do
   if params[:uid].blank?
     flash[:error] = "UID needed."

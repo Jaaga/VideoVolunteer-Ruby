@@ -11,6 +11,10 @@ module Arrays
     return arr.uniq
   end
 
+
+  # All the columns segregated into display groups. The last three are used to
+  # signal the form setting methods that certain columns need different input
+  # types for data entry.
   def array_set
     story = ['iu_theme', 'subcategory', 'description', 'story_type',
              'shoot_plan', 'story_pitch_date']

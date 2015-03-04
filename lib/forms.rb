@@ -58,7 +58,8 @@ module Forms
   # is used to display the original value of the column.
   def new_set(arr, special = [], number = [], yesno = [], track = nil)
     arr.map do |x|
-      value = !track.blank? ? track.send(:"#{ x }") : ''
+      temp = track.send(:"#{ x }") if track != nil
+      value = !temp.blank? ? temp : ''
       if special.include? x
         new_set_special([x], value)
       elsif number.include? x
@@ -89,6 +90,7 @@ module Forms
   end
 
   # Set the forms for columns that only take in integers.
+  # 'value = #{ value }' needs to be at the end of the tag in case value = nil.
   def new_set_number(arr, value = nil)
     arr.map do |x|
       "<div class = 'form-group'>
@@ -105,7 +107,7 @@ module Forms
       "<div class = 'form-group'>
         <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
         <div class = 'col-sm-9'><select name = '#{ x }'>
-          <option value = #{ value } selected = 'true' disabled = 'true'></option>
+          <option selected = 'true' disabled = 'true' value = #{ value }></option>
           <option value = 'yes'>yes</option>
           <option value = 'no'>no</option></select></div></div>"
     end.join

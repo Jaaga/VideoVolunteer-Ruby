@@ -2,25 +2,25 @@
 - all[:story].push('state', 'cc_name', 'district', 'mentor')
 - all[:footage].push('edit_status', 'payment_status', 'subtitle_info', 'editor_changes_needed')
 - all[:impact].push('impact_status', 'impact_production_status')
-- all[:extra].push('note')
+- all[:extra]
 
 %h1 #{ @track.uid.split('_').join(' ') } by #{ @track.cc_name } - #{ @track.iu_theme }
 
 -# Each line renders a table with a title, and then populates the cells with
 -# the tracker information for the selected tracker.
-= haml :show_table, locals: { title: 'Story', track: @track,
+= haml :'trackers/show_table', locals: { title: 'Story', track: @track,
                             column: all[:story] }
-= haml :show_table, locals: {title: 'Status', track: @track,
+= haml :'trackers/show_table', locals: {title: 'Status', track: @track,
                             column: all[:status] }
-= haml :show_table, locals: { title: 'Footage', track: @track,
+= haml :'trackers/show_table', locals: { title: 'Footage', track: @track,
                             column: all[:footage] }
-= haml :show_table, locals: { title: 'Impact', track: @track,
+= haml :'trackers/show_table', locals: { title: 'Impact', track: @track,
                             column: all[:impact] }
-= haml :show_table, locals: { title: 'Screening', track: @track,
+= haml :'trackers/show_table', locals: { title: 'Screening', track: @track,
                             column: all[:screening] }
-= haml :show_table, locals: { title: 'Rating', track: @track,
+= haml :'trackers/show_table', locals: { title: 'Rating', track: @track,
                             column: all[:ratings] }
-= haml :show_table, locals: { title: 'Extra', track: @track,
+= haml :'trackers/show_table', locals: { title: 'Extra', track: @track,
                             column: all[:extra] }
 
 %a.btn.btn-default{ href: "/edit/#{ @track.uid }", role: 'button' } Edit

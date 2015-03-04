@@ -1,6 +1,9 @@
+# Testing array setter.
+
 require File.expand_path '../spec_helper.rb', __FILE__
 
 describe "Array setting" do
+  # Just testing that array_set is correctly setting a hash of arrays.
   it "should return a hash with ten keys" do
     all = array_set
     expect(all).to include(:story)

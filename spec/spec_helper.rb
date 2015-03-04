@@ -1,3 +1,5 @@
+# Setting up the testing environment
+
 require 'rack/test'
 require 'rspec'
 
