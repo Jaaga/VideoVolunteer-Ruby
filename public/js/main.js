@@ -22,6 +22,7 @@ $(document).ready(function() {
   });
 
   $("input:checkbox").click(function(){
+    $(this).removeClass("user-success")
     var column = $(".col" + this.className);
     $(column).toggle();
   });

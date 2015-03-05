@@ -214,11 +214,11 @@ module Forms
               'Food and Social Security', 'Water', 'Information Technology',
               'Environment', 'Roads and Public Works', 'Power and Energy',
               'Mining', 'State Repression', 'Forced Evictions', 'Sanitation',
-              'Impact']
+              'Natural Disaster', 'Impact']
 
     types = ['Entitlement Violation', 'Newsworthy', 'Human Interest',
              'Human Rights Violation', 'CC Profile', 'Community Profile',
-             'Mini-doc', 'Special Video', 'Campaign Video']
+             'Mini-doc', 'Special Video', 'Campaign Video', 'Impact']
 
     if (column == 'iu_theme') || (column == 'subcategory')
       themes.map do |x|
