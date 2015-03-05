@@ -7,6 +7,7 @@ class CreateUsers < ActiveRecord::Migration
       u.string  :last_name,           null: false
       u.string  :full_name
       u.string  :access
+      u.string  :verified
     end
   end
 end
