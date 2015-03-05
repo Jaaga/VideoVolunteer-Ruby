@@ -40,8 +40,8 @@
         .col-md-1
         .col-md-10
           - if flash[:error]
-            %p= flash[:error]
+            %p.flash-error= flash[:error]
           - elsif flash[:notice]
-            %p= flash[:notice]
+            %p.flash-notice= flash[:notice]
           = yield
         .col-md-1

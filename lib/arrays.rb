@@ -19,8 +19,8 @@ module Arrays
     story = ['iu_theme', 'subcategory', 'description', 'story_type', 'project',
              'shoot_plan', 'story_pitch_date']
     status = ['footage_received_from_cc_date', 'raw_footage_review_date',
-              'state_edit_date', 'rough_cut_edit_date',
-              'review_date', 'edit_received_in_goa_date', 'finalized_date', 'youtube_date', 'iu_publish_date', 'backup_received_date']
+              'state_edit_date', 'rough_cut_edit_date', 'edit_received_in_goa_date',
+              'review_date', 'finalized_date', 'youtube_date', 'iu_publish_date', 'backup_received_date']
     footage = ['editor_currently_in_charge', 'folder_title', 'edited_video_rating', 'reviewer_name',
                'editor_changes_needed', 'final_review_notes', 'publishing_suggestions', 'cc_feedback',
                'subtitle_info', 'stalin_notes',
@@ -35,7 +35,7 @@ module Arrays
               'impact_uid', 'original_uid', 'impact_process', 'milestone', 'impact_achieved', 'impact_time',
               'collaborations', 'impact_reviewer', 'impact_date',
               'impact_approval_date', 'impact_possible', 'impact_followup',
-              'impact_review', 'payment_approved', 'people_involved', 'people_impacted',
+              'impact_review', 'people_involved', 'people_impacted',
               'villages_impacted', 'impact_status',
               'impact_video_notes', 'important_impact']
     screening = ['screening_done', 'screening_notes', 'official_screening_notes',
@@ -48,7 +48,7 @@ module Arrays
                'payment_status', 'subtitle_info', 'editor_changes_needed',
                'impact_status']
     yesno = ['high_potential', 'impact_possible', 'impact_followup', 'impact_review',
-             'payment_approved', 'impact_achieved', 'screening_done', 'officials_at_screening']
+             'impact_achieved', 'screening_done', 'officials_at_screening']
     numbers = ['people_involved', 'people_impacted', 'villages_impacted',
                'screening_headcount', 'officials_involved', 'officials_at_screening_number']
 

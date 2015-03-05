@@ -14,6 +14,10 @@ td{
   word-wrap: break-word
 }
 
+.button-space {
+  margin-top: 15px;
+}
+
 .checks {
   margin-bottom: 30px;
 }
@@ -27,8 +31,28 @@ td{
 
 }
 
+.flash-error {
+  color: #FFF;
+  background-color: rgba(165, 0, 0, 0.64);
+  text-align: center;
+  padding: 15px 0;
+  border-radius: 10px;
+}
+
+.flash-notice {
+  background-color: rgba(165, 151, 0, 0.64);
+  text-align: center;
+  padding: 15px 0;
+  border-radius: 10px;
+}
+
 .hide-list {
   display: none;
+}
+
+.home {
+  font-family: verdana, arial;
+  font-size: 16px;
 }
 
 .show-head {

@@ -181,7 +181,7 @@ post '/search/:standard' do
   end
 
   if params[:standard] == 'rough'
-    search.push("rough_cut_edit_date NOT NULL AND youtube_date IS NULL")
+    search.push("edit_received_in_goa_date NOT NULL AND youtube_date IS NULL")
   end
 
   @track = Tracker.where(search)

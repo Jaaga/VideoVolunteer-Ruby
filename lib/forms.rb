@@ -174,7 +174,7 @@ module Forms
           <div class='col-sm-9'>
             <select name='subtitle_info'>
               <option disabled selected value = #{ value }>#{ value }</option>
-              <option value='has subtitles'>has subtitles</option>
+              <option value='has subtitles'>Has Subtitles</option>
               <option value='high priority subtitle'>High Priority Subtitle</option>
               <option value='low priority subtitle'>Low Priority Subtitle</option>
             </select>

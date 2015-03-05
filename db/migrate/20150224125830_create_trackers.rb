@@ -72,7 +72,6 @@ class CreateTrackers < ActiveRecord::Migration
       t.string	:people_impacted
       t.string	:villages_impacted
       t.string	:impact_review
-      t.string	:payment_approved
       t.string	:impact_reviewer
       t.date  	:impact_date
       t.date  	:impact_approval_date

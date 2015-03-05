@@ -4,8 +4,12 @@
   - name.push(x.state)
 - name.sort!
 
+%h1 New Story Form
+
+%h3 Please select a state.
+
 %form{ action: "/new/state", method: 'post' }
-  %label State?
+  %label State:
   %select{ name: 'state' }
     %option{ value: '', selected: true, disabled: true }
     - name.each do |x|

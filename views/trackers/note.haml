@@ -1,8 +1,8 @@
 %h1 Correspondence Notes
 
-%form{ action: '/note', method: 'post' }
-  %label UID
-  %input{ type: 'text', name: 'uid' }
-  %label Notes
-  %input{ type: 'text', name: 'note' }
-  %input{ type: 'submit' }
+%form.form-horizontal{ action: '/note', method: 'post' }
+  %label.control-label UID
+  %input.form-control{ type: 'text', name: 'uid' }
+  %label.control-label Notes
+  %input.form-control.space{ type: 'text', name: 'note' }
+  %button.btn.btn-default.btn-block{ type: 'submit' } Submit
