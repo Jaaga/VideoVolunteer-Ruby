@@ -179,11 +179,11 @@ post '/search/:standard' do
   search = Array.new
 
   if params[:standard] == 'pitch'
-    search.push("story_pitch_date NOT NULL AND backup_received_date IS NULL")
+    search.push("story_pitch_date IS NOT NULL AND backup_received_date IS NULL")
   end
 
   if params[:standard] == 'rough'
-    search.push("edit_received_in_goa_date NOT NULL AND youtube_date IS NULL")
+    search.push("edit_received_in_goa_date IS NOT NULL AND youtube_date IS NULL")
   end
 
   @track = Tracker.where(search)
