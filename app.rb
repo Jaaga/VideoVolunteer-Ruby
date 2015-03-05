@@ -58,6 +58,11 @@ get '/login' do
 end
 
 post '/login' do
+  if !session[:user].nil?
+    flash[:error] = "Already logged in."
+    redirect '/'
+  end
+  
   @user = User.find_by(email: params[:email])
 
   if @user.authenticate?(params[:password])
@@ -434,7 +439,7 @@ end
 
 get '/user/show/:id' do
   right_user(params[:id])
-  
+
   @user = User.find_by(id: params[:id])
 
   haml :'users/show'
