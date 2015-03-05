@@ -24,25 +24,33 @@
         .navbar-header
           %a.navbar-brand{ href: '/' } Video Volunteers
         %ul.nav.navbar-nav
+          - if !session[:user].nil?
+            %li
+              %a{ href: '/new' } New Story Form
           %li
-            %a{ href: "/new" } New Story Form
-          %li
-            %a{ href: "/view" } View All
+            %a{ href: '/view' } View All
           %li
             %a{ href: '/recent' } Recent
           %li
             %a{ href: '/search' } Search
-          %li
-            %a{ href: "/note" } Add Note
-          %li.dropdown
-            %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
-              Users
-              %span.caret
-            %ul.dropdown-menu{ role: 'menu' }
-              %li
-                %a{ href: '/user/new' }New
-              %li
-                %a{ href: '/user/view' }View All
+          - if !session[:user].nil?
+            %li
+              %a{ href: '/note' } Add Note
+            %li.dropdown
+              %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
+                Users
+                %span.caret
+              %ul.dropdown-menu{ role: 'menu' }
+                %li
+                  %a{ href: '/user/new' }New
+                %li
+                  %a{ href: '/user/view' }View All
+          - if session[:user].nil?
+            %li
+              %a{ href: '/login' } Login
+          - else
+            %li
+              %a{ href: '/logout' } Logout
 
     .container
       .row

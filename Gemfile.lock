@@ -15,6 +15,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.0)
+    bcrypt (3.1.10)
     builder (3.2.2)
     haml (4.0.6)
       tilt
@@ -48,6 +49,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  bcrypt
   haml
   pg
   psych (= 2.0.8)

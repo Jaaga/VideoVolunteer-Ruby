@@ -2,6 +2,7 @@ require 'sinatra'
 require 'active_record'
 require 'sinatra/activerecord'
 require 'sinatra/flash'           # For showing input errors.
+require 'bcrypt'
 require 'haml'
 require 'date'
 require './.config/environment'
@@ -15,7 +16,11 @@ include Features
 include Arrays
 include Forms
 
-enable :sessions
+use Rack::Session::Cookie, :key => 'rack.session',
+                           :path => '/',
+                           :expire_after => 86000, # In seconds
+                           :secret => 'l3m0nad3 is a p0pular dr1nk github'
+
 
 # Classes for database tables.
 class Tracker < ActiveRecord::Base
@@ -48,9 +53,31 @@ get '/' do
   haml :index
 end
 
+get '/login' do
+  haml :'/users/login'
+end
+
+post '/login' do
+  @user = User.find_by(email: params[:email])
+
+  if @user.authenticate?(params[:password])
+    session[:user] = @user.id
+    redirect '/'
+  else
+    haml :'/users/login'
+  end
+end
+
+get '/logout' do
+  session[:user] = nil
+  redirect '/login'
+end
+
 # New Stories
 
 get '/new' do
+  login_required!
+
   @state = State.all
 
   haml :'trackers/new_state'
@@ -338,7 +365,7 @@ post '/user/new' do
 
   # Need to use bcrypt here
   if params[:password] == params[:password_verify]
-    @user.encrypted_password = params[:password]
+    @user.password_set(params[:password])
   end
 
   arr.each do |x|

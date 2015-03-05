@@ -29,4 +29,16 @@ module Features
     end
   end
 
+  def login_required!
+    if session[:user].nil?
+      redirect '/login'
+    end
+  end
+
+  def current_user
+    if session[:user]
+      User.find(session[:user])
+    end
+  end
+
 end
