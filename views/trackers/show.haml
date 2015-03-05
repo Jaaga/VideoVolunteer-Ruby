@@ -27,9 +27,9 @@
 = haml :'trackers/show_table', locals: { title: 'Extra', track: @track,
                                          column: all[:extra] }
 
-%a.btn.btn-default{ href: "/edit/#{ @track.uid }", role: 'button' } Edit
+%a.btn.btn-default.button-space{ href: "/edit/#{ @track.uid }", role: 'button' } Edit
 - if @track.flag.nil?
-  %a.btn.btn-default{ href: "/flag/#{ @track.uid }", role: 'button' } Flag
+  %a.btn.btn-default.button-space{ href: "/flag/#{ @track.uid }", role: 'button' } Flag
 - else
-  %a.btn.btn-default{ href: "/unflag/#{ @track.uid }", role: 'button' } Unflag
-%a.btn.btn-default{ href: "/delete/#{ @track.uid }", role: 'button' } Delete
+  %a.btn.btn-default.button-space{ href: "/unflag/#{ @track.uid }", role: 'button' } Unflag
+%a.btn.btn-default.button-space{ href: "/delete/#{ @track.uid }", role: 'button' } Delete

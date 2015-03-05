@@ -69,10 +69,12 @@ post '/new/state' do
 end
 
 # Saving the data entered for a new story.
-post '/new' do
+post '/new/:state' do
   if params[:cc_name].blank?
     flash[:error] = "A CC must be selected."
-    redirect '/new'
+    state = params[:state]
+    # 307 redirects to a post
+    redirect "/new/state?state=#{state}", 307
   else
     @track = Tracker.new
     @cc = Cc.find_by(full_name: params[:cc_name])
@@ -99,7 +101,7 @@ post '/new' do
       redirect '/recent'
     else
       flash[:error] = "Did not save story tracker because UID failed to generate."
-      redirect '/recent'
+      redirect back
     end
   end
 end
