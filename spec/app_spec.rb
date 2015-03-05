@@ -38,8 +38,8 @@ end
 # Test all functionalities of trackers.
 describe "the life of a tracker" do
   before(:all) do
-    post '/new', params = { cc_name: 'Neeru Rathod' }
-    post '/new', params = { cc_name: 'Indu Devi' }
+    post '/new/:state', params = { cc_name: 'Neeru Rathod' }
+    post '/new/:state', params = { cc_name: 'Indu Devi' }
     post '/flag/BH_1001', params = { note: 'Production' }
   end
 
@@ -49,7 +49,7 @@ describe "the life of a tracker" do
   end
 
   it "should be saved" do
-    post '/new', params = { cc_name: 'Devidas Gaonkar' }
+    post '/new/:state', params = { cc_name: 'Devidas Gaonkar' }
     expect(last_response.status).to eq 302
     get '/recent'
     expect(last_response.body).to include('Devidas Gaonkar')
@@ -113,8 +113,8 @@ describe "error messages" do
   end
 
   it "should appear if no cc is selected" do
-    post '/new', params = { cc_name: '' }
-    expect(last_response.status).to eq 302
+    post '/new/:state', params = { cc_name: '' }
+    expect(last_response.status).to eq 307
     get '/new'
     expect(last_response.body).to include('A CC must be selected.')
   end
