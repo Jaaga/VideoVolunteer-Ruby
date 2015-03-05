@@ -34,6 +34,15 @@
             %a{ href: '/search' } Search
           %li
             %a{ href: "/note" } Add Note
+          %li.dropdown
+            %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
+              Users
+              %span.caret
+            %ul.dropdown-menu{ role: 'menu' }
+              %li
+                %a{ href: '/user/new' }New
+              %li
+                %a{ href: '/user/view' }View All
 
     .container
       .row

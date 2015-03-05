@@ -9,6 +9,7 @@ require './.config/environment'
 require_relative './lib/features'
 require_relative './lib/arrays'
 require_relative './lib/forms'
+require_relative './lib/users'
 
 include Features
 include Arrays
@@ -316,4 +317,75 @@ post '/note' do
     flash[:notice] = "Note successfully added to #{ @track.uid }."
     redirect '/recent'
   end
+end
+
+
+# --------------------------------------
+
+#
+## User
+#
+
+get '/user/new' do
+  haml :'users/new'
+end
+
+post '/user/new' do
+  @user = User.new
+  arr = user_array_set[:new_user] - ['password', 'password_verify']
+
+  @user.full_name = "#{ params[:first_name] } #{ params[:last_name] }"
+
+  # Need to use bcrypt here
+  if params[:password] == params[:password_verify]
+    @user.encrypted_password = params[:password]
+  end
+
+  arr.each do |x|
+    @user.send(:"#{ x }=", params[:"#{ x }"])
+  end
+
+  # Need to make email validation method
+  # if @user.email.valid_email? then @user.save end
+  @user.save
+
+  redirect '/user/view'
+end
+
+get '/user/edit/:id' do
+  @user = User.find_by(id: params[:id])
+
+  haml :'users/edit'
+end
+
+post '/user/edit/:id' do
+  @user = User.find_by(id: params[:id])
+  arr = user_array_set[:user] - ['email', 'encrypted_password']
+
+  arr.each do |x|
+    @user.send(:"#{ x }=", params[:"#{ x }"])
+  end
+
+  @user.save
+
+  redirect '/user/view'
+end
+
+get '/user/view' do
+  @user = User.all
+
+  haml :'users/view'
+end
+
+get '/user/show/:id' do
+  @user = User.find_by(id: params[:id])
+
+  haml :'users/show'
+end
+
+get '/user/delete/:id' do
+  @user = User.find_by(id: params[:id])
+  @user.destroy
+
+  redirect '/user/view'
 end

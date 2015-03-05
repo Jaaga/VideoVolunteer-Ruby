@@ -54,6 +54,14 @@ module Arrays
 
     return { story: story, status: status, footage: footage, review: review, impact: impact,
             screening: screening, payment: payment, ratings: ratings, extra: extra, special: special,
-            yesno: yesno, numbers: numbers}
+            yesno: yesno, numbers: numbers }
+  end
+
+  def user_array_set
+    new_user = ['email', 'password', 'password_verify', 'first_name', 'last_name']
+    user = ['email', 'encrypted_password', 'first_name', 'last_name', 'full_name',
+            'access', 'verify']
+
+    return { new_user: new_user, user: user }
   end
 end

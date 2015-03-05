@@ -1,0 +1,18 @@
+- arr = user_array_set[:user] - ['encrypted_password']
+- count = 1
+
+%h1 All Users
+
+.table-responsive
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th.col0 ID
+        = results_head(arr, count)
+    %tbody
+      - @user.each do |u|
+        %tr
+          %td.col0
+            %a{ href: "/user/show/#{ u.id }" }
+              =h u.id
+          = results_body(arr, count, u)
