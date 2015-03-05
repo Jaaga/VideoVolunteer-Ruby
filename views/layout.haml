@@ -44,6 +44,8 @@
                 %li
                   %a{ href: '/user/new' }New
                 %li
+                  %a{ href: "/user/show/#{ session[:user] }" }Show
+                %li
                   %a{ href: '/user/view' }View All
           - if session[:user].nil?
             %li

@@ -85,6 +85,8 @@ end
 
 # Getting the state name to give a dropdown of CC's for the state.
 post '/new/state' do
+  login_required!
+
   if params[:state].blank?
     flash[:error] = "A state must be selected."
     redirect '/new'
@@ -98,6 +100,8 @@ end
 
 # Saving the data entered for a new story.
 post '/new/:state' do
+  login_required!
+
   if params[:cc_name].blank?
     flash[:error] = "A CC must be selected."
     state = params[:state]
@@ -124,6 +128,7 @@ post '/new/:state' do
     end
 
     if @track.uid.length > 3
+      @track.updated_by = current_user[:name]
       @track.save
       flash[:notice] = "Story successfully saved as #{ @track.uid }."
       redirect '/recent'
@@ -238,6 +243,8 @@ get '/show/:uid' do
 end
 
 get '/delete/:uid' do
+  login_required!
+
   @track = Tracker.find_by(uid: params[:uid])
   if @track == nil
     flash[:error] = "Could not find story to delete."
@@ -252,6 +259,8 @@ end
 
 # Shows the original data in input forms.
 get '/edit/:uid' do
+  login_required!
+
   @track = Tracker.find_by(uid: params[:uid])
 
   haml :'trackers/edit'
@@ -260,6 +269,8 @@ end
 # Saves the data found in get /edit/:uid. It's important that the old data shows,
 # otherwise editing will erase the old data if nothing new is put into the fields.
 post '/edit/:uid' do
+  login_required!
+
   @track = Tracker.find_by(uid: params[:uid])
   arr = global_arr_set.push('district', 'mentor')
 
@@ -267,6 +278,7 @@ post '/edit/:uid' do
     @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
   end
 
+  @track.updated_by = current_user[:name]
   @track.save
   flash[:notice] = "Tracker #{ @track.uid } successfully edited."
   redirect "/show/#{@track.uid}"
@@ -277,12 +289,16 @@ end
 
 
 get '/flag/:uid' do
+  login_required!
+
   @track = Tracker.find_by(uid: params[:uid])
 
   haml :'trackers/flagnote'
 end
 
 post '/flag/:uid' do
+  login_required!
+
   if params[:note].blank?
     flash[:error] = "Need information for flag."
     redirect "/flag/#{ params[:uid] }"
@@ -300,6 +316,8 @@ post '/flag/:uid' do
 end
 
 get '/unflag/:uid' do
+  login_required!
+
   @track = Tracker.find_by(uid: params[:uid])
 
   @track.flag = nil
@@ -315,12 +333,16 @@ end
 # Making notes on stories/videos
 
 get '/note' do
+  login_required!
+
   haml :'trackers/note'
 end
 
 # Adds a note based on the uid of the story. All notes have dates on them. New
 # notes are added at the top with a line break.
 post '/note' do
+  login_required!
+
   if params[:uid].blank?
     flash[:error] = "UID needed."
     redirect '/note'
@@ -354,16 +376,18 @@ end
 #
 
 get '/user/new' do
+  admin_required!
   haml :'users/new'
 end
 
 post '/user/new' do
+  admin_required!
+
   @user = User.new
   arr = user_array_set[:new_user] - ['password', 'password_verify']
 
   @user.full_name = "#{ params[:first_name] } #{ params[:last_name] }"
 
-  # Need to use bcrypt here
   if params[:password] == params[:password_verify]
     @user.password_set(params[:password])
   end
@@ -386,6 +410,8 @@ get '/user/edit/:id' do
 end
 
 post '/user/edit/:id' do
+  right_user(params[:id])
+
   @user = User.find_by(id: params[:id])
   arr = user_array_set[:user] - ['email', 'encrypted_password']
 
@@ -399,18 +425,24 @@ post '/user/edit/:id' do
 end
 
 get '/user/view' do
+  admin_required!
+
   @user = User.all
 
   haml :'users/view'
 end
 
 get '/user/show/:id' do
+  right_user(params[:id])
+  
   @user = User.find_by(id: params[:id])
 
   haml :'users/show'
 end
 
 get '/user/delete/:id' do
+  admin_required!
+
   @user = User.find_by(id: params[:id])
   @user.destroy
 
