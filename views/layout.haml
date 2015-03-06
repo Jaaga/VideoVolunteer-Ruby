@@ -47,6 +47,15 @@
                   %a{ href: "/user/show/#{ session[:user] }" }Show
                 %li
                   %a{ href: '/user/view' }View All
+            %li.dropdown
+              %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
+                CCs
+                %span.caret
+              %ul.dropdown-menu{ role: 'menu' }
+                %li
+                  %a{ href: '/cc/new' }New
+                %li
+                  %a{ href: '/cc/view' }View All
           - if session[:user].nil?
             %li
               %a{ href: '/login' } Login

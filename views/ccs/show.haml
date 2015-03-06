@@ -1,0 +1,10 @@
+- all = cc_array_set
+
+%h1 #{ @cc.full_name }
+
+.table-responsive
+  %table.table.table-bordered.table-striped#view-margin
+    = show(@cc, all)
+
+%a.btn.btn-default.button-space{ href: "/cc/edit/#{ @cc.id }", role: 'button' } Edit
+%a.btn.btn-default.button-space{ href: "/cc/delete/#{ @cc.id }", role: 'button' } Delete

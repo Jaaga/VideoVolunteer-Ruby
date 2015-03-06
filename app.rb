@@ -62,7 +62,7 @@ post '/login' do
     flash[:error] = "Already logged in."
     redirect '/'
   end
-  
+
   @user = User.find_by(email: params[:email])
 
   if @user.authenticate?(params[:password])
@@ -409,6 +409,8 @@ post '/user/new' do
 end
 
 get '/user/edit/:id' do
+  right_user(params[:id])
+
   @user = User.find_by(id: params[:id])
 
   haml :'users/edit'
@@ -452,4 +454,87 @@ get '/user/delete/:id' do
   @user.destroy
 
   redirect '/user/view'
+end
+
+
+# --------------------------------------
+
+#
+## CC
+#
+
+get '/cc/new' do
+  admin_required!
+  @state = State.all
+  haml :'ccs/new'
+end
+
+post '/cc/new' do
+  admin_required!
+
+  @cc = Cc.new
+  arr = cc_array_set - ['state_abb']
+  @cc.full_name = "#{ params[:first_name] } #{ params[:last_name] }"
+
+  @state = State.find_by(state: params[:state])
+  @cc.state_abb = @state.state_abb
+
+  arr.each do |x|
+    @cc.send(:"#{ x }=", params[:"#{ x }"])
+  end
+
+  @cc.save
+  redirect '/cc/view'
+end
+
+get '/cc/edit/:id' do
+  admin_required!
+
+  @cc = Cc.find_by(id: params[:id])
+  @state = State.all
+
+  haml :'ccs/edit'
+end
+
+post '/cc/edit/:id' do
+  admin_required!
+
+  @cc = Cc.find_by(id: params[:id])
+  arr = cc_array_set - ['state_abb']
+
+  @state = State.find_by(state: params[:state])
+  @cc.state_abb = @state.state_abb
+
+  arr.each do |x|
+    @cc.send(:"#{ x }=", params[:"#{ x }"])
+  end
+
+  @cc.save
+
+  redirect '/cc/view'
+end
+
+get '/cc/view' do
+  admin_required!
+
+  @cc = Cc.all
+
+  haml :'ccs/view'
+end
+
+get '/cc/show/:id' do
+  admin_required!
+
+  @cc = Cc.find_by(id: params[:id])
+
+  haml :'ccs/show'
+end
+
+get '/cc/delete/:id' do
+  admin_required!
+
+  @cc = Cc.find_by(id: params[:id])
+  @cc.destroy
+
+  redirect '/cc/view'
 end

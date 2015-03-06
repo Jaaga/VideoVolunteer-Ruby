@@ -1,0 +1,26 @@
+- all = cc_array_set - ['state_abb']
+
+%h1 #{ @cc.full_name }
+
+%form.form-horizontal{ action: "/cc/edit/#{ @cc.id }", method: 'post' }
+  - all.each do |x|
+    - if x == 'phone'
+      .form-group
+        %label.col-sm-3.control-label #{ name_modifier(x) }:
+        .col-sm-9
+          %input.form-control{ type: 'tel', pattern: "[0-9]{10}", name: "#{ x }", value: "#{ @cc.send(:"#{x}") }" }
+    - elsif x == 'state'
+      .form-group
+        %label.col-sm-3.control-label #{ name_modifier(x) }:
+        .col-sm-9
+          %select{ name: 'state' }
+            %option{ name: "#{ @cc.send(:"#{x}") }" } #{ @cc.send(:"#{x}") }
+            - @state.each do |x|
+              %option{ name: "#{ x.state }" } #{ x.state }
+    - else
+      .form-group
+        %label.col-sm-3.control-label #{ name_modifier(x) }:
+        .col-sm-9
+          %input.form-control{ type: 'text', name: "#{ x }", value: "#{ @cc.send(:"#{x}") }" }
+
+  %button.btn.btn-default.btn-block{ type: 'submit' } Submit

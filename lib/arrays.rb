@@ -64,4 +64,8 @@ module Arrays
 
     return { new_user: new_user, user: user }
   end
+
+  def cc_array_set
+    ['first_name', 'last_name', 'state_abb', 'state', 'district', 'phone', 'mentor']
+  end
 end
