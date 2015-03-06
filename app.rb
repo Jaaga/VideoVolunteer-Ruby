@@ -538,3 +538,115 @@ get '/cc/delete/:id' do
 
   redirect '/cc/view'
 end
+
+
+get '/cc/note' do
+  admin_required!
+
+  haml :'ccs/note'
+end
+
+# Adds a note based on the id of the CC. All notes have dates on them. New
+# notes are added at the top with a line break.
+post '/cc/note' do
+  login_required!
+
+  if params[:id].blank?
+    flash[:error] = "ID needed."
+    redirect '/cc/note'
+  elsif params[:note].blank?
+    flash[:error] = "A note is needed."
+    redirect '/cc/note'
+  else
+    @cc = Cc.find_by(id: params[:id])
+
+    if @cc == nil
+      flash[:error] = "Invalid ID."
+      redirect '/cc/note'
+    elsif @cc.notes.blank?
+      @cc.notes = "#{ Date.today }: #{ params[:note] }"
+    else
+      temp = @cc.notes
+      @cc.notes = "#{ Date.today }: #{ params[:note] }<br>#{ temp }"
+    end
+
+    @cc.save
+    flash[:notice] = "Note successfully added to #{ @cc.full_name }."
+    redirect '/cc/view'
+  end
+end
+
+
+# --------------------------------------
+
+#
+## State
+#
+
+get '/state/new' do
+  admin_required!
+
+  haml :'states/new'
+end
+
+post '/state/new' do
+  admin_required!
+
+  @state = State.new
+  arr = state_array_set
+
+  arr.each do |x|
+    @state.send(:"#{ x }=", params[:"#{ x }"])
+  end
+
+  @state.save
+  redirect '/state/view'
+end
+
+get '/state/edit/:id' do
+  admin_required!
+
+  @state = State.find_by(id: params[:id])
+
+  haml :'states/edit'
+end
+
+post '/state/edit/:id' do
+  admin_required!
+
+  @state = State.find_by(id: params[:id])
+  arr = state_array_set
+
+  arr.each do |x|
+    @state.send(:"#{ x }=", params[:"#{ x }"])
+  end
+
+  @state.save
+
+  redirect '/state/view'
+end
+
+get '/state/view' do
+  admin_required!
+
+  @state = State.all
+
+  haml :'states/view'
+end
+
+get '/state/show/:id' do
+  admin_required!
+
+  @state = State.find_by(id: params[:id])
+
+  haml :'states/show'
+end
+
+get '/state/delete/:id' do
+  admin_required!
+
+  @state = State.find_by(id: params[:id])
+  @state.destroy
+
+  redirect '/state/view'
+end

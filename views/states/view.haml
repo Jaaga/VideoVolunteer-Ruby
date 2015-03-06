@@ -1,0 +1,18 @@
+- arr = state_array_set
+- count = 1
+
+%h1 All States
+
+.table-responsive
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th.col0 ID
+        = results_head(arr, count)
+    %tbody
+      - @state.each do |s|
+        %tr
+          %td.col0
+            %a{ href: "/state/show/#{ s.id }" }
+              =h s.id
+          = results_body(arr, count, s)

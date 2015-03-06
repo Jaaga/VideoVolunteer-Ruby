@@ -1,0 +1,12 @@
+- all = state_array_set
+
+%h1 New State
+
+%form.form-horizontal{ action: "/state/new", method: 'post' }
+  - all.each do |x|
+    .form-group
+      %label.col-sm-3.control-label #{ name_modifier(x) }:
+      .col-sm-9
+        %input.form-control{ type: 'text', name: "#{ x }" }
+
+  %button.btn.btn-default.btn-block{ type: 'submit' } Submit

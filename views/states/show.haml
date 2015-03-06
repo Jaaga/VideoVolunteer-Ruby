@@ -1,0 +1,10 @@
+- all = state_array_set
+
+%h1 #{ @state.state }
+
+.table-responsive
+  %table.table.table-bordered.table-striped#view-margin
+    = show(@state, all)
+
+%a.btn.btn-default.button-space{ href: "/state/edit/#{ @state.id }", role: 'button' } Edit
+%a.btn.btn-default.button-space{ href: "/state/delete/#{ @state.id }", role: 'button' } Delete

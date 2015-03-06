@@ -68,4 +68,8 @@ module Arrays
   def cc_array_set
     ['first_name', 'last_name', 'state_abb', 'state', 'district', 'phone', 'mentor']
   end
+
+  def state_array_set
+    ['state', 'state_abb']
+  end
 end
