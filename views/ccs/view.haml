@@ -1,0 +1,18 @@
+- arr = cc_array_set
+- count = 1
+
+%h1 All Users
+
+.table-responsive
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th.col0 ID
+        = results_head(arr, count)
+    %tbody
+      - @cc.each do |c|
+        %tr
+          %td.col0
+            %a{ href: "/cc/show/#{ c.id }" }
+              =h c.id
+          = results_body(arr, count, c)

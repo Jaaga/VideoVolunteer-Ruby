@@ -1,0 +1,10 @@
+- all = user_array_set[:user] - ['encrypted_password']
+
+%h1 #{ @user.full_name }
+
+.table-responsive
+  %table.table.table-bordered.table-striped#view-margin
+    = show(@user, all)
+
+%a.btn.btn-default.button-space{ href: "/user/edit/#{ @user.id }", role: 'button' } Edit
+%a.btn.btn-default.button-space{ href: "/user/delete/#{ @user.id }", role: 'button' } Delete

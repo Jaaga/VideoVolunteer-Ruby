@@ -1,0 +1,13 @@
+%h1 Login
+
+%form.form-horizontal{ action: "/login", method: 'post' }
+  .form-group
+    %label.col-sm-3.control-label Email:
+    .col-sm-9
+      %input.form-control{ type: 'text', name: 'email' }
+  .form-group
+    %label.col-sm-3.control-label Password:
+    .col-sm-9
+      %input.form-control{ type: 'password', name: 'password' }
+
+  %button.btn.btn-default.btn-block.button-space{ type: 'submit' } Submit

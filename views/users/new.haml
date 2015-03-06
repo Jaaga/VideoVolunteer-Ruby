@@ -1,0 +1,18 @@
+- all = user_array_set[:new_user]
+
+%h1 New User
+
+%form.form-horizontal{ action: "/user/new", method: 'post' }
+  - all.each do |x|
+    - if (x == 'password') || (x == 'password_verify')
+      .form-group
+        %label.col-sm-3.control-label #{ name_modifier(x) }:
+        .col-sm-9
+          %input.form-control{ type: 'password', name: "#{ x }" }
+    - else
+      .form-group
+        %label.col-sm-3.control-label #{ name_modifier(x) }:
+        .col-sm-9
+          %input.form-control{ type: 'text', name: "#{ x }" }
+
+  %button.btn.btn-default.btn-block{ type: 'submit' } Submit

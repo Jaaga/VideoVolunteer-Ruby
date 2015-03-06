@@ -1,0 +1,20 @@
+- all = user_array_set[:user] - ['email', 'encrypted_password']
+
+%h1 #{ @user.full_name }
+
+%form.form-horizontal{ action: "/user/edit/#{ @user.id }", method: 'post' }
+  - all.each do |x|
+    - value = @user.send(:"#{ x }")
+    - if x == 'encrypted_password'
+      .form-group
+        %label.col-sm-3.control-label #{ name_modifier(x) }:
+        .col-sm-9
+          %input.form-control{ type: 'password', name: "#{ x }", value: "#{ value }" }
+    - else
+      .form-group
+        %label.col-sm-3.control-label #{ name_modifier(x) }:
+        .col-sm-9
+          %input.form-control{ type: 'text', name: "#{ x }", value: "#{ value }" }
+
+
+  %button.btn.btn-default.btn-block.button-space{ type: 'submit' } Submit

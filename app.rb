@@ -2,6 +2,7 @@ require 'sinatra'
 require 'active_record'
 require 'sinatra/activerecord'
 require 'sinatra/flash'           # For showing input errors.
+require 'bcrypt'
 require 'haml'
 require 'date'
 require './.config/environment'
@@ -9,12 +10,17 @@ require './.config/environment'
 require_relative './lib/features'
 require_relative './lib/arrays'
 require_relative './lib/forms'
+require_relative './lib/users'
 
 include Features
 include Arrays
 include Forms
 
-enable :sessions
+use Rack::Session::Cookie, :key => 'rack.session',
+                           :path => '/',
+                           :expire_after => 86000, # In seconds
+                           :secret => 'l3m0nad3 is a p0pular dr1nk github'
+
 
 # Classes for database tables.
 class Tracker < ActiveRecord::Base
@@ -47,9 +53,36 @@ get '/' do
   haml :index
 end
 
+get '/login' do
+  haml :'/users/login'
+end
+
+post '/login' do
+  if !session[:user].nil?
+    flash[:error] = "Already logged in."
+    redirect '/'
+  end
+
+  @user = User.find_by(email: params[:email])
+
+  if @user.authenticate?(params[:password])
+    session[:user] = @user.id
+    redirect '/'
+  else
+    haml :'/users/login'
+  end
+end
+
+get '/logout' do
+  session[:user] = nil
+  redirect '/login'
+end
+
 # New Stories
 
 get '/new' do
+  login_required!
+
   @state = State.all
 
   haml :'trackers/new_state'
@@ -57,6 +90,8 @@ end
 
 # Getting the state name to give a dropdown of CC's for the state.
 post '/new/state' do
+  login_required!
+
   if params[:state].blank?
     flash[:error] = "A state must be selected."
     redirect '/new'
@@ -70,6 +105,8 @@ end
 
 # Saving the data entered for a new story.
 post '/new/:state' do
+  login_required!
+
   if params[:cc_name].blank?
     flash[:error] = "A CC must be selected."
     state = params[:state]
@@ -96,6 +133,7 @@ post '/new/:state' do
     end
 
     if @track.uid.length > 3
+      @track.updated_by = current_user[:name]
       @track.save
       flash[:notice] = "Story successfully saved as #{ @track.uid }."
       redirect '/recent'
@@ -210,6 +248,8 @@ get '/show/:uid' do
 end
 
 get '/delete/:uid' do
+  login_required!
+
   @track = Tracker.find_by(uid: params[:uid])
   if @track == nil
     flash[:error] = "Could not find story to delete."
@@ -224,6 +264,8 @@ end
 
 # Shows the original data in input forms.
 get '/edit/:uid' do
+  login_required!
+
   @track = Tracker.find_by(uid: params[:uid])
 
   haml :'trackers/edit'
@@ -232,6 +274,8 @@ end
 # Saves the data found in get /edit/:uid. It's important that the old data shows,
 # otherwise editing will erase the old data if nothing new is put into the fields.
 post '/edit/:uid' do
+  login_required!
+
   @track = Tracker.find_by(uid: params[:uid])
   arr = global_arr_set.push('district', 'mentor')
 
@@ -239,6 +283,7 @@ post '/edit/:uid' do
     @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
   end
 
+  @track.updated_by = current_user[:name]
   @track.save
   flash[:notice] = "Tracker #{ @track.uid } successfully edited."
   redirect "/show/#{@track.uid}"
@@ -249,12 +294,16 @@ end
 
 
 get '/flag/:uid' do
+  login_required!
+
   @track = Tracker.find_by(uid: params[:uid])
 
   haml :'trackers/flagnote'
 end
 
 post '/flag/:uid' do
+  login_required!
+
   if params[:note].blank?
     flash[:error] = "Need information for flag."
     redirect "/flag/#{ params[:uid] }"
@@ -272,6 +321,8 @@ post '/flag/:uid' do
 end
 
 get '/unflag/:uid' do
+  login_required!
+
   @track = Tracker.find_by(uid: params[:uid])
 
   @track.flag = nil
@@ -287,12 +338,16 @@ end
 # Making notes on stories/videos
 
 get '/note' do
+  login_required!
+
   haml :'trackers/note'
 end
 
 # Adds a note based on the uid of the story. All notes have dates on them. New
 # notes are added at the top with a line break.
 post '/note' do
+  login_required!
+
   if params[:uid].blank?
     flash[:error] = "UID needed."
     redirect '/note'
@@ -316,4 +371,170 @@ post '/note' do
     flash[:notice] = "Note successfully added to #{ @track.uid }."
     redirect '/recent'
   end
+end
+
+
+# --------------------------------------
+
+#
+## User
+#
+
+get '/user/new' do
+  admin_required!
+  haml :'users/new'
+end
+
+post '/user/new' do
+  admin_required!
+
+  @user = User.new
+  arr = user_array_set[:new_user] - ['password', 'password_verify']
+
+  @user.full_name = "#{ params[:first_name] } #{ params[:last_name] }"
+
+  if params[:password] == params[:password_verify]
+    @user.password_set(params[:password])
+  end
+
+  arr.each do |x|
+    @user.send(:"#{ x }=", params[:"#{ x }"])
+  end
+
+  # Need to make email validation method
+  # if @user.email.valid_email? then @user.save end
+  @user.save
+
+  redirect '/user/view'
+end
+
+get '/user/edit/:id' do
+  right_user(params[:id])
+
+  @user = User.find_by(id: params[:id])
+
+  haml :'users/edit'
+end
+
+post '/user/edit/:id' do
+  right_user(params[:id])
+
+  @user = User.find_by(id: params[:id])
+  arr = user_array_set[:user] - ['email', 'encrypted_password']
+
+  arr.each do |x|
+    @user.send(:"#{ x }=", params[:"#{ x }"])
+  end
+
+  @user.save
+
+  redirect '/user/view'
+end
+
+get '/user/view' do
+  admin_required!
+
+  @user = User.all
+
+  haml :'users/view'
+end
+
+get '/user/show/:id' do
+  right_user(params[:id])
+
+  @user = User.find_by(id: params[:id])
+
+  haml :'users/show'
+end
+
+get '/user/delete/:id' do
+  admin_required!
+
+  @user = User.find_by(id: params[:id])
+  @user.destroy
+
+  redirect '/user/view'
+end
+
+
+# --------------------------------------
+
+#
+## CC
+#
+
+get '/cc/new' do
+  admin_required!
+  @state = State.all
+  haml :'ccs/new'
+end
+
+post '/cc/new' do
+  admin_required!
+
+  @cc = Cc.new
+  arr = cc_array_set - ['state_abb']
+  @cc.full_name = "#{ params[:first_name] } #{ params[:last_name] }"
+
+  @state = State.find_by(state: params[:state])
+  @cc.state_abb = @state.state_abb
+
+  arr.each do |x|
+    @cc.send(:"#{ x }=", params[:"#{ x }"])
+  end
+
+  @cc.save
+  redirect '/cc/view'
+end
+
+get '/cc/edit/:id' do
+  admin_required!
+
+  @cc = Cc.find_by(id: params[:id])
+  @state = State.all
+
+  haml :'ccs/edit'
+end
+
+post '/cc/edit/:id' do
+  admin_required!
+
+  @cc = Cc.find_by(id: params[:id])
+  arr = cc_array_set - ['state_abb']
+
+  @state = State.find_by(state: params[:state])
+  @cc.state_abb = @state.state_abb
+
+  arr.each do |x|
+    @cc.send(:"#{ x }=", params[:"#{ x }"])
+  end
+
+  @cc.save
+
+  redirect '/cc/view'
+end
+
+get '/cc/view' do
+  admin_required!
+
+  @cc = Cc.all
+
+  haml :'ccs/view'
+end
+
+get '/cc/show/:id' do
+  admin_required!
+
+  @cc = Cc.find_by(id: params[:id])
+
+  haml :'ccs/show'
+end
+
+get '/cc/delete/:id' do
+  admin_required!
+
+  @cc = Cc.find_by(id: params[:id])
+  @cc.destroy
+
+  redirect '/cc/view'
 end

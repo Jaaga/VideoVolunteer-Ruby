@@ -29,4 +29,33 @@ module Features
     end
   end
 
+  def login_required!
+    if session[:user].nil?
+      flash[:error] = 'Need to be logged in.'
+      redirect '/login'
+    end
+  end
+
+  def admin_required!
+    login_required!
+    user = current_user[:access]
+    if user != 'admin'
+      flash[:error] = 'Need to be admin.'
+      redirect back
+    end
+  end
+
+  def current_user
+    if session[:user]
+      user = User.find(session[:user])
+      return { id: user.id, name: user.full_name, access: user.access }
+    end
+  end
+
+  def right_user(id)
+    if id.to_s != session[:user].to_s
+      flash[:error] = 'Not authorized.'
+      redirect back
+    end
+  end
 end

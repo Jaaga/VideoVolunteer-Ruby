@@ -7,6 +7,7 @@ gem 'sinatra-activerecord'
 gem 'sinatra-flash'
 gem 'haml'
 gem 'psych', '2.0.8'
+gem 'bcrypt'
 
 group :development do
   gem 'sqlite3'
