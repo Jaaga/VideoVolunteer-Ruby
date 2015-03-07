@@ -8,7 +8,6 @@ class CreateUsers < ActiveRecord::Migration
       u.string  :full_name
       u.string  :access
       u.string  :verified
-      u.string  :verify
     end
   end
 end

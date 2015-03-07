@@ -1,20 +1,35 @@
-- all = user_array_set[:user] - ['email', 'encrypted_password']
+- all = user_array_set[:user].push('new_password', 'new_password_verify') - ['email',
+                                   'encrypted_password', 'access', 'verified']
 
 %h1 #{ @user.full_name }
 
 %form.form-horizontal{ action: "/user/edit/#{ @user.id }", method: 'post' }
   - all.each do |x|
-    - value = @user.send(:"#{ x }")
-    - if x == 'encrypted_password'
+    - if x == 'new_password' || x == 'new_password_verify'
       .form-group
         %label.col-sm-3.control-label #{ name_modifier(x) }:
         .col-sm-9
-          %input.form-control{ type: 'password', name: "#{ x }", value: "#{ value }" }
+          %input.form-control{ type: 'password', name: "#{ x }" }
     - else
+      - value = @user.send(:"#{ x }")
       .form-group
         %label.col-sm-3.control-label #{ name_modifier(x) }:
         .col-sm-9
           %input.form-control{ type: 'text', name: "#{ x }", value: "#{ value }" }
-
+  - if current_user[:access] == 'admin'
+    .form-group
+      %label.col-sm-3.control-label Access:
+      .col-sm-9
+        %select{ name: 'access' }
+          %option{ value: "#{ @user.access }" }#{ @user.access }
+          %option{ value: '' }regular user
+          %option{ value: 'admin' }admin
+    .form-group
+      %label.col-sm-3.control-label Verification:
+      .col-sm-9
+        %select{ name: 'verified' }
+          %option{ value: "#{ @user.verified }" }#{ @user.verified }
+          %option{ value: '' }not verified
+          %option{ value: 'true' }true
 
   %button.btn.btn-default.btn-block.button-space{ type: 'submit' } Submit

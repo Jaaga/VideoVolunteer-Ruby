@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20150305104151) do
     t.string "last_name",          null: false
     t.string "full_name"
     t.string "access"
-    t.string "verify"
+    t.string "verified"
   end
 
 end

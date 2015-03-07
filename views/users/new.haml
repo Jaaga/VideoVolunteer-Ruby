@@ -2,7 +2,7 @@
 
 %h1 New User
 
-%form.form-horizontal{ action: "/user/new", method: 'post' }
+%form.form-horizontal{ action: "/signup", method: 'post' }
   - all.each do |x|
     - if (x == 'password') || (x == 'password_verify')
       .form-group

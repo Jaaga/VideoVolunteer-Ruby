@@ -18,7 +18,7 @@ include Forms
 
 use Rack::Session::Cookie, :key => 'rack.session',
                            :path => '/',
-                           :expire_after => 86000, # In seconds
+                           :expire_after => 32400, # In seconds
                            :secret => 'l3m0nad3 is a p0pular dr1nk github'
 
 
@@ -65,11 +65,18 @@ post '/login' do
 
   @user = User.find_by(email: params[:email])
 
-  if @user.authenticate?(params[:password])
+  if @user.authenticate?(params[:password]) && !@user.verified.blank?
     session[:user] = @user.id
     redirect '/'
+  elsif @user.verified.blank?
+    flash[:error] = "Account needs to be verified by administrator."
+    redirect back
+  elsif !@user.authenticate?(params[:password])
+    flash[:error] = "Incorrect email/password combination."
+    redirect back
   else
-    haml :'/users/login'
+    flash[:error] = "Unkown error."
+    redirect back
   end
 end
 
@@ -77,6 +84,7 @@ get '/logout' do
   session[:user] = nil
   redirect '/login'
 end
+
 
 # New Stories
 
@@ -133,7 +141,7 @@ post '/new/:state' do
     end
 
     if @track.uid.length > 3
-      @track.updated_by = current_user[:name]
+      @track.updated_by = current_user[:email]
       @track.save
       flash[:notice] = "Story successfully saved as #{ @track.uid }."
       redirect '/recent'
@@ -283,7 +291,7 @@ post '/edit/:uid' do
     @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
   end
 
-  @track.updated_by = current_user[:name]
+  @track.updated_by = current_user[:email]
   @track.save
   flash[:notice] = "Tracker #{ @track.uid } successfully edited."
   redirect "/show/#{@track.uid}"
@@ -380,32 +388,42 @@ end
 ## User
 #
 
-get '/user/new' do
-  admin_required!
+get '/signup' do
   haml :'users/new'
 end
 
-post '/user/new' do
-  admin_required!
+post '/signup' do
+  @user_test = User.find_by(email: params[:email])
+
+  if !@user_test.nil?
+    flash[:error] = "Email already taken."
+    redirect back
+  end
 
   @user = User.new
   arr = user_array_set[:new_user] - ['password', 'password_verify']
 
-  @user.full_name = "#{ params[:first_name] } #{ params[:last_name] }"
+  @user.full_name = "#{ params[:first_name].capitalize } #{ params[:last_name].capitalize }"
 
-  if params[:password] == params[:password_verify]
+  if params[:password] == params[:password_verify] && params[:password].length > 5
     @user.password_set(params[:password])
+  elsif params[:password].length < 6
+    flash[:error] = "Password needs to be at least 6 characters long."
+    redirect back
   end
 
   arr.each do |x|
     @user.send(:"#{ x }=", params[:"#{ x }"])
   end
 
-  # Need to make email validation method
-  # if @user.email.valid_email? then @user.save end
-  @user.save
+  if !(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i === @user.email)
+    flash[:error] = 'Invalid email.'
+    redirect back
+  end
 
-  redirect '/user/view'
+  @user.save
+  flash[:notice] = "Account will have to be verified by administrator."
+  redirect '/'
 end
 
 get '/user/edit/:id' do
@@ -421,6 +439,13 @@ post '/user/edit/:id' do
 
   @user = User.find_by(id: params[:id])
   arr = user_array_set[:user] - ['email', 'encrypted_password']
+
+  if params[:new_password] == params[:new_password_verify] && params[:new_password].length > 5
+    @user.password_set(params[:new_password])
+  elsif params[:new_password].length < 6
+    flash[:error] = "Password needs to be at least 6 characters long."
+    redirect back
+  end
 
   arr.each do |x|
     @user.send(:"#{ x }=", params[:"#{ x }"])
@@ -455,6 +480,7 @@ get '/user/delete/:id' do
 
   redirect '/user/view'
 end
+
 
 
 # --------------------------------------
@@ -564,10 +590,10 @@ post '/cc/note' do
       flash[:error] = "Invalid ID."
       redirect '/cc/note'
     elsif @cc.notes.blank?
-      @cc.notes = "#{ Date.today }: #{ params[:note] }"
+      @cc.notes = "#{ Date.today }: #{ params[:note] } by user #{ session[:user] }"
     else
       temp = @cc.notes
-      @cc.notes = "#{ Date.today }: #{ params[:note] }<br>#{ temp }"
+      @cc.notes = "#{ Date.today }: #{ params[:note] } by user #{ session[:user] }<br>#{ temp }"
     end
 
     @cc.save

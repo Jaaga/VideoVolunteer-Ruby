@@ -48,12 +48,13 @@ module Features
   def current_user
     if session[:user]
       user = User.find(session[:user])
-      return { id: user.id, name: user.full_name, access: user.access }
+      return { id: user.id, name: user.full_name, access: user.access,
+               email: user.email }
     end
   end
 
   def right_user(id)
-    if id.to_s != session[:user].to_s
+    if id.to_s != session[:user].to_s && current_user[:access] != 'admin'
       flash[:error] = 'Not authorized.'
       redirect back
     end

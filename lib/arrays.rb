@@ -60,7 +60,7 @@ module Arrays
   def user_array_set
     new_user = ['email', 'password', 'password_verify', 'first_name', 'last_name']
     user = ['email', 'encrypted_password', 'first_name', 'last_name', 'full_name',
-            'access', 'verify']
+            'access', 'verified']
 
     return { new_user: new_user, user: user }
   end

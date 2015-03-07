@@ -42,8 +42,6 @@
                 %span.caret
               %ul.dropdown-menu{ role: 'menu' }
                 %li
-                  %a{ href: '/user/new' }New
-                %li
                   %a{ href: "/user/show/#{ session[:user] }" }Show
                 %li
                   %a{ href: '/user/view' }View All
@@ -69,10 +67,12 @@
                   %a{ href: '/state/view' }View All
           - if session[:user].nil?
             %li
-              %a{ href: '/login' } Login
+              %a{ href: '/login' }Login
+            %li
+              %a{ href: '/signup' }Sign Up
           - else
             %li
-              %a{ href: '/logout' } Logout
+              %a{ href: '/logout' }Logout
 
     .container
       .row
