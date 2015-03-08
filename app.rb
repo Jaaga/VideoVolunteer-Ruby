@@ -27,9 +27,15 @@ class Tracker < ActiveRecord::Base
 end
 
 class Cc < ActiveRecord::Base
+  before_save { first_name.capitalize! }
+  before_save { last_name.capitalize! }
+  before_save { district.capitalize! }
+  before_save { mentor.capitalize! }
 end
 
 class State < ActiveRecord::Base
+  before_save { state.capitalize! }
+  before_save { state_abb.capitalize! }
 end
 
 
@@ -115,7 +121,15 @@ end
 post '/new/:state' do
   login_required!
 
-  if params[:cc_name].blank?
+  # Make sure that two videos with the smae UID aren't created.
+  params[:original_uid].upcase!
+  temp = Tracker.find_by(uid: "#{ params[:original_uid] }_impact")
+  if !temp.nil?
+    flash[:error] = "Impact video already made for this UID."
+    state = params[:state]
+    # 307 redirects to a post
+    redirect "/new/state?state=#{state}", 307
+  elsif params[:cc_name].blank?
     flash[:error] = "A CC must be selected."
     state = params[:state]
     # 307 redirects to a post
@@ -126,6 +140,8 @@ post '/new/:state' do
 
     # For making UID. Getting list of UID's from state.
     @temp = Tracker.where(state: @cc.state)
+    #
+    if params[:is_impact] == 'yes' then @track.original_uid = params[:original_uid] end
     # Sending state UID list and abbreviation of state name
     @track.uid = uid_generate(@temp, @cc.state_abb, params[:is_impact])
 
@@ -140,13 +156,10 @@ post '/new/:state' do
       @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
     end
 
-    if params[:is_impact] == 'yes'
-      @track.original_uid = params[:original_uid]
-    end
-
     if @track.uid.length > 3
       @track.updated_by = current_user[:email]
       @track.save
+      if params[:is_impact] == 'yes' then impact_uid_set(params[:original_uid]) end
       flash[:notice] = "Story successfully saved as #{ @track.uid }."
       redirect '/recent'
     else
@@ -407,6 +420,7 @@ post '/signup' do
   @user = User.new
   arr = user_array_set[:new_user] - ['password', 'password_verify']
 
+  # First name and last name capitalized by user class.
   @user.full_name = "#{ params[:first_name].capitalize } #{ params[:last_name].capitalize }"
 
   if params[:password] == params[:password_verify] && params[:password].length > 5
@@ -504,7 +518,7 @@ post '/cc/new' do
 
   @cc = Cc.new
   arr = cc_array_set - ['state_abb']
-  @cc.full_name = "#{ params[:first_name] } #{ params[:last_name] }"
+  @cc.full_name = "#{ params[:first_name].capitalize } #{ params[:last_name].capitalize }"
 
   @state = State.find_by(state: params[:state])
   @cc.state_abb = @state.state_abb
@@ -534,6 +548,7 @@ post '/cc/edit/:id' do
 
   @state = State.find_by(state: params[:state])
   @cc.state_abb = @state.state_abb
+  @cc.full_name = "#{ params[:first_name].capitalize } #{ params[:last_name].capitalize }"
 
   arr.each do |x|
     @cc.send(:"#{ x }=", params[:"#{ x }"])
@@ -624,6 +639,9 @@ post '/state/new' do
 
   @state = State.new
   arr = state_array_set
+
+  params[:state].capitalize!
+  params[:state_abb].upcase!
 
   arr.each do |x|
     @state.send(:"#{ x }=", params[:"#{ x }"])

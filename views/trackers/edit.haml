@@ -19,10 +19,12 @@
                                           columns: all[:review],
                                           special: [], number: [],
                                           yesno: [], track: @track }
-  = haml :'trackers/edit_form', locals: { title: 'Impact', columns: all[:impact],
-                                          special: all[:special],
-                                          number: all[:numbers],
-                                          yesno: all[:yesno], track: @track }
+  - unless !@track.original_uid.blank? && @track.uid.include?('_impact')
+    = haml :'trackers/edit_form', locals: { title: 'Impact',
+                                            columns: all[:impact],
+                                            special: all[:special],
+                                            number: all[:numbers],
+                                            yesno: all[:yesno], track: @track }
   = haml :'trackers/edit_form', locals: { title: 'Screening',
                                           columns: all[:screening], special: [],
                                           number: all[:numbers],

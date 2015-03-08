@@ -2,6 +2,11 @@
 -# generate the table cells.
 
 %h2= title
+- if title == 'Impact'
+  %p
+    See
+    %a{ href: "/show/#{ @track.impact_uid }"} #{ @track.impact_uid }
+    for impact footage information.
 .table-responsive
   %table.table.table-bordered.table-striped#view-margin
     = show(track, column)

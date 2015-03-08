@@ -1,8 +1,10 @@
 - all = array_set
 - all[:story].unshift('state', 'cc_name', 'district', 'mentor')
-- all[:footage]
-- all[:impact]
-- all[:extra]
+
+- if @track.uid.include? '_impact'
+  - all[:extra].delete('impact_uid')
+- else
+  - all[:extra].delete('original_uid')
 
 %h1 #{ @track.uid.split('_').join(' ') } by #{ @track.cc_name } - #{ @track.iu_theme }
 
@@ -16,8 +18,15 @@
                                          track: @track, column: all[:footage] }
 = haml :'trackers/show_table', locals: { title: 'Review', track: @track,
                                          column: all[:review] }
-= haml :'trackers/show_table', locals: { title: 'Impact', track: @track,
+- unless !@track.original_uid.blank? && @track.uid.include?('_impact')
+  = haml :'trackers/show_table', locals: { title: 'Impact', track: @track,
                                          column: all[:impact] }
+- else
+  %h2 Impact
+  %p
+    See
+    %a{ href: "/show/#{ @track.original_uid }"} #{ @track.original_uid }
+    for impact information.
 = haml :'trackers/show_table', locals: { title: 'Screening', track: @track,
                                          column: all[:screening] }
 = haml :'trackers/show_table', locals: { title: 'Payment', track: @track,

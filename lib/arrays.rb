@@ -20,9 +20,12 @@ module Arrays
              'shoot_plan', 'story_pitch_date']
     status = ['footage_received_from_cc_date', 'raw_footage_review_date',
               'state_edit_date', 'rough_cut_edit_date', 'edit_received_in_goa_date',
-              'review_date', 'finalized_date', 'youtube_date', 'iu_publish_date', 'backup_received_date']
-    footage = ['editor_currently_in_charge', 'folder_title', 'edited_video_rating', 'reviewer_name',
-               'editor_changes_needed', 'final_review_notes', 'publishing_suggestions', 'cc_feedback',
+              'review_date', 'finalized_date', 'youtube_date',
+              'iu_publish_date', 'backup_received_date']
+    footage = ['editor_currently_in_charge', 'folder_title',
+               'edited_video_rating', 'reviewer_name',
+               'editor_changes_needed', 'final_review_notes',
+               'publishing_suggestions', 'cc_feedback',
                'subtitle_info', 'stalin_notes',
                'proceed_with_edit_and_payment',
                'editor_changes_needed',
@@ -30,9 +33,10 @@ module Arrays
                'review_notes', 'youtube_url', 'video_title']
     review = ['community_participation_description', 'broll', 'interview',
               'voice_over', 'video_diary', 'p2c']
-    impact = ['impact_plan', 'impact_achieved_description', 'target_official', 'target_official_email', 'target_official_phone',
+    impact = ['impact_plan', 'impact_achieved_description', 'target_official',
+              'target_official_email', 'target_official_phone',
               'desired_change', 'impact_followup_notes',
-              'impact_uid', 'original_uid', 'impact_process', 'milestone', 'impact_achieved', 'impact_time',
+              'impact_process', 'milestone', 'impact_achieved', 'impact_time',
               'collaborations', 'impact_reviewer', 'impact_date',
               'impact_approval_date', 'impact_possible', 'impact_followup',
               'impact_review', 'people_involved', 'people_impacted',
@@ -43,7 +47,8 @@ module Arrays
                  'officials_at_screening_number']
     payment = ['payment_status']
     ratings = ['footage_rating', 'final_video_rating']
-    extra = ['note', 'flag', 'flag_notes', 'updated_by', 'flag_date', 'created_at', 'updated_at']
+    extra = ['impact_uid', 'original_uid', 'note', 'flag', 'flag_notes',
+             'updated_by', 'flag_date', 'created_at', 'updated_at']
     special = ['iu_theme', 'subcategory', 'story_type', 'proceed_with_edit_and_payment',
                'payment_status', 'subtitle_info', 'editor_changes_needed',
                'impact_status']

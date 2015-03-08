@@ -23,6 +23,7 @@ module Features
       id = num[1].to_i + 1
 
       if original == 'yes'
+        id = @track.original_uid.split('_').pop
         return "#{ state_abb }_#{ id.to_s }_impact"
       else
         # Make unique UID from state abbreviation and newly created number
@@ -30,7 +31,7 @@ module Features
       end
     else
       if original == 'yes'
-        return "#{ state_abb }_#{ id.to_s }_impact"
+        return "#{ state_abb }_1001_impact"
       else
         return "#{ state_abb }_1001"
       end
@@ -66,5 +67,11 @@ module Features
       flash[:error] = 'Not authorized.'
       redirect back
     end
+  end
+
+  def impact_uid_set(original)
+    track = Tracker.find_by(uid: original)
+    track.impact_uid = "#{ original }_impact"
+    track.save
   end
 end
