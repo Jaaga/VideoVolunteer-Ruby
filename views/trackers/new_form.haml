@@ -17,3 +17,15 @@
           - name.each do |x|
             %option{ value: x } #{ x }
   = new_set(columns, special, number, yesno)
+
+  %h4 Impact Video?
+  .form-group
+    %label.col-sm-3.control-label Yes/no:
+    .col-sm-9
+      %select{ name: 'is_impact' }
+        %option{ value: 'no' } No
+        %option{ value: 'yes' } Yes
+  .form-group
+    %label.col-sm-3.control-label Original UID:
+    .col-sm-9
+      %input{ type: 'text', name: 'original_uid' }

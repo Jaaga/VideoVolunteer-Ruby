@@ -10,7 +10,7 @@ module Features
   end
 
   # Generates a uid based on the state name and the last uid's number.
-  def uid_generate(temp, state_abb)
+  def uid_generate(temp, state_abb, original)
     num = Array.new
     if !temp.empty?
       # Save each UID in an array
@@ -22,10 +22,18 @@ module Features
       num = num[num.length - 1].split('_')
       id = num[1].to_i + 1
 
-      # Make unique UID from state abbreviation and newly created number
-      return "#{ state_abb }_#{ id.to_s }"
+      if original == 'yes'
+        return "#{ state_abb }_#{ id.to_s }_impact"
+      else
+        # Make unique UID from state abbreviation and newly created number
+        return "#{ state_abb }_#{ id.to_s }"
+      end
     else
-      return "#{ state_abb }_1001"
+      if original == 'yes'
+        return "#{ state_abb }_#{ id.to_s }_impact"
+      else
+        return "#{ state_abb }_1001"
+      end
     end
   end
 

@@ -127,7 +127,7 @@ post '/new/:state' do
     # For making UID. Getting list of UID's from state.
     @temp = Tracker.where(state: @cc.state)
     # Sending state UID list and abbreviation of state name
-    @track.uid = uid_generate(@temp, @cc.state_abb)
+    @track.uid = uid_generate(@temp, @cc.state_abb, params[:is_impact])
 
     # Fill in information from chosen cc
     @track.state = @cc.state
@@ -138,6 +138,10 @@ post '/new/:state' do
 
     arr.each do |x|
       @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
+    end
+
+    if params[:is_impact] == 'yes'
+      @track.original_uid = params[:original_uid]
     end
 
     if @track.uid.length > 3
