@@ -398,6 +398,7 @@ post '/note' do
       @track.note = "#{ Date.today }: #{ params[:note] }<br>#{ temp }"
     end
 
+    @track.updated_by = current_user[:email]
     @track.save
     flash[:notice] = "Note successfully added to #{ @track.uid }."
     redirect '/recent'
@@ -464,11 +465,13 @@ post '/user/edit/:id' do
   @user = User.find_by(id: params[:id])
   arr = user_array_set[:user] - ['email', 'encrypted_password']
 
-  if params[:new_password] == params[:new_password_verify] && params[:new_password].length > 5
-    @user.password_set(params[:new_password])
-  elsif params[:new_password].length < 6
-    flash[:error] = "Password needs to be at least 6 characters long."
-    redirect back
+  unless params[:new_password].blank?
+    if params[:new_password] == params[:new_password_verify] && params[:new_password].length > 5
+      @user.password_set(params[:new_password])
+    elsif params[:new_password].length < 6
+      flash[:error] = "Password needs to be at least 6 characters long."
+      redirect back
+    end
   end
 
   arr.each do |x|
@@ -477,7 +480,7 @@ post '/user/edit/:id' do
 
   @user.save
 
-  redirect '/user/view'
+  redirect "/user/show/#{ params[:id] }"
 end
 
 get '/user/view' do

@@ -5,11 +5,12 @@
 
 %form.form-horizontal{ action: "/user/edit/#{ @user.id }", method: 'post' }
   - all.each do |x|
-    - if x == 'new_password' || x == 'new_password_verify'
-      .form-group
-        %label.col-sm-3.control-label #{ name_modifier(x) }:
-        .col-sm-9
-          %input.form-control{ type: 'password', name: "#{ x }" }
+    - if (x == 'new_password' || x == 'new_password_verify')
+      - if current_user[:id] == @user.id
+        .form-group
+          %label.col-sm-3.control-label #{ name_modifier(x) }:
+          .col-sm-9
+            %input.form-control{ type: 'password', name: "#{ x }" }
     - else
       - value = @user.send(:"#{ x }")
       .form-group

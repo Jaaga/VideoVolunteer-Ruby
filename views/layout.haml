@@ -43,28 +43,30 @@
               %ul.dropdown-menu{ role: 'menu' }
                 %li
                   %a{ href: "/user/show/#{ session[:user] }" }Show
-                %li
-                  %a{ href: '/user/view' }View All
-            %li.dropdown
-              %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
-                CCs
-                %span.caret
-              %ul.dropdown-menu{ role: 'menu' }
-                %li
-                  %a{ href: '/cc/new' }New
-                %li
-                  %a{ href: '/cc/view' }View All
-                %li
-                  %a{ href: '/cc/note' }Add Note
-            %li.dropdown
-              %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
-                States
-                %span.caret
-              %ul.dropdown-menu{ role: 'menu' }
-                %li
-                  %a{ href: '/state/new' }New
-                %li
-                  %a{ href: '/state/view' }View All
+                - if current_user[:access] == 'admin'
+                  %li
+                    %a{ href: '/user/view' }View All
+            - if current_user[:access] == 'admin'
+              %li.dropdown
+                %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
+                  CCs
+                  %span.caret
+                %ul.dropdown-menu{ role: 'menu' }
+                  %li
+                    %a{ href: '/cc/new' }New
+                  %li
+                    %a{ href: '/cc/view' }View All
+                  %li
+                    %a{ href: '/cc/note' }Add Note
+              %li.dropdown
+                %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
+                  States
+                  %span.caret
+                %ul.dropdown-menu{ role: 'menu' }
+                  %li
+                    %a{ href: '/state/new' }New
+                  %li
+                    %a{ href: '/state/view' }View All
           - if session[:user].nil?
             %li
               %a{ href: '/login' }Login
