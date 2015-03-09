@@ -508,7 +508,9 @@ get '/user/delete/:id' do
   redirect '/user/view'
 end
 
-
+get '/user/reset' do
+  haml :'users/reset'
+end
 
 # --------------------------------------
 

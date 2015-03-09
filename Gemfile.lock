@@ -21,8 +21,13 @@ GEM
       tilt
     i18n (0.7.0)
     json (1.8.2)
+    mail (2.6.3)
+      mime-types (>= 1.16, < 3)
+    mime-types (2.4.3)
     minitest (5.5.1)
     pg (0.18.1)
+    pony (1.11)
+      mail (>= 2.0)
     psych (2.0.8)
     puma (2.11.0)
       rack (>= 1.1, < 2.0)
@@ -52,6 +57,7 @@ DEPENDENCIES
   bcrypt
   haml
   pg
+  pony
   psych (= 2.0.8)
   puma
   sinatra

@@ -8,6 +8,7 @@ gem 'sinatra-flash'
 gem 'haml'
 gem 'psych', '2.0.8'
 gem 'bcrypt'
+gem 'pony'
 
 group :development do
   gem 'sqlite3'

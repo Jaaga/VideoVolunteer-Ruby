@@ -72,6 +72,13 @@
               %a{ href: '/login' }Login
             %li
               %a{ href: '/signup' }Sign Up
+            %li.dropdown
+              %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
+                Help
+                %span.caret
+              %ul.dropdown-menu{ role: 'menu' }
+                %li
+                  %a{ href: '/user/reset' }Password Reset
           - else
             %li
               %a{ href: '/logout' }Logout
