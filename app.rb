@@ -52,9 +52,15 @@ get '/' do
   @track = Tracker.all
   @flag = 0
 
+  # Count the number of fagged stories.
   @track.each do |t|
     @flag += 1 if !t.flag.blank?
   end
+
+  # Number of stories pitched but not yet filmed.
+  @pitch = Tracker.where("story_pitch_date IS NOT NULL AND backup_received_date IS NULL")
+  # Number of rough cuts that haven't yet been finalzied.
+  @rough = Tracker.where("edit_received_in_goa_date IS NOT NULL AND youtube_date IS NULL")
 
   haml :index
 end
@@ -159,7 +165,7 @@ post '/new/:state' do
     if @track.uid.length > 3
       @track.updated_by = current_user[:email]
       @track.save
-      if params[:is_impact] == 'yes' then impact_uid_set(params[:original_uid]) end
+      if !params[:original_uid].blank? then impact_uid_set(params[:original_uid]) end
       flash[:notice] = "Story successfully saved as #{ @track.uid }."
       redirect '/recent'
     else
