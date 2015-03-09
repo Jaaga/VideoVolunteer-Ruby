@@ -179,7 +179,7 @@ end
 # View all stories
 
 get '/view' do
-  @track = Tracker.all
+  @track = Tracker.all.order("uid DESC")
   @title = 'All Stories'
 
   haml :'trackers/results'
