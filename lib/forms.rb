@@ -78,11 +78,11 @@ module Forms
           <div class = 'col-sm-9'>
           <select name = '#{ x }'>
             <option selected = 'true' disabled = 'true' value = #{ value }>#{ value }</option>
-            <option value = '1'>1 - Poor (CC must reshoot)</option>
-            <option value = '2'>2 - Mediocre</option>
-            <option value = '3'>3 - Very Good</option>
-            <option value = '4'>4 - One of the Best Videos I've Seen</option>
-            <option value = '5'>5 - Speechless</option>
+            <option value = '1 - Poor'>1 - Poor (CC must reshoot)</option>
+            <option value = '2 - Mediocre'>2 - Mediocre</option>
+            <option value = '3 - Very Good'>3 - Very Good</option>
+            <option value = '4 - One of the Best Videos I've Seen'>
+              4 - One of the Best Videos I've Seen</option>
           </select></div></div>"
       else
         "<div class = 'form-group'>
