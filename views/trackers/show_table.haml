@@ -2,7 +2,7 @@
 -# generate the table cells.
 
 %h2= title
-- if title == 'Impact'
+- if title == 'Impact' && !@track.impact_uid.blank?
   %p
     See
     %a{ href: "/show/#{ @track.impact_uid }"} #{ @track.impact_uid }
