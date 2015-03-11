@@ -68,6 +68,7 @@ module Features
     end
   end
 
+  # Needs to be an admin and the current user logged in
   def right_user(id)
     if id.to_s != session[:user].to_s && current_user[:access] != 'admin'
       flash[:error] = 'Not authorized.'
