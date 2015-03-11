@@ -15,13 +15,13 @@ ActiveRecord::Schema.define(version: 20150305104151) do
 
   create_table "ccs", force: :cascade do |t|
     t.string "full_name"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "state_abb"
-    t.string "state"
-    t.string "district"
+    t.string "first_name", null: false
+    t.string "last_name",  null: false
+    t.string "state_abb",  null: false
+    t.string "state",      null: false
+    t.string "district",   null: false
     t.string "phone"
-    t.string "mentor"
+    t.string "mentor",     null: false
     t.string "notes"
   end
 

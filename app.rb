@@ -501,7 +501,7 @@ end
 
 get '/user/delete/:id' do
   admin_required!
-  if session[:user] == params[:id]
+  if session[:user] != params[:id]
     @user = User.find_by(id: params[:id])
     @user.destroy
 

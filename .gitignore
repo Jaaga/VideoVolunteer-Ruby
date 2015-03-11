@@ -36,5 +36,5 @@ build/
 /csv
 sql/jh.sql
 
-./tracker.db
+tracker.db
 /extra
