@@ -11,7 +11,8 @@
 
 
 %h1 #{ @track.uid.split('_').join(' ') } by #{ @track.cc_name } - #{ @track.iu_theme }
-%h2.sub-header Impact Video: #{ @track.impact_uid unless @track.impact_uid.blank? || @track.uid.include?('_impact') }
+- unless @track.impact_uid.blank? || @track.uid.include?('_impact')
+  %h2.sub-header This video had an impact! See #{ @track.impact_uid }
 %h3.description-display #{ @track.description }
 
 - if !session[:user].nil?
