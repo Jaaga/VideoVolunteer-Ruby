@@ -6,6 +6,7 @@ class AddToTrackers < ActiveRecord::Migration
     add_column :trackers, :translation_info, :string
     add_column :trackers, :impact_verified_by, :string
     add_column :trackers, :no_original_uid, :string
+    add_column :trackers, :screened_on, :string
     remove_column :trackers, :edited_video_rating, :string
   end
 end

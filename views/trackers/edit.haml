@@ -11,22 +11,31 @@
   = haml :'trackers/edit_form', locals: { title: 'Status', columns: all[:status],
                                           special: [], number: [], yesno: [],
                                           track: @track }
-  = haml :'trackers/edit_form', locals: { title: 'Edit/Review/Upload Section',
-                                          columns: all[:footage],
+  = haml :'trackers/edit_form', locals: { title: 'Raw Footage Review',
+                                          columns: all[:review],
+                                          special: all[:special], number: [],
+                                          yesno: [], track: @track }
+  = haml :'trackers/edit_form', locals: { title: 'Edit',
+                                          columns: all[:footage_edit],
                                           special: all[:special], number: [],
                                           yesno: all[:yesno], track: @track }
-  = haml :'trackers/edit_form', locals: { title: 'Review',
-                                          columns: all[:review],
-                                          special: [], number: [],
-                                          yesno: [], track: @track }
+  = haml :'trackers/edit_form', locals: { title: 'Final Review',
+                                          columns: all[:footage_review],
+                                          special: all[:special], number: [],
+                                          yesno: all[:yesno], track: @track }
   - unless !@track.original_uid.blank? && @track.uid.include?('_impact')
-    = haml :'trackers/edit_form', locals: { title: 'Impact',
-                                            columns: all[:impact],
+    = haml :'trackers/edit_form', locals: { title: 'Impact Planning',
+                                            columns: all[:impact_planning],
+                                            special: all[:special],
+                                            number: all[:numbers],
+                                            yesno: all[:yesno], track: @track }
+    = haml :'trackers/edit_form', locals: { title: 'Impact Achieved',
+                                            columns: all[:impact_achieved],
                                             special: all[:special],
                                             number: all[:numbers],
                                             yesno: all[:yesno], track: @track }
   = haml :'trackers/edit_form', locals: { title: 'Screening',
-                                          columns: all[:screening], special: [],
+                                          columns: all[:screening], special: all[:special],
                                           number: all[:numbers],
                                           yesno: all[:yesno], track: @track }
   = haml :'trackers/edit_form', locals: { title: 'Payment',

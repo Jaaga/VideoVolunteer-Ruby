@@ -6,7 +6,15 @@ module Features
   # while this is being done, name_modifier is used to make titles by removing
   # the underscores and capitalizing each word.
   def name_modifier(x)
-    return x.split('_').map(&:capitalize).join(' ')
+    # Uses the column name for the label unless another label is needed. Using
+    # this hash to store the custom labels.
+    labels = { 'description' => 'Description (one-liner)',
+               'screening' => 'Screening (For impact only)' }
+    unless labels[x].nil?
+      return labels[x]
+    else
+      return x.split('_').map(&:capitalize).join(' ')
+    end
   end
 
   # Generates a uid based on the state name and the last uid's number.

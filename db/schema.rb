@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20150312064826) do
     t.string   "translation_info"
     t.string   "impact_verified_by"
     t.string   "no_original_uid"
+    t.string   "screened_on"
   end
 
   add_index "trackers", ["uid"], name: "index_trackers_on_uid", unique: true

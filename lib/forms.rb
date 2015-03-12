@@ -126,7 +126,7 @@ module Forms
       if (x == 'iu_theme') || (x == 'subcategory')
         "<div class='form-group'>
           <label class='col-sm-3 control-label'>
-          #{name_modifier(x)}</label>
+          #{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='#{ x }'>
               <option disabled selected value = #{ value }>#{ value }</option>
@@ -137,7 +137,30 @@ module Forms
       elsif x == 'story_type'
         "<div class='form-group'>
           <label class='col-sm-3 control-label'>
-          #{name_modifier(x)}</label>
+          #{name_modifier(x)}:</label>
+          <div class='col-sm-9'>
+            <select name='#{ x }'>
+              <option disabled selected value = #{ value }>#{ value }</option>
+              #{ theme_set("#{x}") }
+            </select>
+          </div>
+        </div>"
+      elsif x == 'project'
+        "<div class='form-group'>
+          <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
+          <div class='col-sm-9'>
+            <select name='#{ x }'>
+              <option disabled selected value = #{ value }>#{ value }</option>
+              <option value='None'>None</option>
+              <option value='Oak'>Oak</option>
+              <option value='Pacs'>Pacs</option>
+            </select>
+          </div>
+        </div>"
+      elsif x == 'campaign'
+        "<div class='form-group'>
+          <label class='col-sm-3 control-label'>
+          #{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='#{ x }'>
               <option disabled selected value = #{ value }>#{ value }</option>
@@ -147,59 +170,83 @@ module Forms
         </div>"
       elsif x == 'proceed_with_edit_and_payment'
         "<div class='form-group'>
-          <label class='col-sm-3 control-label'>Edit Status</label>
+          <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='#{ x }'>
               <option disabled selected value = #{ value }>#{ value }</option>
-              <option value='cleared'>Cleared</option>
-              <option value='on hold'>On Hold</option>
+              <option value='Cleared'>Cleared</option>
+              <option value='On hold'>On hold</option>
             </select>
           </div>
         </div>"
       elsif x == 'payment_status'
         "<div class='form-group'>
-          <label class='col-sm-3 control-label'>Payment Status</label>
+          <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='payment_status'>
               <option disabled selected value = #{ value }>#{ value }</option>
-              <option value='paid'>Approved</option>
-              <option value='pay'>Paid</option>
-              <option value='hold'>Hold</option>
+              <option value='Approved'>Approved</option>
+              <option value='Paid'>Paid</option>
+              <option value='Hold'>Hold</option>
             </select>
           </div>
         </div>"
       elsif x == 'subtitle_info'
         "<div class='form-group'>
-          <label class='col-sm-3 control-label'>Subtitle Info</label>
+          <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='subtitle_info'>
               <option disabled selected value = #{ value }>#{ value }</option>
-              <option value='has subtitles'>Has Subtitles</option>
-              <option value='high priority subtitle'>High Priority Subtitle</option>
-              <option value='low priority subtitle'>Low Priority Subtitle</option>
+              <option value='Has subtitles'>Has subtitles</option>
+              <option value='High priority subtitle'>High priority subtitle</option>
+              <option value='Low priority subtitle'>Low priority subtitle</option>
+              <option value='Don't subtitle'>Don't subtitle</option>
             </select>
           </div>
         </div>"
       elsif x == 'editor_changes_needed'
         "<div class='form-group'>
-          <label class='col-sm-3 control-label'>Editor Changes Needed</label>
+          <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='editor_changes_needed'>
               <option disabled selected value = #{ value }>#{ value }</option>
-              <option value='required'>Required</option>
-              <option value='suggested'>Suggested</option>
-              <option value='not needed'>Not Needed</option>
+              <option value='Required'>Required</option>
+              <option value='Suggested'>Suggested</option>
+              <option value='Not needed'>Not Needed</option>
             </select>
           </div>
         </div>"
       elsif x == 'impact_status'
         "<div class='form-group'>
-          <label class='col-sm-3 control-label'>Impact Status</label>
+          <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='impact_status'>
               <option disabled selected value = #{ value }>#{ value }</option>
-              <option value='achieved'>Achieved</option>
-              <option value='not achieved'>Not Achieved</option>
+              <option value='Achieved'>Achieved</option>
+              <option value='Not achieved'>Not Achieved</option>
+            </select>
+          </div>
+        </div>"
+      elsif x == 'translation_info'
+        "<div class='form-group'>
+          <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
+          <div class='col-sm-9'>
+            <select name='impact_status'>
+              <option disabled selected value = #{ value }>#{ value }</option>
+              <option value='Required'>Required</option>
+              <option value='Needed and provided'>Needed and provided</option>
+              <option value='Needed & not provided'>Needed & not provided</option>
+            </select>
+          </div>
+        </div>"
+      elsif x == 'screened_on'
+        "<div class='form-group'>
+          <label class='col-sm-3 control-label'>
+          #{name_modifier(x)}:</label>
+          <div class='col-sm-9'>
+            <select name='#{ x }'>
+              <option disabled selected value = #{ value }>#{ value }</option>
+              #{ theme_set("#{x}") }
             </select>
           </div>
         </div>"
@@ -218,7 +265,12 @@ module Forms
 
     types = ['Entitlement Violation', 'Newsworthy', 'Human Interest',
              'Human Rights Violation', 'CC Profile', 'Community Profile',
-             'Mini-doc', 'Special Video', 'Campaign Video', 'Impact']
+             'Mini-doc', 'Special Video', 'Impact', 'Success']
+
+    campaigns = ['None', 'Anti-Untouchability', 'RTE', 'Forced Evictions',
+                'Maternal Health', 'Violence Against Women']
+
+    screens = ['tablet', 'video camera', 'laptop', 'DVD player', 'projector']
 
     if (column == 'iu_theme') || (column == 'subcategory')
       themes.map do |x|
@@ -226,6 +278,14 @@ module Forms
       end.join
     elsif column == 'story_type'
       types.map do |x|
+        "<option value='#{ x }'>#{ x }</option>"
+      end.join
+    elsif column == 'campaign'
+      campaigns.map do |x|
+        "<option value='#{ x }'>#{ x }</option>"
+      end.join
+    elsif column == 'screened_on'
+      screens.map do |x|
         "<option value='#{ x }'>#{ x }</option>"
       end.join
     end
