@@ -3,8 +3,12 @@
 
 - if @track.uid.include? '_impact'
   - all[:extra].delete('impact_uid')
+  - unless @track.original_uid.blank? then all[:extra].delete('no_original_uid') end
 - else
   - all[:extra].delete('original_uid')
+  - all[:extra].delete('no_original_uid')
+
+
 
 %h1 #{ @track.uid.split('_').join(' ') } by #{ @track.cc_name } - #{ @track.iu_theme }
 

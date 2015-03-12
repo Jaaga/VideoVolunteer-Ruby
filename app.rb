@@ -140,14 +140,22 @@ post '/new/:state' do
     state = params[:state]
     # 307 redirects to a post
     redirect "/new/state?state=#{state}", 307
+  elsif params[:is_impact] == 'yes' && (params[:original_uid].blank? && params[:no_original_uid].blank?)
+    flash[:error] = "An original UID or a reason for not having one must be given for an impact video."
+    state = params[:state]
+    redirect "/new/state?state=#{state}", 307
   else
     @track = Tracker.new
     @cc = Cc.find_by(full_name: params[:cc_name])
 
     # For making UID. Getting list of UID's from state.
     @temp = Tracker.where(state: @cc.state)
-    #
-    if params[:is_impact] == 'yes' then @track.original_uid = params[:original_uid] end
+    # If it's an impact video, either the original UID or the reason for not
+    # having one will be recorded.
+    if params[:is_impact] == 'yes'
+      @track.original_uid = params[:original_uid] unless params[:original_uid].blank?
+      @track.no_original_uid = params[:no_original_uid] unless params[:no_original_uid].blank?
+    end
     # Sending state UID list and abbreviation of state name
     @track.uid = uid_generate(@temp, @cc.state_abb, params[:is_impact])
 

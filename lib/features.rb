@@ -9,7 +9,8 @@ module Features
     # Uses the column name for the label unless another label is needed. Using
     # this hash to store the custom labels.
     labels = { 'description' => 'Description (one-liner)',
-               'screening' => 'Screening (For impact only)' }
+               'screening' => 'Screening (For impact only)',
+               'no_original_uid' => 'Reason for not having original UID' }
     unless labels[x].nil?
       return labels[x]
     else
