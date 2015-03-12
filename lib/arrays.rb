@@ -22,18 +22,17 @@ module Arrays
               'state_edit_date', 'rough_cut_edit_date', 'edit_received_in_goa_date',
               'review_date', 'finalized_date', 'youtube_date',
               'iu_publish_date', 'backup_received_date', 'extra_footage_received_date']
-    footage_edit = []
-    footage_review = ['editor_currently_in_charge', 'folder_title',
-               'reviewer_name',
+    review = ['community_participation_description', 'broll', 'interview',
+              'voice_over', 'video_diary', 'p2c', 'call_to_action', 'translation_info',
+              'proceed_with_edit_and_payment']
+    footage_edit = ['editor_currently_in_charge', 'folder_title']
+    footage_review = ['reviewer_name',
                'editor_changes_needed', 'final_review_notes',
                'publishing_suggestions', 'cc_feedback',
                'subtitle_info', 'stalin_notes',
-               'proceed_with_edit_and_payment',
                'editor_changes_needed',
                'subtitle_info', 'high_potential',
                'review_notes', 'youtube_url', 'video_title']
-    review = ['community_participation_description', 'broll', 'interview',
-              'voice_over', 'video_diary', 'p2c', 'call_to_action', 'translation_info']
     impact_planning = ['impact_possible', 'desired_change', 'impact_plan',
                        'target_official',
               'target_official_email', 'target_official_phone',

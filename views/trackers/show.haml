@@ -18,7 +18,6 @@
     %a.btn.btn-default.button-space{ href: "/flag/#{ @track.uid }", role: 'button' } Flag
   - else
     %a.btn.btn-default.button-space{ href: "/unflag/#{ @track.uid }", role: 'button' } Unflag
-  %a.btn.btn-default.button-space{ href: "/delete/#{ @track.uid }", role: 'button' } Delete
 
 -# Each line renders a table with a title, and then populates the cells with
 -# the tracker information for the selected tracker.
@@ -51,3 +50,6 @@
                                          column: all[:ratings] }
 = haml :'trackers/show_table', locals: { title: 'Extra', track: @track,
                                          column: all[:extra] }
+
+- if !session[:user].nil? && current_user[:access] == 'admin'               
+  %a.btn.btn-default.button-space{ href: "/delete/#{ @track.uid }", role: 'button' } Delete

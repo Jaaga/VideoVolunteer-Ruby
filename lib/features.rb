@@ -10,7 +10,9 @@ module Features
     # this hash to store the custom labels.
     labels = { 'description' => 'Description (one-liner)',
                'screening' => 'Screening (For impact only)',
-               'no_original_uid' => 'Reason for not having original UID' }
+               'no_original_uid' => 'Reason for not having original UID',
+               'cc_feedback' => 'Feedback to give to CC',
+               'impact_possible' => 'Impact Possible?'}
     unless labels[x].nil?
       return labels[x]
     else
