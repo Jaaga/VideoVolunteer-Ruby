@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150305104151) do
+ActiveRecord::Schema.define(version: 20150312064826) do
 
   create_table "ccs", force: :cascade do |t|
     t.string "full_name"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20150305104151) do
     t.string   "payment_status"
     t.string   "folder_title"
     t.string   "review_notes"
-    t.string   "edited_video_rating"
     t.string   "youtube_url"
     t.string   "video_title"
     t.string   "subtitle_info"
@@ -119,6 +118,12 @@ ActiveRecord::Schema.define(version: 20150305104151) do
     t.string   "updated_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "campaign"
+    t.date     "extra_footage_received_date"
+    t.string   "call_to_action"
+    t.string   "translation_info"
+    t.string   "impact_verified_by"
+    t.string   "no_original_uid"
   end
 
   add_index "trackers", ["uid"], name: "index_trackers_on_uid", unique: true
