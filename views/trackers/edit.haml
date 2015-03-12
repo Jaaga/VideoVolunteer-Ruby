@@ -2,6 +2,8 @@
 - all[:story].unshift('district', 'mentor')
 
 %h1 #{ @track.uid.split('_').join(' ') } by #{ @track.cc_name } - #{ @track.iu_theme }
+%h2.sub-header Impact Video: #{ @track.impact_uid unless @track.impact_uid.blank? || @track.uid.include?('_impact') }
+%h3.description-display #{ @track.description }
 
 %form.form-horizontal{ action: "/edit/#{ @track.uid }", method: 'post' }
 

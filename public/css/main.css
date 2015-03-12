@@ -8,6 +8,12 @@ h1 {
   margin-bottom: 30px;
 }
 
+.sub-header {
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
 td{
   max-width: 200px;
   overflow: auto;
@@ -29,6 +35,14 @@ td{
 .checks li {
   display: inline-block;
 
+}
+
+.description-display {
+  width: 75%;
+  margin: 0 auto;
+  font-size: 15px;
+  font-family: verdana;
+  text-align: justify;
 }
 
 .flash-error {

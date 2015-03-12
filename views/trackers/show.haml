@@ -11,6 +11,8 @@
 
 
 %h1 #{ @track.uid.split('_').join(' ') } by #{ @track.cc_name } - #{ @track.iu_theme }
+%h2.sub-header Impact Video: #{ @track.impact_uid unless @track.impact_uid.blank? || @track.uid.include?('_impact') }
+%h3.description-display #{ @track.description }
 
 - if !session[:user].nil?
   %a.btn.btn-default.button-space{ href: "/edit/#{ @track.uid }", role: 'button' } Edit
@@ -51,5 +53,5 @@
 = haml :'trackers/show_table', locals: { title: 'Extra', track: @track,
                                          column: all[:extra] }
 
-- if !session[:user].nil? && current_user[:access] == 'admin'               
+- if !session[:user].nil? && current_user[:access] == 'admin'
   %a.btn.btn-default.button-space{ href: "/delete/#{ @track.uid }", role: 'button' } Delete

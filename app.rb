@@ -130,8 +130,15 @@ post '/new/:state' do
   # Make sure that two videos with the smae UID aren't created.
   params[:original_uid].upcase!
   temp = Tracker.find_by(uid: "#{ params[:original_uid] }_impact")
+  check_uid = Tracker.find_by(uid: params[:original_uid])
   if !temp.nil?
     flash[:error] = "Impact video already made for this UID."
+    state = params[:state]
+    # 307 redirects to a post
+    redirect "/new/state?state=#{state}", 307
+  # Make sure that the original_uid exists if it is given.
+  elsif check_uid.nil? && !params[:original_uid].blank?
+    flash[:error] = "Original UID does not exist for impact information."
     state = params[:state]
     # 307 redirects to a post
     redirect "/new/state?state=#{state}", 307
