@@ -287,7 +287,7 @@ get '/show/:uid' do
 end
 
 get '/delete/:uid' do
-  login_required!
+  admin_required!
 
   @track = Tracker.find_by(uid: params[:uid])
   if @track == nil
