@@ -71,13 +71,13 @@ module Forms
           <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
           <div class = 'col-sm-9'>
             <input class = 'form-control' type = 'date' name = #{ x } value =
-            #{ value }></div></div>"
+            '#{ value }'></div></div>"
       elsif x.include? '_rating'
         "<div class = 'form-group'>
           <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
           <div class = 'col-sm-9'>
           <select name = '#{ x }'>
-            <option selected = 'true' disabled = 'true' value = #{ value }>#{ value }</option>
+            <option selected = 'true' disabled = 'true' value = '#{ value }'>#{ value }</option>
             <option value = '1 - Poor'>1 - Poor (CC must reshoot)</option>
             <option value = '2 - Mediocre'>2 - Mediocre</option>
             <option value = '3 - Very Good'>3 - Very Good</option>
@@ -89,20 +89,20 @@ module Forms
           <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
           <div class = 'col-sm-9'>
             <input class = 'form-control' type = 'text' name = #{ x } value =
-            #{ value }></div></div>"
+            '#{ value }'></div></div>"
       end
     end.join
   end
 
   # Set the forms for columns that only take in integers.
-  # 'value = #{ value }' needs to be at the end of the tag in case value = nil.
+  # 'value = '#{ value }'' needs to be at the end of the tag in case value = nil.
   def new_set_number(arr, value = nil)
     arr.map do |x|
       "<div class = 'form-group'>
         <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
         <div class = 'col-sm-9'>
           <input class = 'form-control' type = 'number' name = #{ x } value =
-          #{ value }></div></div>"
+          '#{ value }'></div></div>"
     end.join
   end
 
@@ -112,7 +112,7 @@ module Forms
       "<div class = 'form-group'>
         <label class = 'col-sm-3 control-label'>#{ name_modifier(x) }:</label>
         <div class = 'col-sm-9'><select name = '#{ x }'>
-          <option selected = 'true' disabled = 'true' value = #{ value }>#{ value }</option>
+          <option selected = 'true' disabled = 'true' value = '#{ value }'>#{ value }</option>
           <option value = 'yes'>yes</option>
           <option value = 'no'>no</option></select></div></div>"
     end.join
@@ -129,7 +129,7 @@ module Forms
           #{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='#{ x }'>
-              <option disabled selected value = #{ value }>#{ value }</option>
+              <option disabled selected value = '#{ value }'>#{ value }</option>
               #{ theme_set("#{x}") }
             </select>
           </div>
@@ -140,7 +140,7 @@ module Forms
           #{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='#{ x }'>
-              <option disabled selected value = #{ value }>#{ value }</option>
+              <option disabled selected value = '#{ value }'>#{ value }</option>
               #{ theme_set("#{x}") }
             </select>
           </div>
@@ -150,7 +150,7 @@ module Forms
           <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='#{ x }'>
-              <option disabled selected value = #{ value }>#{ value }</option>
+              <option disabled selected value = '#{ value }'>#{ value }</option>
               <option value='None'>None</option>
               <option value='Oak'>Oak</option>
               <option value='Pacs'>Pacs</option>
@@ -163,7 +163,7 @@ module Forms
           #{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='#{ x }'>
-              <option disabled selected value = #{ value }>#{ value }</option>
+              <option disabled selected value = '#{ value }'>#{ value }</option>
               #{ theme_set("#{x}") }
             </select>
           </div>
@@ -173,7 +173,7 @@ module Forms
           <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='#{ x }'>
-              <option disabled selected value = #{ value }>#{ value }</option>
+              <option disabled selected value = '#{ value }'>#{ value }</option>
               <option value='Cleared'>Cleared</option>
               <option value='On hold'>On hold</option>
             </select>
@@ -184,7 +184,7 @@ module Forms
           <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='payment_status'>
-              <option disabled selected value = #{ value }>#{ value }</option>
+              <option disabled selected value = '#{ value }'>#{ value }</option>
               <option value='Approved'>Approved</option>
               <option value='Paid'>Paid</option>
               <option value='Hold'>Hold</option>
@@ -196,7 +196,7 @@ module Forms
           <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='subtitle_info'>
-              <option disabled selected value = #{ value }>#{ value }</option>
+              <option disabled selected value = '#{ value }'>#{ value }</option>
               <option value='Has subtitles'>Has subtitles</option>
               <option value='High priority subtitle'>High priority subtitle</option>
               <option value='Low priority subtitle'>Low priority subtitle</option>
@@ -209,7 +209,7 @@ module Forms
           <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='editor_changes_needed'>
-              <option disabled selected value = #{ value }>#{ value }</option>
+              <option disabled selected value = '#{ value }'>#{ value }</option>
               <option value='Required'>Required</option>
               <option value='Suggested'>Suggested</option>
               <option value='Not needed'>Not needed</option>
@@ -222,7 +222,7 @@ module Forms
           <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='translation_info'>
-              <option disabled selected value = #{ value }>#{ value }</option>
+              <option disabled selected value = '#{ value }'>#{ value }</option>
               <option value='Required'>Required</option>
               <option value='Needed and provided'>Needed and provided</option>
               <option value='Needed & not provided'>Needed & not provided</option>
@@ -235,7 +235,7 @@ module Forms
           #{name_modifier(x)}:</label>
           <div class='col-sm-9'>
             <select name='#{ x }'>
-              <option disabled selected value = #{ value }>#{ value }</option>
+              <option disabled selected value = '#{ value }'>#{ value }</option>
               #{ theme_set("#{x}") }
             </select>
           </div>
