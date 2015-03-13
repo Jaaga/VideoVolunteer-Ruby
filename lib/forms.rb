@@ -212,18 +212,8 @@ module Forms
               <option disabled selected value = #{ value }>#{ value }</option>
               <option value='Required'>Required</option>
               <option value='Suggested'>Suggested</option>
-              <option value='Not needed'>Not Needed</option>
-            </select>
-          </div>
-        </div>"
-      elsif x == 'impact_status'
-        "<div class='form-group'>
-          <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
-          <div class='col-sm-9'>
-            <select name='impact_status'>
-              <option disabled selected value = #{ value }>#{ value }</option>
-              <option value='Achieved'>Achieved</option>
-              <option value='Not achieved'>Not Achieved</option>
+              <option value='Not needed'>Not needed</option>
+              <option value='No further edits required'>No further edits required</option>
             </select>
           </div>
         </div>"
@@ -231,7 +221,7 @@ module Forms
         "<div class='form-group'>
           <label class='col-sm-3 control-label'>#{name_modifier(x)}:</label>
           <div class='col-sm-9'>
-            <select name='impact_status'>
+            <select name='translation_info'>
               <option disabled selected value = #{ value }>#{ value }</option>
               <option value='Required'>Required</option>
               <option value='Needed and provided'>Needed and provided</option>
@@ -265,7 +255,7 @@ module Forms
 
     types = ['Entitlement Violation', 'Newsworthy', 'Human Interest',
              'Human Rights Violation', 'CC Profile', 'Community Profile',
-             'Mini-doc', 'Special Video', 'Impact', 'Success']
+             'Mini-doc', 'Special Video', 'Success']
 
     campaigns = ['None', 'Anti-Untouchability', 'RTE', 'Forced Evictions',
                 'Maternal Health', 'Violence Against Women']

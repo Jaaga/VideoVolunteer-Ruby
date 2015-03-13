@@ -25,25 +25,28 @@ module Arrays
     review = ['community_participation_description', 'broll', 'interview',
               'voice_over', 'video_diary', 'p2c', 'call_to_action', 'translation_info',
               'proceed_with_edit_and_payment']
-    footage_edit = ['editor_currently_in_charge', 'folder_title']
+    footage_edit = ['editor_currently_in_charge', 'folder_title',
+                    'editor_changes_needed', 'editor_notes',
+                    'instructions_for_editor', 'miscellaneous_notes']
     footage_review = ['reviewer_name',
-               'editor_changes_needed', 'final_review_notes',
-               'publishing_suggestions', 'cc_feedback',
-               'subtitle_info', 'stalin_notes',
-               'editor_changes_needed',
-               'subtitle_info', 'high_potential',
-               'review_notes', 'youtube_url', 'video_title']
+                      'publishing_suggestions', 'cc_feedback',
+                      'subtitle_info',
+                      'subtitle_info', 'high_potential',
+                      'youtube_url', 'video_title', 'cleared_for_edit',
+                      'cc_last_steps_for_payment']
     impact_planning = ['impact_possible', 'desired_change', 'impact_plan',
                        'target_official',
-              'target_official_email', 'target_official_phone',
-              'impact_process', 'milestone', 'impact_achieved', 'impact_time',
-              'collaborations', 'impact_reviewer', 'impact_date',
-              'impact_approval_date',
-              'impact_review', 'people_involved', 'people_impacted',
-              'villages_impacted', 'impact_status',
-              'important_impact']
-    impact_achieved = ['impact_achieved_description', 'impact_followup',
-                       'impact_followup_notes', 'impact_verified_by', 'impact_video_notes']
+                       'target_official_email', 'target_official_phone',
+                       'impact_process', 'milestone',
+                       'impact_progress']
+    impact_achieved = ['impact_achieved', 'impact_achieved_description',
+                       'impact_verified_by', 'people_involved', 'people_impacted',
+                       'villages_impacted','impact_time',
+                       'collaborations', 'impact_reviewer', 'impact_date',
+                       'impact_approval_date',
+                       'impact_review', 'important_impact',
+                       'impact_followup',
+                       'impact_followup_notes', 'impact_video_notes']
     screening = ['screening_done', 'screened_on', 'screening_notes', 'official_screening_notes',
                  'officials_at_screening', 'screening_headcount', 'officials_involved',
                  'officials_at_screening_number']
@@ -53,9 +56,10 @@ module Arrays
              'updated_by', 'flag_date', 'created_at', 'updated_at']
     special = ['iu_theme', 'subcategory', 'story_type', 'project', 'campaign', 'proceed_with_edit_and_payment',
                'payment_status', 'subtitle_info', 'editor_changes_needed',
-               'impact_status', 'translation_info', 'screened_on']
+               'translation_info', 'screened_on']
     yesno = ['high_potential', 'impact_possible', 'impact_followup', 'impact_review',
-             'impact_achieved', 'screening_done', 'officials_at_screening']
+             'impact_achieved', 'screening_done', 'officials_at_screening',
+             'cleared_for_edit']
     numbers = ['people_involved', 'people_impacted', 'villages_impacted',
                'screening_headcount', 'officials_involved', 'officials_at_screening_number']
 

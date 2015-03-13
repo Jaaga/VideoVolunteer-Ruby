@@ -17,7 +17,7 @@
   = haml :'trackers/edit_form', locals: { title: 'Raw Footage Review',
                                           columns: all[:review],
                                           special: all[:special], number: [],
-                                          yesno: [], track: @track }
+                                          yesno: all[:yesno], track: @track }
   = haml :'trackers/edit_form', locals: { title: 'Edit',
                                           columns: all[:footage_edit],
                                           special: all[:special], number: [],
@@ -37,7 +37,7 @@
                                             special: all[:special],
                                             number: all[:numbers],
                                             yesno: all[:yesno], track: @track }
-  = haml :'trackers/edit_form', locals: { title: 'Screening',
+  = haml :'trackers/edit_form', locals: { title: 'Screening (for impact only)',
                                           columns: all[:screening], special: all[:special],
                                           number: all[:numbers],
                                           yesno: all[:yesno], track: @track }

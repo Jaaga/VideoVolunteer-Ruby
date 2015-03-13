@@ -8,11 +8,19 @@ module Features
   def name_modifier(x)
     # Uses the column name for the label unless another label is needed. Using
     # this hash to store the custom labels.
-    labels = { 'description' => 'Description (one-liner)',
+    labels = { 'description' => 'Description (one-liner and later youtube blurb)',
                'screening' => 'Screening (For impact only)',
                'no_original_uid' => 'Reason for not having original UID',
                'cc_feedback' => 'Feedback to give to CC',
-               'impact_possible' => 'Impact Possible?'}
+               'impact_possible' => 'Impact Possible?',
+               'editor_changes_needed' => 'Editor changes needed?',
+               'impact_plan' => 'Impact plan advised to CC',
+               'impact_process' => 'CC’s actual impact process and updates',
+               'milestone' => 'Milestone achieved or aimed for (when complete impact not likely)',
+               'important_impact' => 'Important impact? (If yes, why?)',
+               'screening_done' => 'Community screening done?',
+               'impact_progress' => 'What was the progress?',
+               'cc_last_steps_for_payment' => 'What must cc do before the video will be cleared for payment?' }
     unless labels[x].nil?
       return labels[x]
     else

@@ -45,7 +45,7 @@
     See
     %a{ href: "/show/#{ @track.original_uid }"} #{ @track.original_uid }
     for impact information.
-= haml :'trackers/show_table', locals: { title: 'Screening', track: @track,
+= haml :'trackers/show_table', locals: { title: 'Screening (for impact only)', track: @track,
                                          column: all[:screening] }
 = haml :'trackers/show_table', locals: { title: 'Payment', track: @track,
                                          column: all[:payment] }
