@@ -53,7 +53,7 @@ module Arrays
     payment = ['payment_status']
     ratings = ['footage_rating', 'final_video_rating']
     extra = ['impact_uid', 'original_uid', 'no_original_uid', 'note', 'flag', 'flag_notes',
-             'updated_by', 'flag_date', 'created_at', 'updated_at']
+             'flag_date', 'updated_by', 'created_at', 'updated_at']
     special = ['iu_theme', 'subcategory', 'story_type', 'project', 'campaign', 'proceed_with_edit_and_payment',
                'payment_status', 'subtitle_info', 'editor_changes_needed',
                'translation_info', 'screened_on']

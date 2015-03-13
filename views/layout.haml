@@ -34,8 +34,6 @@
           %li
             %a{ href: '/search' } Search
           - if !session[:user].nil?
-            %li
-              %a{ href: '/note' } Add Note
             %li.dropdown
               %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
                 Users
@@ -46,18 +44,17 @@
                 - if current_user[:access] == 'admin'
                   %li
                     %a{ href: '/user/view' }View All
-            - if current_user[:access] == 'admin'
-              %li.dropdown
-                %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
-                  CCs
-                  %span.caret
-                %ul.dropdown-menu{ role: 'menu' }
+            %li.dropdown
+              %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
+                CCs
+                %span.caret
+              %ul.dropdown-menu{ role: 'menu' }
+                - if current_user[:access] == 'admin'
                   %li
                     %a{ href: '/cc/new' }New
-                  %li
-                    %a{ href: '/cc/view' }View All
-                  %li
-                    %a{ href: '/cc/note' }Add Note
+                %li
+                  %a{ href: '/cc/view' }View All
+            - if current_user[:access] == 'admin'
               %li.dropdown
                 %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
                   States

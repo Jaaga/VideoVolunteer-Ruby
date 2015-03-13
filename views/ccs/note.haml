@@ -1,8 +1,6 @@
 %h1 CC Notes
 
-%form.form-horizontal{ action: '/cc/note', method: 'post' }
-  %label.control-label ID
-  %input.form-control{ type: 'text', name: 'id' }
+%form.form-horizontal{ action: "/cc/note/#{ params[:id] }", method: 'post' }
   %label.control-label Notes
   %input.form-control.space{ type: 'text', name: 'note' }
   %button.btn.btn-default.btn-block{ type: 'submit' } Submit

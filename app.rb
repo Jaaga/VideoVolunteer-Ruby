@@ -18,7 +18,7 @@ include Forms
 
 use Rack::Session::Cookie, :key => 'rack.session',
                            :path => '/',
-                           :expire_after => 32400, # In seconds
+                           :expire_after => 32400, # 9 hours
                            :secret => 'l3m0nad3 is a p0pular dr1nk github'
 
 
@@ -178,11 +178,11 @@ post '/new/:state' do
     end
 
     if @track.uid.length > 3
-      @track.updated_by = current_user[:email]
+      @track.updated_by = "#{ Date.today }: #{ current_user[:email] } created this tracker."
       @track.save
       if !params[:original_uid].blank? then impact_uid_set(params[:original_uid]) end
       flash[:notice] = "Story successfully saved as #{ @track.uid }."
-      redirect '/recent'
+      redirect "/show/#{ @track.uid }"
     else
       flash[:error] = "Did not save story tracker because UID failed to generate."
       redirect back
@@ -194,7 +194,7 @@ end
 # View all stories
 
 get '/view' do
-  @track = Tracker.all.order("uid DESC")
+  @track = Tracker.all.order("id DESC")
   @title = 'All Stories'
 
   haml :'trackers/results'
@@ -324,12 +324,17 @@ post '/edit/:uid' do
 
   @track = Tracker.find_by(uid: params[:uid])
   arr = global_arr_set.push('district', 'mentor')
+  updated = Array.new
 
   arr.each do |x|
-    @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
+    unless params[:"#{ x }"].blank?
+      if @track.send(:"#{ x }").blank? then updated.push(name_modifier(x)) end
+      @track.send(:"#{ x }=", params[:"#{ x }"])
+    end
   end
 
-  @track.updated_by = current_user[:email]
+  # updated = updated.join(', ') # Leaving it out for now for readability.
+  @track.updated_by = "#{ Date.today }: #{ current_user[:email] } changed #{ updated }.<br>#{ @track.updated_by }" unless updated.blank?
   @track.save
   flash[:notice] = "Tracker #{ @track.uid } successfully edited."
   redirect "/show/#{@track.uid}"
@@ -359,10 +364,11 @@ post '/flag/:uid' do
     @track.flag_notes = "#{ params[:note] }"
     @track.flag = "priority"
     @track.flag_date = Date.today
+    @track.updated_by = "#{ Date.today }: #{ current_user[:email] } flagged this tracker.<br>#{ @track.updated_by }"
 
     @track.save
     flash[:notice] = "Flag successfully added to #{ @track.uid }."
-    redirect '/recent'
+    redirect "/show/#{ params[:uid] }"
   end
 end
 
@@ -374,49 +380,49 @@ get '/unflag/:uid' do
   @track.flag = nil
   @track.flag_notes = nil
   @track.flag_date = nil
+  @track.updated_by = "#{ Date.today }: #{ current_user[:email] } unflagged this tracker.<br>#{ @track.updated_by }"
 
   @track.save
   flash[:notice] = "#{ @track.uid } successfully unflagged."
-  redirect '/recent'
+  redirect "/show/#{ params[:uid] }"
 end
 
 
 # Making notes on stories/videos
 
-get '/note' do
+get "/note/:uid" do
   login_required!
+
+  @track = Tracker.find_by(uid: params[:uid])
 
   haml :'trackers/note'
 end
 
 # Adds a note based on the uid of the story. All notes have dates on them. New
 # notes are added at the top with a line break.
-post '/note' do
+post '/note/:uid' do
   login_required!
 
-  if params[:uid].blank?
-    flash[:error] = "UID needed."
-    redirect '/note'
-  elsif params[:note].blank?
+  if params[:note].blank?
     flash[:error] = "A note is needed."
     redirect '/note'
   else
-    @track = Tracker.find_by(uid: params[:uid].upcase)
+    @track = Tracker.find_by(uid: params[:uid])
 
     if @track == nil
-      flash[:error] = "Invalid UID."
+      flash[:error] = "UID error"
       redirect '/note'
     elsif @track.note.blank?
-      @track.note = "#{ Date.today }: #{ params[:note] }"
+      @track.note = "#{ Date.today }: #{ params[:note] } (by #{ current_user[:name] })"
     else
       temp = @track.note
-      @track.note = "#{ Date.today }: #{ params[:note] }<br>#{ temp }"
+      @track.note = "#{ Date.today }: #{ params[:note] } (by #{ current_user[:name] })<br>#{ temp }"
     end
 
-    @track.updated_by = current_user[:email]
+    @track.updated_by = "#{ Date.today }: #{ current_user[:email] } added a note."
     @track.save
     flash[:notice] = "Note successfully added to #{ @track.uid }."
-    redirect '/recent'
+    redirect "/show/#{ params[:uid] }"
   end
 end
 
@@ -558,11 +564,12 @@ post '/cc/new' do
   end
 
   @cc.save
+  flash[:notice] = "CC successfully created."
   redirect '/cc/view'
 end
 
 get '/cc/edit/:id' do
-  admin_required!
+  login_required!
 
   @cc = Cc.find_by(id: params[:id])
   @state = State.all
@@ -571,7 +578,7 @@ get '/cc/edit/:id' do
 end
 
 post '/cc/edit/:id' do
-  admin_required!
+  login_required!
 
   @cc = Cc.find_by(id: params[:id])
   arr = cc_array_set - ['state_abb']
@@ -585,12 +592,12 @@ post '/cc/edit/:id' do
   end
 
   @cc.save
-
+  flash[:notice] = "CC successfully edited."
   redirect '/cc/view'
 end
 
 get '/cc/view' do
-  admin_required!
+  login_required!
 
   @cc = Cc.all
 
@@ -598,7 +605,7 @@ get '/cc/view' do
 end
 
 get '/cc/show/:id' do
-  admin_required!
+  login_required!
 
   @cc = Cc.find_by(id: params[:id])
 
@@ -610,44 +617,43 @@ get '/cc/delete/:id' do
 
   @cc = Cc.find_by(id: params[:id])
   @cc.destroy
-
+  flash[:notice] = "CC successfully deleted."
   redirect '/cc/view'
 end
 
 
-get '/cc/note' do
-  admin_required!
+get '/cc/note/:id' do
+  login_required!
+
+  @cc = Cc.find_by(id: params[:id])
 
   haml :'ccs/note'
 end
 
 # Adds a note based on the id of the CC. All notes have dates on them. New
 # notes are added at the top with a line break.
-post '/cc/note' do
+post '/cc/note/:id' do
   login_required!
 
-  if params[:id].blank?
-    flash[:error] = "ID needed."
-    redirect '/cc/note'
-  elsif params[:note].blank?
+  if params[:note].blank?
     flash[:error] = "A note is needed."
-    redirect '/cc/note'
+    redirect "/cc/note/#{ params[:id] }"
   else
     @cc = Cc.find_by(id: params[:id])
 
     if @cc == nil
       flash[:error] = "Invalid ID."
-      redirect '/cc/note'
+      redirect "/cc/note/#{ params[:id] }"
     elsif @cc.notes.blank?
-      @cc.notes = "#{ Date.today }: #{ params[:note] } by user #{ session[:user] }"
+      @cc.notes = "#{ Date.today }: #{ params[:note] } (by #{ current_user[:name] })"
     else
       temp = @cc.notes
-      @cc.notes = "#{ Date.today }: #{ params[:note] } by user #{ session[:user] }<br>#{ temp }"
+      @cc.notes = "#{ Date.today }: #{ params[:note] } (by #{ current_user[:name] })<br>#{ temp }"
     end
 
     @cc.save
     flash[:notice] = "Note successfully added to #{ @cc.full_name }."
-    redirect '/cc/view'
+    redirect "/cc/show/#{ params[:id] }"
   end
 end
 
@@ -678,6 +684,7 @@ post '/state/new' do
   end
 
   @state.save
+  flash[:notice] = "State successfully created."
   redirect '/state/view'
 end
 
@@ -700,7 +707,7 @@ post '/state/edit/:id' do
   end
 
   @state.save
-
+  flash[:notice] = "State successfully saved."
   redirect '/state/view'
 end
 
@@ -726,5 +733,6 @@ get '/state/delete/:id' do
   @state = State.find_by(id: params[:id])
   @state.destroy
 
+  flash[:notice] = "State successfully deleted."
   redirect '/state/view'
 end

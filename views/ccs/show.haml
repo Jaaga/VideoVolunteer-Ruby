@@ -7,4 +7,6 @@
     = show(@cc, all)
 
 %a.btn.btn-default.button-space{ href: "/cc/edit/#{ @cc.id }", role: 'button' } Edit
-%a.btn.btn-default.button-space{ href: "/cc/delete/#{ @cc.id }", role: 'button' } Delete
+%a.btn.btn-default.button-space{ href: "/cc/note/#{ @cc.id }", role: 'button' } Add Note
+- if current_user[:access] == 'admin'
+  %a.btn.btn-default.button-space{ href: "/cc/delete/#{ @cc.id }", role: 'button' } Delete

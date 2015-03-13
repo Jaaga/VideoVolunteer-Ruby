@@ -17,6 +17,7 @@
 
 - if !session[:user].nil?
   %a.btn.btn-default.button-space{ href: "/edit/#{ @track.uid }", role: 'button' } Edit
+  %a.btn.btn-default.button-space{ href: "/note/#{ @track.uid }", role: 'button' } Add Note
   - if @track.flag.nil?
     %a.btn.btn-default.button-space{ href: "/flag/#{ @track.uid }", role: 'button' } Flag
   - else
