@@ -270,6 +270,10 @@ post '/search/:standard' do
     search.push("edit_received_in_goa_date IS NOT NULL AND youtube_date IS NULL")
   end
 
+  if params[:standard] == 'impact'
+    search.push("impact_achieved IS 'yes'")
+  end
+
   @track = Tracker.where(search)
   @title = 'Search Results'
 
