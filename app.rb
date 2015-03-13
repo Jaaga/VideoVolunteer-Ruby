@@ -61,6 +61,8 @@ get '/' do
   @pitch = Tracker.where("story_pitch_date IS NOT NULL AND backup_received_date IS NULL")
   # Number of rough cuts that haven't yet been finalzied.
   @rough = Tracker.where("edit_received_in_goa_date IS NOT NULL AND youtube_date IS NULL")
+  # Number of videos with an impact achieved
+  @impact = Tracker.where("impact_achieved = ?", 'yes')
 
   haml :index
 end
