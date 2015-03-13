@@ -271,7 +271,7 @@ post '/search/:standard' do
   end
 
   if params[:standard] == 'impact'
-    search.push("impact_achieved IS 'yes'")
+    search.push("impact_achieved = ?", 'yes')
   end
 
   @track = Tracker.where(search)
