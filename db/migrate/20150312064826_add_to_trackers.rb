@@ -12,9 +12,11 @@ class AddToTrackers < ActiveRecord::Migration
     add_column :trackers, :impact_progress, :string
     add_column :trackers, :cc_last_steps_for_payment, :string
     rename_column :trackers, :stalin_notes, :miscellaneous_notes
+    rename_column :trackers, :screening_notes, :screening_details
     rename_column :trackers, :final_review_notes, :instructions_for_editor
     remove_column :trackers, :review_notes, :string
     remove_column :trackers, :edited_video_rating, :string
     remove_column :trackers, :impact_status, :string
+    remove_column :trackers, :official_screening_notes, :string
   end
 end

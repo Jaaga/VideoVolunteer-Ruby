@@ -47,9 +47,9 @@ module Arrays
                        'impact_review', 'important_impact',
                        'impact_followup',
                        'impact_followup_notes', 'impact_video_notes']
-    screening = ['screening_done', 'screened_on', 'screening_notes', 'official_screening_notes',
-                 'officials_at_screening', 'screening_headcount', 'officials_involved',
-                 'officials_at_screening_number']
+    screening = ['screening_done', 'screened_on', 'officials_at_screening',
+                 'screening_headcount', 'officials_at_screening_number',
+                 'officials_involved', 'screening_details']
     payment = ['payment_status']
     ratings = ['footage_rating', 'final_video_rating']
     extra = ['impact_uid', 'original_uid', 'no_original_uid', 'note', 'flag', 'flag_notes',
@@ -61,7 +61,7 @@ module Arrays
              'impact_achieved', 'screening_done', 'officials_at_screening',
              'cleared_for_edit']
     numbers = ['people_involved', 'people_impacted', 'villages_impacted',
-               'screening_headcount', 'officials_involved', 'officials_at_screening_number']
+               'screening_headcount', 'officials_at_screening_number']
 
     return { story: story, status: status, footage_edit: footage_edit,
              footage_review: footage_review, review: review, impact_planning: impact_planning,

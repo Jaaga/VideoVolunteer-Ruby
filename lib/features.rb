@@ -20,7 +20,11 @@ module Features
                'important_impact' => 'Important impact? (If yes, why?)',
                'screening_done' => 'Community screening done?',
                'impact_progress' => 'What was the progress?',
-               'cc_last_steps_for_payment' => 'What must cc do before the video will be cleared for payment?' }
+               'cc_last_steps_for_payment' => 'What must cc do before the video will be cleared for payment?',
+               'officials_at_screening' => 'Screening to official done?',
+               'screening_headcount' => 'Number of community members at community screening',
+               'officials_involved' => 'Names of officials involved',
+               'officials_at_screening_number' => 'Number of officials the video has been shown to' }
     unless labels[x].nil?
       return labels[x]
     else
