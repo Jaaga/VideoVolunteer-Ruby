@@ -54,7 +54,9 @@ module Arrays
     special = ['iu_theme', 'subcategory', 'story_type', 'project', 'campaign',
                'proceed_with_edit_and_payment', 'payment_status',
                'subtitle_info', 'editor_changes_needed', 'translation_info',
-               'screened_on', 'impact_video_status']
+               'screened_on', 'impact_video_status',
+               'editor_currently_in_charge', 'impact_verified_by',
+               'impact_video_approved_by', 'reviewer_name']
     yesno = ['high_potential', 'impact_possible',
              'impact_achieved', 'screening_done', 'officials_at_screening',
              'cleared_for_edit', 'impact_video_approved']

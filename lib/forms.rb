@@ -253,6 +253,18 @@ module Forms
             </select>
           </div>
         </div>"
+      elsif x == 'editor_currently_in_charge' || x == 'impact_verified_by' ||
+            x == 'impact_video_approved_by' || x == 'reviewer_name'
+        "<div class='form-group'>
+          <label class='col-sm-3 control-label'>
+          #{name_modifier(x)}:</label>
+          <div class='col-sm-9'>
+            <select name='#{ x }'>
+              <option disabled selected value = '#{ value }'>#{ value }</option>
+              #{ theme_set("#{x}") }
+            </select>
+          </div>
+        </div>"
       end
     end.join
   end
@@ -275,6 +287,17 @@ module Forms
 
     screens = ['tablet', 'video camera', 'laptop', 'DVD player', 'projector']
 
+    editors = ['Sanjay Parmar', 'Dheeraj Sharma', 'Guruprasad Pednekar',
+               'Kamar Sayeed', 'Shobha Ajay', 'Debaranjan Sarangi',
+               'Kanhaiya Maurya', 'Zuhaib Ashraf', 'Deepak Bara',
+               'Raviraj Naik', 'Ashok']
+
+    staff = ['Stalin K.', 'Jessica Mayberry', 'Manish Kumar', 'Anand Hembrom',
+             'Sarita Biswal', 'Radhika', 'Amrita Anand', 'Kayonaaz Kalyanwala',
+             'Purnima Damade', 'Ajeet Bahadur', 'Achintya Rai', 'Sameer Malik',
+             'Edward Fernandes', 'Anshuman Singh', 'Anand Pagare',
+             'Vidyadhar Ketkar', 'Sajad Rasool']
+
     if (column == 'iu_theme') || (column == 'subcategory')
       themes.map do |x|
         "<option value='#{ x }'>#{ x }</option>"
@@ -291,6 +314,14 @@ module Forms
       screens.map do |x|
         "<option value='#{ x }'>#{ x }</option>"
       end.join
+    elsif column == 'editor_currently_in_charge' || column == 'reviewer_name'
+      editors.map do |x|
+        "<option value='#{ x }'>#{ x }</option>"
+      end.sort.join
+    elsif column == 'impact_verified_by' || column == 'impact_video_approved_by'
+      staff.map do |x|
+        "<option value='#{ x }'>#{ x }</option>"
+      end.sort.join
     end
   end
 end
