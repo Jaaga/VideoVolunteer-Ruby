@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 20150312064826) do
     t.string   "impact_video_necessities"
     t.string   "impact_video_approved"
     t.string   "impact_video_approved_by"
+    t.string   "call_to_action_review"
   end
 
   add_index "trackers", ["uid"], name: "index_trackers_on_uid", unique: true

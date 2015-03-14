@@ -24,8 +24,8 @@ module Arrays
               'iu_publish_date', 'backup_received_date', 'extra_footage_received_date']
     # Raw footage review
     review = ['community_participation_description', 'broll', 'interview',
-              'voice_over', 'video_diary', 'p2c', 'call_to_action', 'translation_info',
-              'proceed_with_edit_and_payment', 'cc_last_steps_for_payment']
+              'voice_over', 'video_diary', 'p2c', 'translation_info',
+              'proceed_with_edit_and_payment', 'cc_last_steps_for_payment', 'call_to_action_review',]
     footage_edit = ['editor_currently_in_charge', 'folder_title',
                     'instructions_for_editor_edit', 'editor_notes']
     footage_review = ['reviewer_name', 'editor_changes_needed', 'instructions_for_editor_final',
@@ -33,7 +33,7 @@ module Arrays
                       'subtitle_info',
                       'subtitle_info', 'high_potential',
                       'youtube_url', 'video_title', 'cleared_for_edit']
-    impact_planning = ['impact_possible', 'desired_change', 'impact_plan',
+    impact_planning = ['impact_possible', 'call_to_action', 'desired_change', 'impact_plan',
                        'target_official',
                        'target_official_email', 'target_official_phone',
                        'impact_process', 'milestone',

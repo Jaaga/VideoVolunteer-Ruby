@@ -16,6 +16,7 @@ class AddToTrackers < ActiveRecord::Migration
     add_column :trackers, :impact_video_necessities, :string
     add_column :trackers, :impact_video_approved, :string
     add_column :trackers, :impact_video_approved_by, :string
+    add_column :trackers, :call_to_action_review, :string
     rename_column :trackers, :screening_notes, :screening_details
     rename_column :trackers, :final_review_notes, :instructions_for_editor_edit
     remove_column :trackers, :review_notes, :string
