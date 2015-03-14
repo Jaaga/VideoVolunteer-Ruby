@@ -240,6 +240,19 @@ module Forms
             </select>
           </div>
         </div>"
+      elsif x == 'impact_video_status'
+        "<div class='form-group'>
+          <label class='col-sm-3 control-label'>
+          #{name_modifier(x)}:</label>
+          <div class='col-sm-9'>
+            <select name='#{ x }'>
+              <option disabled selected value = '#{ value }'>#{ value }</option>
+              <option value='In progress'>In progress</option>
+              <option value='Completed'>Completed</option>
+              <option value='CC not planning to make'>CC not planning to make</option>
+            </select>
+          </div>
+        </div>"
       end
     end.join
   end

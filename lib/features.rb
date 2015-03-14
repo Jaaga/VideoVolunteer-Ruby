@@ -24,7 +24,14 @@ module Features
                'officials_at_screening' => 'Screening to official done?',
                'screening_headcount' => 'Number of community members at community screening',
                'officials_involved' => 'Names of officials involved',
-               'officials_at_screening_number' => 'Number of officials the video has been shown to' }
+               'officials_at_screening_number' => 'Number of officials the video has been shown to',
+               'instructions_for_editor_edit' => 'Instrutions for editor',
+               'instructions_for_editor_final' => 'Instrutions for editor after final review',
+               'editor_notes' => "Editor's notes",
+               'impact_date' => 'Date impact achieved',
+               'impact_time' => 'Time it took to achieve the impact',
+               'collaborations' => 'Who did the CC collaborate with to get the impact?',
+               'impact_video_notes' => 'Other impact video notes' }
     unless labels[x].nil?
       return labels[x]
     else

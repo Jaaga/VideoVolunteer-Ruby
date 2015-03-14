@@ -12,7 +12,10 @@
 
 %h1 #{ @track.uid.split('_').join(' ') } by #{ @track.cc_name } - #{ @track.iu_theme }
 - unless @track.impact_uid.blank? || @track.uid.include?('_impact')
-  %h2.sub-header This video had an impact! See #{ @track.impact_uid }
+  %h2.sub-header
+    This video had an impact! See
+    %a{ href: "/show/#{ @track.impact_uid }" }
+      #{ @track.impact_uid }
 %h3.description-display #{ @track.description }
 
 - if !session[:user].nil?
@@ -40,6 +43,8 @@
                                          column: all[:impact_planning] }
   = haml :'trackers/show_table', locals: { title: 'Impact Achieved', track: @track,
                                          column: all[:impact_achieved] }
+  = haml :'trackers/show_table', locals: { title: 'Impact Video', track: @track,
+                                         column: all[:impact_video] }
 - else
   %h2 Impact
   %p

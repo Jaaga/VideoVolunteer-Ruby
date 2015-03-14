@@ -37,6 +37,11 @@
                                             special: all[:special],
                                             number: all[:numbers],
                                             yesno: all[:yesno], track: @track }
+    = haml :'trackers/edit_form', locals: { title: 'Impact Video',
+                                            columns: all[:impact_video],
+                                            special: all[:special],
+                                            number: all[:numbers],
+                                            yesno: all[:yesno], track: @track }
   = haml :'trackers/edit_form', locals: { title: 'Screening (for impact only)',
                                           columns: all[:screening], special: all[:special],
                                           number: all[:numbers],
