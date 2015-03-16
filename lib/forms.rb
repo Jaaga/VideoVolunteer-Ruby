@@ -4,8 +4,14 @@ module Forms
   # For displaying a tracker's information in get /show/:uid
   def show(track, columns)
     columns.map do |x|
-      "<tr><td class = 'show-head'>#{ name_modifier(x) }</td>
-      <td>#{ track.send(:"#{ x }") }</td></tr>"
+      value = track.send(:"#{ x }")
+      if x.include?("_date") && !value.blank?
+        "<tr><td class = 'show-head'>#{ name_modifier(x) }</td>
+        <td>#{ value.strftime("%d/%m/%Y") }</td></tr>"
+      else
+        "<tr><td class = 'show-head'>#{ name_modifier(x) }</td>
+        <td>#{ track.send(:"#{ x }") }</td></tr>"
+      end
     end.join
   end
 
@@ -32,6 +38,8 @@ module Forms
   def results_head(arr, count)
     temp = Array.new
     arr.map do |x|
+      # add <span class='glyphicon glyphicon-sort'></span> in th for arrows
+      # for sort
       temp.push("<th class= 'col#{ count }'>#{ name_modifier(x) }</th>")
       count += 1
     end

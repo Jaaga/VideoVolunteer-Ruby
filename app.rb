@@ -5,6 +5,7 @@ require 'sinatra/flash'           # For showing input errors.
 require 'bcrypt'
 require 'haml'
 require 'date'
+require 'time'
 require './.config/environment'
 
 require_relative './lib/features'

@@ -3,6 +3,7 @@
 %h1 Search
 
 %h2 Custom Search
+%p Dates need to be entered as YYYY-MM-DD.
 %form.form-horizontal{ action: '/search/custom', method: 'post' }
   %span.glyphicon.glyphicon-plus
   .hide-list
@@ -11,7 +12,7 @@
         %select{ name: "column_#{ i }" }
           %option{ value: '', selected: true, disabled: true }
           - arr.each do |x|
-            %option{ value: x } #{ name_modifier(x) }
+            %option{ value: x } #{ x }
         %select{ name: "operator_#{ i }" }
           %option{ value: 'IS' } IS
           %option{ value: 'IS NOT' } IS NOT
@@ -27,7 +28,7 @@
       %select{ name: 'column_9' }
         %option{ value: '', selected: true, disabled: true }
         - arr.each do |x|
-          %option{ value: x } #{ name_modifier(x) }
+          %option{ value: x } #{ x }
       %select{ name: 'operator_9' }
         %option{ value: 'IS' } IS
         %option{ value: 'IS NOT' } IS NOT
