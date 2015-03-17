@@ -18,7 +18,7 @@ module Arrays
   def array_set
     story = ['iu_theme', 'subcategory', 'description', 'story_type', 'project',
              'campaign', 'shoot_plan', 'story_pitch_date']
-    status = ['footage_received_from_cc_date', 'raw_footage_review_date',
+    status = ['footage_location', 'footage_received_from_cc_date', 'raw_footage_review_date',
               'state_edit_date', 'rough_cut_edit_date', 'edit_received_in_goa_date',
               'review_date', 'finalized_date', 'youtube_date',
               'iu_publish_date', 'backup_received_date', 'extra_footage_received_date']
@@ -51,7 +51,7 @@ module Arrays
     ratings = ['footage_rating', 'final_video_rating']
     extra = ['impact_uid', 'original_uid', 'no_original_uid', 'note', 'flag',
              'flag_notes', 'flag_date', 'updated_by', 'created_at', 'updated_at']
-    special = ['iu_theme', 'subcategory', 'story_type', 'project', 'campaign',
+    special = ['footage_location', 'iu_theme', 'subcategory', 'story_type', 'project', 'campaign',
                'proceed_with_edit_and_payment', 'payment_status',
                'subtitle_info', 'editor_changes_needed', 'translation_info',
                'screened_on', 'impact_video_status',

@@ -161,10 +161,14 @@ post '/new/:state' do
     # For making UID. Getting list of UID's from state.
     @temp = Tracker.where(state: @cc.state)
     # If it's an impact video, either the original UID or the reason for not
-    # having one will be recorded.
+    # having one will be recorded. Also sets the impact video status of all
+    # videos created.
     if params[:is_impact] == 'yes'
       @track.original_uid = params[:original_uid] unless params[:original_uid].blank?
       @track.no_original_uid = params[:no_original_uid] unless params[:no_original_uid].blank?
+      @track.impact_video_status = 'Not done yet' if params[:original_uid].blank?
+    else
+      @track.impact_video_status = 'Not done yet'
     end
     # Sending state UID list and abbreviation of state name
     @track.uid = uid_generate(@temp, @cc.state_abb, params[:is_impact])
@@ -179,6 +183,9 @@ post '/new/:state' do
     arr.each do |x|
       @track.send(:"#{ x }=", params[:"#{ x }"]) if !params[:"#{ x }"].blank?
     end
+
+    # Videos start off in state.
+    @track.footage_location = 'State'
 
     if @track.uid.length > 3
       @track.updated_by = "#{ Date.today }: #{ current_user[:email] } created this tracker."

@@ -12,7 +12,7 @@
                                           special: all[:special], number: [],
                                           yesno: [], track: @track }
   = haml :'trackers/edit_form', locals: { title: 'Status', columns: all[:status],
-                                          special: [], number: [], yesno: [],
+                                          special: all[:special], number: [], yesno: [],
                                           track: @track }
   = haml :'trackers/edit_form', locals: { title: 'Raw Footage Review',
                                           columns: all[:review],
