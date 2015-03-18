@@ -65,7 +65,7 @@ get '/' do
   # Number of videos with an impact achieved
   @impact = Tracker.where("impact_achieved = ?", 'yes')
   # Videos whose rough cuts have arrived from a state office and need to be cleaned, reviewed and uploaded
-  @goa_bank = Tracker.where("edit_received_in_goa_date IS NOT NULL")
+  @goa_bank = Tracker.where("edit_received_in_goa_date IS NOT NULL AND youtube_date IS NULL")
   # Total approved videos whose edits haven't reached goa
   @state_bank = Tracker.where("edit_received_in_goa_date IS NULL AND rough_cut_edit_date IS NOT NULL")
   # Videos on hold

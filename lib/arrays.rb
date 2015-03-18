@@ -19,7 +19,7 @@ module Arrays
     story = ['iu_theme', 'subcategory', 'description', 'story_type', 'project',
              'campaign', 'shoot_plan', 'story_pitch_date']
     status = ['footage_location', 'footage_received_from_cc_date', 'raw_footage_review_date',
-              'state_edit_date', 'rough_cut_edit_date', 'edit_received_in_goa_date',
+              'state_edit_date', 'edit_received_in_goa_date', 'rough_cut_edit_date',
               'review_date', 'finalized_date', 'youtube_date',
               'iu_publish_date', 'backup_received_date', 'extra_footage_received_date']
     # Raw footage review
