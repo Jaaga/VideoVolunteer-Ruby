@@ -1,0 +1,56 @@
+-# Defautls are visible on load wihle all other columns are hidden.
+- arr = global_arr_set.push('state', 'district', 'mentor').sort
+- defaults = ['cc_name', 'description', 'story_pitch_date',
+              'shoot_plan', 'footage_received_from_cc_date', 'impact_possible',
+              'call_to_action', 'desired_change', 'impact_process']
+- arr -= defaults
+
+-# x=1 to take into account displaying the UID seperately and so that the
+-# checkboxes show/hide the right column.
+- x = 1
+- count = defaults.length + x
+- final_count = count + arr.length
+
+%h1= @title
+
+%p #{ @pitched.count + @pending.count + @hold.count } trackers found.
+
+.checks
+  %p
+    %span.glyphicon.glyphicon-th-list
+    Change Columns
+  %ul.hide-list
+    %li
+      %input.0{ type: 'checkbox', checked: true } UID
+    = results_check(defaults, x, true)
+    = results_check(arr, count)
+
+.table-responsive
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th.col0 UID
+        = results_head(defaults, x)
+        = results_head(arr, count)
+    %tbody
+      - @pitched.each do |t|
+        %tr
+          %td.col0
+            %a{ href: "/show/#{ t.uid }" }
+              =h t.uid
+          = results_body(defaults, x, t)
+          = results_body(arr, count, t)
+      - @pending.each do |t|
+        %tr
+          %td.col0
+            %a{ href: "/show/#{ t.uid }" }
+              =h t.uid
+          = results_body(defaults, x, t)
+          = results_body(arr, count, t)
+      - @hold.each do |t|
+        %tr
+          %td.col0
+            %a{ href: "/show/#{ t.uid }" }
+              =h t.uid
+          = results_body(defaults, x, t)
+          = results_body(arr, count, t)

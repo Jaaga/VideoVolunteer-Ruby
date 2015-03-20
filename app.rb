@@ -300,6 +300,31 @@ end
 
 
 #
+# Views
+#
+
+
+# Editor view
+get '/views/editor' do
+  @edit = Tracker.where("cleared_for_edit = ?", 'yes').order("updated_at DESC")
+  @finalize = Tracker.where("finalized_date IS NOT NULL").order("updated_at DESC")
+
+  @title = 'Editor View'
+  haml :'trackers/editor_view'
+end
+
+# State Coordinator view
+get '/views/state' do
+  @pitched = Tracker.where("story_pitch_date IS NOT NULL AND backup_received_date IS NULL").order("updated_at DESC")
+  @pending = Tracker.where("raw_footage_review_date IS NULL AND footage_location = ?", 'State').order("updated_at DESC")
+  @hold = Tracker.where("proceed_with_edit_and_payment = ?", 'On hold').order("updated_at DESC")
+
+  @title = 'State Correspondents View'
+  haml :'trackers/state_view'
+end
+
+
+#
 # General app mechanics
 #
 

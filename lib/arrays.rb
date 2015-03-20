@@ -30,7 +30,6 @@ module Arrays
                     'instructions_for_editor_edit', 'editor_notes']
     footage_review = ['reviewer_name', 'editor_changes_needed', 'instructions_for_editor_final',
                       'publishing_suggestions', 'cc_feedback',
-                      'subtitle_info',
                       'subtitle_info', 'high_potential',
                       'youtube_url', 'video_title', 'cleared_for_edit']
     impact_planning = ['impact_possible', 'call_to_action', 'desired_change', 'impact_plan',

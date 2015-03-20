@@ -33,6 +33,15 @@
             %a{ href: '/recent' } Recent
           %li
             %a{ href: '/search' } Search
+          %li.dropdown
+            %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
+              Views
+              %span.caret
+            %ul.dropdown-menu{ role: 'menu' }
+              %li
+                %a{ href: '/views/editor' } Editor
+              %li
+                %a{ href: '/views/state' } State
           - if !session[:user].nil?
             %li.dropdown
               %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }
