@@ -71,12 +71,14 @@ module Features
     end
   end
 
+  # Set the uid for an impact video tracker
   def impact_uid_set(original)
     track = Tracker.find_by(uid: original)
     track.impact_uid = "#{ original }_impact"
     track.save
   end
 
+  # Login check
   def login_required!
     if session[:user].nil?
       flash[:error] = 'Need to be logged in.'
@@ -84,6 +86,7 @@ module Features
     end
   end
 
+  # Checks if user is logged-in and an admin
   def admin_required!
     login_required!
     user = current_user[:access]
@@ -93,6 +96,7 @@ module Features
     end
   end
 
+  # Returns a hash of the current users information
   def current_user
     if session[:user]
       user = User.find(session[:user])
