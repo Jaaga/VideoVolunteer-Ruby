@@ -289,6 +289,8 @@ module Forms
     end.join
   end
 
+  # Dropdowns for the themes, campaigns, story types, screening devices, staff,
+  # and editors
   def theme_set(column)
     themes = ['Arts and Culture', 'Caste', 'Gender', 'Religion and Identity',
               'Indigenous People', 'Governance and Accountability',
