@@ -319,7 +319,7 @@ get '/views/state' do
   @pending = Tracker.where("raw_footage_review_date IS NULL AND footage_location = ?", 'State').order("updated_at DESC")
   @hold = Tracker.where("proceed_with_edit_and_payment = ?", 'On hold').order("updated_at DESC")
 
-  @title = 'State Correspondents View'
+  @title = 'State Coordinator View'
   haml :'trackers/state_view'
 end
 

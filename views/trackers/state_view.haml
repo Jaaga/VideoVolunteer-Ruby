@@ -13,6 +13,13 @@
 
 %h1= @title
 
+%p
+  %a{ href: "#pitched_trackers"} Pitched
+  %br
+  %a{ href: "#pending_trackers"} Pending
+  %br
+  %a{ href: "#hold_trackers"} Hold
+
 %p #{ @pitched.count + @pending.count + @hold.count } trackers found.
 
 .checks
@@ -25,7 +32,7 @@
     = results_check(defaults, x, true)
     = results_check(arr, count)
 
-.table-responsive
+.table-responsive#pitched_trackers
   %table.table.table-bordered.table-striped
     %thead
       %tr
@@ -40,6 +47,15 @@
               =h t.uid
           = results_body(defaults, x, t)
           = results_body(arr, count, t)
+
+.table-responsive#pending_trackers
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th.col0 UID
+        = results_head(defaults, x)
+        = results_head(arr, count)
+    %tbody
       - @pending.each do |t|
         %tr
           %td.col0
@@ -47,6 +63,15 @@
               =h t.uid
           = results_body(defaults, x, t)
           = results_body(arr, count, t)
+
+.table-responsive#hold_trackers
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th.col0 UID
+        = results_head(defaults, x)
+        = results_head(arr, count)
+    %tbody
       - @hold.each do |t|
         %tr
           %td.col0
