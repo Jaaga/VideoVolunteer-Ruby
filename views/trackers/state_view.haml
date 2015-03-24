@@ -32,6 +32,7 @@
     = results_check(defaults, x, true)
     = results_check(arr, count)
 
+%h2 Has been Pitched But Has No Footage
 .table-responsive#pitched_trackers
   %table.table.table-bordered.table-striped
     %thead
@@ -48,6 +49,7 @@
           = results_body(defaults, x, t)
           = results_body(arr, count, t)
 
+%h2 Raw Footage Has Not Been Reviewed and Footage is in State
 .table-responsive#pending_trackers
   %table.table.table-bordered.table-striped
     %thead
@@ -64,6 +66,7 @@
           = results_body(defaults, x, t)
           = results_body(arr, count, t)
 
+%h2 Edit and Payment is on Hold
 .table-responsive#hold_trackers
   %table.table.table-bordered.table-striped
     %thead
