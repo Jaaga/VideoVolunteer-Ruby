@@ -38,16 +38,18 @@
               Views
               %span.caret
             %ul.dropdown-menu{ role: 'menu' }
+              %h4.text-center Editors
               - employee = employee_set
               - employee[:editor].each do |x|
                 %li.dropdown-submenu
                   %a{ href: "#" } #{ x }
                   %ul.dropdown-menu
                     %li
-                      %a{ href: "/views/#{ x }/edit" } Edit
+                      %a{ href: "/views/#{ x }/edit" } To Edit
                     %li
-                      %a{ href: "/views/#{ x }/finalized" } Finalized
+                      %a{ href: "/views/#{ x }/finalized" } To Finalized
               %hr
+              %h4.text-center Coordinators
               - employee[:sc].each do |x|
                 %li.dropdown-submenu
                   %a{ href: "#" } #{ x }
