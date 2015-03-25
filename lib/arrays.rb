@@ -94,4 +94,16 @@ module Arrays
   def state_array_set
     ['state', 'state_abb']
   end
+
+  def employee_set
+    sc = ['Uttar Pradesh', 'Orissa', 'Bihar', 'Jharkhand',
+          'Maharashtra', 'Jammu and Kashmir', 'Chattisgarh', 'Madhya Pradesh']
+
+    editor = ['Sanjay Parmar', 'Dheeraj Sharma', 'Guruprasad Pednekar',
+              'Kamar Sayeed', 'Shobha Ajay', 'Debaranjan Sarangi',
+              'Kanhaiya Maurya', 'Zuhaib Ashraf', 'Deepak Bara',
+              'Raviraj Naik', 'Ashok']
+
+    return {sc: sc, editor: editor}
+  end
 end

@@ -304,10 +304,44 @@ end
 #
 
 
+get '/views/:employee/:type' do
+
+  employee = employee_set
+
+  if employee[:editor].include? params[:employee]
+    @title = 'Editor View'
+    if params[:type] == 'edit'
+      @search = Tracker.where("editor_currently_in_charge = ? AND cleared_for_edit = ?", "#{params[:employee]}", 'yes').order("updated_at DESC")
+      @title_header = "Cleared For Edit"
+    else
+      @search = Tracker.where("editor_currently_in_charge = ? AND finalized_date IS NOT NULL", "#{params[:employee]}").order("updated_at DESC")
+      @title_header = "Has Been Finalized"
+    end
+  elsif employee[:sc].include? params[:employee]
+    @title = 'State Coordinator View'
+    if params[:type] == 'pitched'
+      @search = Tracker.where("state = ? AND story_pitch_date IS NOT NULL AND backup_received_date IS NULL", "#{params[:employee]}").order("updated_at DESC")
+      @title_header = "Has been Pitched But Has No Footage"
+    elsif params[:type] == 'pending'
+      @search = Tracker.where("state = ? AND raw_footage_review_date IS NULL AND footage_location = ?", "#{params[:employee]}", 'State').order("updated_at DESC")
+      @title_header = "Raw Footage Has Not Been Reviewed and Footage is in State"
+    elsif params[:type] == 'hold'
+      @search = Tracker.where("state = ? AND proceed_with_edit_and_payment = ?", "#{params[:employee]}", 'On hold').order("updated_at DESC")
+      @title_header = "Edit and Payment is on Hold"
+    end
+  end
+
+  haml :'trackers/views'
+end
+
+
 # Editor view
 get '/views/editor' do
   @edit = Tracker.where("cleared_for_edit = ?", 'yes').order("updated_at DESC")
   @finalize = Tracker.where("finalized_date IS NOT NULL").order("updated_at DESC")
+
+  @title_edit = "Cleared For Edit"
+  @title_finalize = "Has Been Finalized"
 
   @title = 'Editor View'
   haml :'trackers/editor_view'
@@ -318,6 +352,10 @@ get '/views/state' do
   @pitched = Tracker.where("story_pitch_date IS NOT NULL AND backup_received_date IS NULL").order("updated_at DESC")
   @pending = Tracker.where("raw_footage_review_date IS NULL AND footage_location = ?", 'State').order("updated_at DESC")
   @hold = Tracker.where("proceed_with_edit_and_payment = ?", 'On hold').order("updated_at DESC")
+
+  @title_pitched = "Has been Pitched But Has No Footage"
+  @title_pending = "Raw Footage Has Not Been Reviewed and Footage is in State"
+  @title_hold = "Edit and Payment is on Hold"
 
   @title = 'State Coordinator View'
   haml :'trackers/state_view'

@@ -13,7 +13,7 @@
 
 %h1= @title
 
-%p #{ @edit.count + @finalize.count } trackers found.
+%p #{ @search.count } trackers found.
 
 .checks
   %p
@@ -25,7 +25,7 @@
     = results_check(defaults, x, true)
     = results_check(arr, count)
 
-%h2 Cleared For Edit
+%h2= @title_header
 .table-responsive
   %table.table.table-bordered.table-striped
     %thead
@@ -34,24 +34,7 @@
         = results_head(defaults, x)
         = results_head(arr, count)
     %tbody
-      - @edit.each do |t|
-        %tr
-          %td.col0
-            %a{ href: "/show/#{ t.uid }" }
-              =h t.uid
-          = results_body(defaults, x, t)
-          = results_body(arr, count, t)
-
-%h2 Has Been Finalized
-.table-responsive
-  %table.table.table-bordered.table-striped
-    %thead
-      %tr
-        %th.col0 UID
-        = results_head(defaults, x)
-        = results_head(arr, count)
-    %tbody
-      - @finalize.each do |t|
+      - @search.each do |t|
         %tr
           %td.col0
             %a{ href: "/show/#{ t.uid }" }

@@ -38,10 +38,25 @@
               Views
               %span.caret
             %ul.dropdown-menu{ role: 'menu' }
-              %li
-                %a{ href: '/views/editor' } Editor
-              %li
-                %a{ href: '/views/state' } State
+              - employee = employee_set
+              - employee[:editor].each do |x|
+                %li.dropdown-submenu
+                  %a{ href: "#" } #{ x }
+                  %ul.dropdown-menu
+                    %li
+                      %a{ href: "/views/#{ x }/edit" } Edit
+                    %li
+                      %a{ href: "/views/#{ x }/finalized" } Finalized
+              - employee[:sc].each do |x|
+                %li.dropdown-submenu
+                  %a{ href: "#" } #{ x }
+                  %ul.dropdown-menu
+                    %li
+                      %a{ href: "/views/#{ x }/pitched" } Pitched
+                    %li
+                      %a{ href: "/views/#{ x }/pending" } Pending
+                    %li
+                      %a{ href: "/views/#{ x }/hold" } Hold
           - if !session[:user].nil?
             %li.dropdown
               %a.dropdown-toggle{ href: '#', :'data-toggle' => 'dropdown', role: 'button' }

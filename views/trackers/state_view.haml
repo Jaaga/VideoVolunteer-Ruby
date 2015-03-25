@@ -13,13 +13,6 @@
 
 %h1= @title
 
-%p
-  %a{ href: "#pitched_trackers"} Pitched
-  %br
-  %a{ href: "#pending_trackers"} Pending
-  %br
-  %a{ href: "#hold_trackers"} Hold
-
 %p #{ @pitched.count + @pending.count + @hold.count } trackers found.
 
 .checks
@@ -33,7 +26,7 @@
     = results_check(arr, count)
 
 %h2 Has been Pitched But Has No Footage
-.table-responsive#pitched_trackers
+.table-responsive
   %table.table.table-bordered.table-striped
     %thead
       %tr
@@ -50,7 +43,7 @@
           = results_body(arr, count, t)
 
 %h2 Raw Footage Has Not Been Reviewed and Footage is in State
-.table-responsive#pending_trackers
+.table-responsive
   %table.table.table-bordered.table-striped
     %thead
       %tr
@@ -67,7 +60,7 @@
           = results_body(arr, count, t)
 
 %h2 Edit and Payment is on Hold
-.table-responsive#hold_trackers
+.table-responsive
   %table.table.table-bordered.table-striped
     %thead
       %tr
