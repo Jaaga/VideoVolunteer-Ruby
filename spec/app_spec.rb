@@ -4,6 +4,11 @@ require File.expand_path '../spec_helper.rb', __FILE__
 
 # Test getting pages
 describe "app.rb" do
+
+  before do
+    post '/login', email: 'bob@bob.bob', password: 'bobbob'
+  end
+
   it "should get /" do
     get '/'
     expect(last_response).to be_ok
@@ -28,18 +33,14 @@ describe "app.rb" do
     get '/search'
     expect(last_response).to be_ok
   end
-
-  it "should get /note" do
-    get '/note'
-    expect(last_response).to be_ok
-  end
 end
 
 # Test all functionalities of trackers.
 describe "the life of a tracker" do
   before(:all) do
-    post '/new/:state', params = { cc_name: 'Neeru Rathod' }
-    post '/new/:state', params = { cc_name: 'Indu Devi' }
+    post '/login', email: 'bob@bob.bob', password: 'bobbob'
+    post '/new/Gujarat', params = { cc_name: 'Neeru Rathod', original_uid: '' }
+    post '/new/Bihar', params = { cc_name: 'Indu Devi', original_uid: '' }
     post '/flag/BH_1001', params = { note: 'Production' }
   end
 
@@ -49,7 +50,7 @@ describe "the life of a tracker" do
   end
 
   it "should be saved" do
-    post '/new/:state', params = { cc_name: 'Devidas Gaonkar' }
+    post '/new/Goa', params = { cc_name: 'Devidas Gaonkar', original_uid: '' }
     expect(last_response.status).to eq 302
     get '/recent'
     expect(last_response.body).to include('Devidas Gaonkar')
@@ -88,7 +89,7 @@ describe "the life of a tracker" do
   end
 
   it "should have a note added" do
-    post '/note', params = { uid: 'GO_1001', note: 'test' }
+    post '/note/GO_1001', params = { uid: 'GO_1001', note: 'test' }
     expect(last_response.status).to eq 302
     get '/recent'
     expect(last_response.body).to include('Note successfully added to GO_1001.')
@@ -105,6 +106,11 @@ end
 
 # Test error messages given by sinatra-flash.
 describe "error messages" do
+
+  before do
+    post '/login', email: 'bob@bob.bob', password: 'bobbob'
+  end
+
   it "should appear if no state is chosen" do
     post '/new/state', params = { state: '' }
     expect(last_response.status).to eq 302
@@ -113,7 +119,7 @@ describe "error messages" do
   end
 
   it "should appear if no cc is selected" do
-    post '/new/:state', params = { cc_name: '' }
+    post '/new/Goa', params = { cc_name: '', original_uid: '' }
     expect(last_response.status).to eq 307
     get '/new'
     expect(last_response.body).to include('A CC must be selected.')
@@ -147,30 +153,21 @@ describe "error messages" do
     expect(last_response.body).to include('Need information for flag.')
   end
 
-  it "should appear if no UID is entered for a note" do
-    post '/note', params = { uid: '', note: 'example' }
-    expect(last_response.status).to eq 302
-    get '/note'
-    expect(last_response.body).to include('UID needed.')
-  end
-
   it "should appear if no note is entered" do
-    post '/note', params = { uid: 'nil', note: '' }
+    post '/note/GJ_1001', params = { note: '' }
     expect(last_response.status).to eq 302
-    get '/note'
+    get '/note/GJ_1001'
     expect(last_response.body).to include('A note is needed.')
-  end
-
-  it "should appear if an invalid UID is entered for a note" do
-    post '/note', params = { uid: 'nil', note: 'example' }
-    expect(last_response.status).to eq 302
-    get '/note'
-    expect(last_response.body).to include('Invalid UID.')
   end
 end
 
 # Test the custom searches
 describe "searching" do
+
+  before do
+    post '/login', email: 'bob@bob.bob', password: 'bobbob'
+  end
+
   it "should work when there are enough operators per queries" do
     post '/search/custom', params = { chain_1: 'AND', column1: 'flag',
                                       operator_1: 'IS', column2: 'cc_name',
